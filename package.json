@@ -1,1 +1,15 @@
-{"name": "TobieSampleProject", "private": true, "workspaces": ["packages/*"]}
+{
+  "name": "tobie-sample-project",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=apps/web-employee",
+    "dev:admin": "npm run dev --workspace=apps/web-admin",
+    "build": "npm run build --workspace=apps/web-employee",
+    "build:admin": "npm run build --workspace=apps/web-admin",
+    "build:all": "npm run build --workspaces --if-present"
+  }
+}
