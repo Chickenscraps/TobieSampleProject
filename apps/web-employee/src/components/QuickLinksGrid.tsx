@@ -30,10 +30,10 @@ export function QuickLinksGrid() {
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group block bg-white rounded-xl border border-gray-200 p-6 hover:-translate-y-1 hover:shadow-lg transition-all duration-300"
+                  className="group block bg-white border border-gray-200 p-6 hover:scale-[1.02] hover:bg-brand-surface transition-all duration-300"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-tobie-50 rounded-lg flex items-center justify-center group-hover:bg-tobie-100 transition-colors">
+                    <div className="flex-shrink-0 w-12 h-12 bg-tobie-50 flex items-center justify-center group-hover:bg-tobie-100 transition-colors">
                       <IconComponent className="h-6 w-6 text-tobie-600" />
                     </div>
                     <div className="flex-1 min-w-0">

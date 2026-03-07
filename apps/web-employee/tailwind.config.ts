@@ -7,34 +7,38 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // obie.team brand palette
         tobie: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#2563eb',
-          600: '#1d4ed8',
-          700: '#1e40af',
-          800: '#1e3a8a',
-          900: '#172554',
+          50: '#e8f0f8',
+          100: '#c5d9ed',
+          200: '#9ebfdf',
+          300: '#6ea1ce',
+          400: '#4d8ab8',
+          500: '#316A9E', // Blue Shade 1 — primary cards & interactive
+          600: '#255077', // Blue Shade 2 — secondary/nested containers
+          700: '#18354F', // Blue Shade 3 — deep backgrounds, high-contrast
+          800: '#112840',
+          900: '#0F1115', // Grey-900 — headlines on light backgrounds
         },
         accent: {
-          50: '#f0fdf4',
-          100: '#dcfce7',
-          200: '#bbf7d0',
-          500: '#22c55e',
-          600: '#16a34a',
-          700: '#15803d',
+          DEFAULT: '#FFB31A', // Accent Yellow — CTAs, urgency, key metrics
+          dark: '#E69D00',
+          light: '#FFD06B',
+        },
+        brand: {
+          surface: '#F3F4F6',
+          'surface-alt': '#E5E7EB',
+          muted: '#D1D5DB',
+          dark: '#0F1115',
         },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
       },
       animation: {
-        'fade-in': 'fadeIn 0.6s ease-out forwards',
-        'slide-up': 'slideUp 0.6s ease-out forwards',
-        'slide-down': 'slideDown 0.3s ease-out forwards',
+        'fade-in': 'fadeIn 0.5s ease-out forwards',
+        'slide-up': 'slideUp 0.5s ease-out forwards',
+        'slide-down': 'slideDown 0.25s ease-out forwards',
       },
       keyframes: {
         fadeIn: {
@@ -42,11 +46,11 @@ const config: Config = {
           '100%': { opacity: '1' },
         },
         slideUp: {
-          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '0%': { opacity: '0', transform: 'translateY(16px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         slideDown: {
-          '0%': { opacity: '0', transform: 'translateY(-10px)' },
+          '0%': { opacity: '0', transform: 'translateY(-8px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
       },

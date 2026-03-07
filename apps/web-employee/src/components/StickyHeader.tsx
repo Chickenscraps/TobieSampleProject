@@ -48,8 +48,8 @@ export function StickyHeader() {
 
   return (
     <header
-      className={`sticky top-0 z-40 w-full bg-white transition-shadow duration-300 ${
-        isScrolled ? 'shadow-md' : 'shadow-none'
+      className={`sticky top-0 z-40 w-full bg-white transition-all duration-300 ${
+        isScrolled ? 'border-b border-gray-200' : ''
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -63,7 +63,7 @@ export function StickyHeader() {
             }}
             className="flex-shrink-0"
           >
-            <span className="text-2xl font-bold text-tobie-600 tracking-tight">
+            <span className="text-2xl font-bold text-tobie-700 tracking-tight">
               Tobie
             </span>
           </a>
@@ -80,7 +80,7 @@ export function StickyHeader() {
                     handleNavClick(link.href);
                   }
                 }}
-                className="px-3 py-2 text-sm font-medium text-gray-600 rounded-md hover:text-tobie-600 hover:bg-tobie-50 transition-colors"
+                className="px-3 py-2 text-sm font-medium text-gray-600 hover:text-tobie-500 hover:bg-tobie-50 transition-colors"
               >
                 {link.label}
               </a>
@@ -90,7 +90,7 @@ export function StickyHeader() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 rounded-md text-gray-600 hover:text-tobie-600 hover:bg-tobie-50 transition-colors"
+            className="lg:hidden p-2 text-gray-600 hover:text-tobie-500 hover:bg-tobie-50 transition-colors"
             aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isMobileMenuOpen}
           >
@@ -119,7 +119,7 @@ export function StickyHeader() {
                     setIsMobileMenuOpen(false);
                   }
                 }}
-                className="block px-3 py-2.5 text-base font-medium text-gray-700 rounded-md hover:text-tobie-600 hover:bg-tobie-50 transition-colors"
+                className="block px-3 py-2.5 text-base font-medium text-gray-700 hover:text-tobie-500 hover:bg-tobie-50 transition-colors"
               >
                 {link.label}
               </a>

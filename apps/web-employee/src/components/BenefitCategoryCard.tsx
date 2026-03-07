@@ -10,10 +10,10 @@ export function BenefitCategoryCard({ category }: BenefitCategoryCardProps) {
   const IconComponent = getIcon(category.icon);
 
   return (
-    <div className="benefit-card bg-white rounded-xl border border-gray-200 p-6 flex flex-col h-full">
+    <div className="benefit-card bg-white border border-gray-200 p-6 flex flex-col h-full">
       {/* Header */}
       <div className="flex items-start gap-3 mb-4">
-        <div className="flex-shrink-0 w-11 h-11 bg-tobie-50 rounded-lg flex items-center justify-center">
+        <div className="flex-shrink-0 w-11 h-11 bg-tobie-50 flex items-center justify-center">
           <IconComponent className="h-5.5 w-5.5 text-tobie-600" />
         </div>
         <div className="flex-1 min-w-0">
@@ -21,7 +21,7 @@ export function BenefitCategoryCard({ category }: BenefitCategoryCardProps) {
             {category.title}
           </h3>
           {category.carrier && (
-            <span className="inline-block mt-1 px-2.5 py-0.5 text-xs font-medium bg-tobie-50 text-tobie-700 rounded-full">
+            <span className="inline-block mt-1 px-2.5 py-0.5 text-xs font-medium bg-tobie-50 text-tobie-700">
               {category.carrier}
             </span>
           )}
@@ -37,7 +37,7 @@ export function BenefitCategoryCard({ category }: BenefitCategoryCardProps) {
       <ul className="space-y-1.5 mb-4 flex-1">
         {category.keyDetails.map((detail, index) => (
           <li key={index} className="flex items-start gap-2 text-sm text-gray-700">
-            <span className="flex-shrink-0 w-1.5 h-1.5 mt-1.5 rounded-full bg-tobie-400" />
+            <span className="flex-shrink-0 w-2 h-2 mt-1.5 bg-tobie-500" />
             <span>{detail}</span>
           </li>
         ))}
@@ -49,7 +49,7 @@ export function BenefitCategoryCard({ category }: BenefitCategoryCardProps) {
           {category.warnings.map((warning, index) => (
             <div
               key={index}
-              className="flex items-start gap-2 p-3 bg-amber-50 border border-amber-200 rounded-lg"
+              className="flex items-start gap-2 p-3 bg-amber-50 border border-amber-200"
             >
               <AlertCircle className="h-4 w-4 text-amber-600 flex-shrink-0 mt-0.5" />
               <p className="text-xs text-amber-800 font-medium">{warning}</p>
@@ -60,7 +60,7 @@ export function BenefitCategoryCard({ category }: BenefitCategoryCardProps) {
 
       {/* Employer-paid badge */}
       {category.employerPaid && (
-        <div className="mb-4 px-3 py-2 bg-accent-50 border border-accent-200 rounded-lg">
+        <div className="mb-4 px-3 py-2 bg-accent-50 border border-accent-200">
           <p className="text-xs text-accent-700 font-medium">
             Employer-Paid: {category.employerPaid}
           </p>

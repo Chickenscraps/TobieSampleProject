@@ -56,7 +56,7 @@ export function ProviderDirectory() {
                 placeholder="Search providers, categories, or services..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-11 pr-4 py-3 text-sm border border-gray-300 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-tobie-500 focus:border-transparent transition-all placeholder:text-gray-400"
+                className="w-full pl-11 pr-4 py-3 text-sm border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-tobie-500 focus:border-transparent transition-all placeholder:text-gray-400"
               />
             </div>
           </div>
@@ -73,14 +73,14 @@ export function ProviderDirectory() {
               <ScrollFadeIn key={category}>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                    <span className="w-1 h-6 bg-tobie-500 rounded-full" />
+                    <span className="w-1 h-6 bg-tobie-500" />
                     {category}
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {categoryProviders.map((provider) => (
                       <div
                         key={provider.name}
-                        className="bg-gray-50 border border-gray-200 rounded-xl p-5 hover:shadow-md hover:border-tobie-200 transition-all duration-300"
+                        className="bg-gray-50 border border-gray-200 p-5 hover:bg-brand-surface hover:border-tobie-200 transition-all duration-300"
                       >
                         <h4 className="text-base font-semibold text-gray-900 mb-1">
                           {provider.name}

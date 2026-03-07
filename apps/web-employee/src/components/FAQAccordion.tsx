@@ -51,9 +51,9 @@ export function FAQAccordion() {
                   setActiveCategory(cat.key);
                   setOpenId(null);
                 }}
-                className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 ${
+                className={`px-4 py-2 text-sm font-medium transition-all duration-200 ${
                   activeCategory === cat.key
-                    ? 'bg-tobie-500 text-white shadow-sm'
+                    ? 'bg-tobie-500 text-white'
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
               >
@@ -70,7 +70,7 @@ export function FAQAccordion() {
 
             return (
               <ScrollFadeIn key={item.id} delay={index * 50}>
-                <div className="border border-gray-200 rounded-xl overflow-hidden hover:border-tobie-200 transition-colors">
+                <div className="border border-gray-200 overflow-hidden transition-colors">
                   <button
                     onClick={() => toggleItem(item.id)}
                     className="w-full flex items-center justify-between px-6 py-4 text-left bg-white hover:bg-gray-50 transition-colors"

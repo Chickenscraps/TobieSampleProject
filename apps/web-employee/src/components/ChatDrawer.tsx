@@ -114,14 +114,14 @@ export function ChatDrawer({ isOpen, onClose }: ChatDrawerProps) {
 
       {/* Drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white shadow-2xl z-50 flex flex-col ${
+        className={`fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white z-50 flex flex-col ${
           isOpen ? 'chat-drawer-enter' : 'chat-drawer-exit pointer-events-none'
         }`}
         role="dialog"
         aria-label="Benefits Assistant Chat"
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-tobie-600 to-tobie-700 text-white flex-shrink-0">
+        <div className="flex items-center justify-between px-4 py-3 bg-tobie-600 text-white flex-shrink-0">
           <div className="flex items-center gap-2.5">
             <MessageCircle className="h-5 w-5" />
             <h2 className="text-base font-semibold">Benefits Assistant</h2>
@@ -155,10 +155,10 @@ export function ChatDrawer({ isOpen, onClose }: ChatDrawerProps) {
               className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-[85%] rounded-2xl px-4 py-2.5 ${
+                className={`max-w-[85%] px-4 py-2.5 ${
                   msg.role === 'user'
-                    ? 'bg-tobie-500 text-white rounded-br-md'
-                    : 'bg-gray-100 text-gray-800 rounded-bl-md'
+                    ? 'bg-tobie-500 text-white'
+                    : 'bg-gray-100 text-gray-800'
                 }`}
               >
                 <p className="text-sm leading-relaxed whitespace-pre-wrap">
@@ -178,7 +178,7 @@ export function ChatDrawer({ isOpen, onClose }: ChatDrawerProps) {
           {/* Loading Indicator */}
           {isLoading && (
             <div className="flex justify-start">
-              <div className="bg-gray-100 rounded-2xl rounded-bl-md px-4 py-3">
+              <div className="bg-gray-100 px-4 py-3">
                 <div className="flex items-center gap-1.5">
                   <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
                   <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
@@ -202,13 +202,13 @@ export function ChatDrawer({ isOpen, onClose }: ChatDrawerProps) {
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="Ask about your benefits..."
-            className="flex-1 px-4 py-2.5 text-sm border border-gray-300 rounded-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-tobie-500 focus:border-transparent focus:bg-white transition-all placeholder:text-gray-400"
+            className="flex-1 px-4 py-2.5 text-sm border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-tobie-500 focus:border-transparent focus:bg-white transition-all placeholder:text-gray-400"
             disabled={isLoading}
           />
           <button
             type="submit"
             disabled={!inputValue.trim() || isLoading}
-            className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-tobie-500 text-white rounded-full hover:bg-tobie-600 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+            className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-tobie-500 text-white hover:bg-tobie-600 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
             aria-label="Send message"
           >
             <Send className="h-4 w-4" />

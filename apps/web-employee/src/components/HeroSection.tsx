@@ -26,19 +26,8 @@ export function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative overflow-hidden bg-gradient-to-br from-tobie-700 via-tobie-800 to-tobie-900 text-white"
+      className="relative overflow-hidden bg-tobie-700 text-white"
     >
-      {/* Subtle background pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              'radial-gradient(circle at 25% 25%, rgba(255,255,255,0.2) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(255,255,255,0.15) 0%, transparent 50%)',
-          }}
-        />
-      </div>
-
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-36">
         <div
           className={`max-w-3xl mx-auto text-center transition-all duration-700 ease-out ${
@@ -52,7 +41,7 @@ export function HeroSection() {
 
           {/* Subtitle */}
           <p
-            className={`text-lg sm:text-xl text-tobie-100 leading-relaxed max-w-2xl mx-auto mb-8 transition-all duration-700 ease-out delay-150 ${
+            className={`text-lg sm:text-xl text-brand-muted leading-relaxed max-w-2xl mx-auto mb-8 transition-all duration-700 ease-out delay-150 ${
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
@@ -63,7 +52,7 @@ export function HeroSection() {
 
           {/* Key dates */}
           <div
-            className={`inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-5 py-2.5 text-sm font-medium text-tobie-100 mb-10 transition-all duration-700 ease-out delay-300 ${
+            className={`inline-flex items-center gap-2 bg-white/10 px-6 py-3 text-sm font-medium text-brand-muted mb-10 transition-all duration-700 ease-out delay-300 ${
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
@@ -80,13 +69,13 @@ export function HeroSection() {
           >
             <button
               onClick={() => scrollTo('#benefits-overview')}
-              className="w-full sm:w-auto px-8 py-3.5 bg-white text-tobie-700 font-semibold rounded-lg shadow-lg hover:bg-tobie-50 hover:shadow-xl transition-all duration-200"
+              className="w-full sm:w-auto px-8 py-3.5 bg-accent text-black font-bold hover:bg-accent-dark transition-all duration-200"
             >
               Explore Your Benefits
             </button>
             <button
               onClick={() => scrollTo('#quick-links')}
-              className="w-full sm:w-auto px-8 py-3.5 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-lg border border-white/25 hover:bg-white/20 transition-all duration-200"
+              className="w-full sm:w-auto px-8 py-3.5 bg-white/10 text-white font-semibold border border-white/25 hover:bg-white/20 transition-all duration-200"
             >
               Enroll Now
             </button>
@@ -94,21 +83,6 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Bottom wave decoration */}
-      <div className="absolute bottom-0 left-0 right-0">
-        <svg
-          viewBox="0 0 1440 60"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0 60V30C240 5 480 5 720 30C960 55 1200 55 1440 30V60H0Z"
-            fill="white"
-          />
-        </svg>
-      </div>
     </section>
   );
 }
