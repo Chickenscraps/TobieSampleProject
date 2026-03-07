@@ -26,35 +26,36 @@ export function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative overflow-hidden bg-white"
+      className="relative overflow-hidden min-h-[480px] sm:min-h-[540px] lg:min-h-[600px] flex items-center"
     >
-      {/* Full-width illustration — spans content area, aspect-ratio preserved */}
-      <div className="w-full px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10">
-        <img
-          src={heroIllustration.src}
-          alt={heroIllustration.alt}
-          width={heroIllustration.width}
-          height={heroIllustration.height}
-          className="w-full max-w-3xl mx-auto object-contain"
-          fetchPriority="high"
-          decoding="sync"
-        />
-      </div>
+      {/* Background image — full fill */}
+      <img
+        src={heroIllustration.src}
+        alt=""
+        width={heroIllustration.width}
+        height={heroIllustration.height}
+        className="absolute inset-0 w-full h-full object-cover"
+        fetchPriority="high"
+        decoding="sync"
+        aria-hidden="true"
+      />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20">
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-gray-900/60" />
 
-        {/* Text content — centred below illustration */}
+      {/* Text content — centred on top of background */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 w-full">
         <div
           className={`max-w-3xl mx-auto text-center transition-all duration-700 ease-out ${
             isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-5 text-gray-900">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-5 text-white">
             2026 Tobie Benefits Guide
           </h1>
 
           <p
-            className={`text-lg sm:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto mb-6 transition-all duration-700 ease-out delay-150 ${
+            className={`text-lg sm:text-xl text-gray-200 leading-relaxed max-w-2xl mx-auto mb-6 transition-all duration-700 ease-out delay-150 ${
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
@@ -65,12 +66,12 @@ export function HeroSection() {
 
           {/* Key dates */}
           <div
-            className={`inline-flex items-center gap-2 bg-tobie-50 px-6 py-3 text-sm font-medium text-tobie-700 mb-8 transition-all duration-700 ease-out delay-300 ${
+            className={`inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm px-6 py-3 text-sm font-medium text-white mb-8 transition-all duration-700 ease-out delay-300 ${
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
             <span>Open Enrollment: November 2025</span>
-            <span className="text-tobie-300">|</span>
+            <span className="text-white/50">|</span>
             <span>Coverage Effective: January 1, 2026</span>
           </div>
 
@@ -88,7 +89,7 @@ export function HeroSection() {
             </button>
             <button
               onClick={() => scrollTo('#quick-links')}
-              className="w-full sm:w-auto px-8 py-3.5 bg-white text-tobie-700 font-semibold border border-tobie-200 hover:bg-tobie-50 transition-all duration-200"
+              className="w-full sm:w-auto px-8 py-3.5 bg-white/10 text-white font-semibold border border-white/30 hover:bg-white/20 backdrop-blur-sm transition-all duration-200"
             >
               Enroll Now
             </button>
