@@ -24,10 +24,12 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans">
-        <EnrollmentBanner />
-        <StickyHeader />
-        <main>{children}</main>
-        <Footer />
+        <div className="lg:mr-[400px]">
+          <EnrollmentBanner />
+          <StickyHeader />
+          <main>{children}</main>
+          <Footer />
+        </div>
         <ChatAssistantLauncher />
       </body>
     </html>

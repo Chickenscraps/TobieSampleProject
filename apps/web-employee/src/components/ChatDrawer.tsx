@@ -13,9 +13,10 @@ interface ChatMessage {
 interface ChatDrawerProps {
   isOpen: boolean;
   onClose: () => void;
+  persistent?: boolean;
 }
 
-export function ChatDrawer({ isOpen, onClose }: ChatDrawerProps) {
+export function ChatDrawer({ isOpen, onClose, persistent = false }: ChatDrawerProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'welcome',
@@ -104,20 +105,24 @@ export function ChatDrawer({ isOpen, onClose }: ChatDrawerProps) {
 
   return (
     <>
-      {/* Backdrop */}
-      {isOpen && (
+      {/* Backdrop — only for non-persistent (mobile) mode */}
+      {!persistent && isOpen && (
         <div
           className="fixed inset-0 bg-black/30 z-50 sm:bg-transparent"
           onClick={onClose}
         />
       )}
 
-      {/* Drawer */}
+      {/* Drawer / Panel */}
       <div
-        className={`fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white z-50 flex flex-col ${
-          isOpen ? 'chat-drawer-enter' : 'chat-drawer-exit pointer-events-none'
+        className={`${
+          persistent
+            ? 'h-full w-full bg-white flex flex-col border-l border-gray-200'
+            : `fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white z-50 flex flex-col ${
+                isOpen ? 'chat-drawer-enter' : 'chat-drawer-exit pointer-events-none'
+              }`
         }`}
-        role="dialog"
+        role={persistent ? 'complementary' : 'dialog'}
         aria-label="Benefits Assistant Chat"
       >
         {/* Header */}
@@ -126,13 +131,15 @@ export function ChatDrawer({ isOpen, onClose }: ChatDrawerProps) {
             <MessageCircle className="h-5 w-5" />
             <h2 className="text-base font-semibold">Benefits Assistant</h2>
           </div>
-          <button
-            onClick={onClose}
-            className="p-1.5 rounded-md hover:bg-white/20 transition-colors"
-            aria-label="Close chat"
-          >
-            <X className="h-5 w-5" />
-          </button>
+          {!persistent && (
+            <button
+              onClick={onClose}
+              className="p-1.5 rounded-md hover:bg-white/20 transition-colors"
+              aria-label="Close chat"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          )}
         </div>
 
         {/* Disclaimer */}
