@@ -1,7 +1,7 @@
 import { benefitsContentForAI } from '@/data/benefits-data';
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent`;
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent`;
 
 const SYSTEM_PROMPT = `You are the Tobie Benefits Assistant, a helpful AI that answers employee questions about their benefits based ONLY on the official 2026 Tobie Benefits Guide.
 
