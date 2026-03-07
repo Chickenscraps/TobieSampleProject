@@ -6,11 +6,10 @@ import { Menu, X, Shield } from 'lucide-react';
 const navLinks = [
   { label: 'Home', href: '#hero' },
   { label: 'Quick Links', href: '#quick-links' },
+  { label: 'Benefits', href: '#benefits-overview' },
+  { label: 'Medical', href: '/medical-resources' },
   { label: 'FAQ', href: '#faq' },
-  { label: 'Understanding Benefits', href: '#understanding-benefits' },
-  { label: 'Benefits Overview', href: '#benefits-overview' },
-  { label: 'Medical Resources', href: '/medical-resources' },
-  { label: 'Contact Info', href: '#contacts' },
+  { label: 'Contacts', href: '#contacts' },
 ];
 
 const ADMIN_DASHBOARD_URL = 'https://tobie-admin-dashboard.netlify.app';
@@ -18,6 +17,7 @@ const ADMIN_DASHBOARD_URL = 'https://tobie-admin-dashboard.netlify.app';
 export function StickyHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,18 +28,41 @@ export function StickyHeader() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Track active section
+  useEffect(() => {
+    const sectionIds = navLinks
+      .filter((l) => l.href.startsWith('#'))
+      .map((l) => l.href.slice(1));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-80px 0px -60% 0px', threshold: 0.1 }
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   const handleNavClick = (href: string) => {
     setIsMobileMenuOpen(false);
 
     if (href.startsWith('/')) {
-      // Navigate to a different page
       return;
     }
 
-    // Scroll to section
     const element = document.querySelector(href);
     if (element) {
-      const headerOffset = 80;
+      const headerOffset = 72;
       const elementPosition = element.getBoundingClientRect().top + window.scrollY;
       window.scrollTo({
         top: elementPosition - headerOffset,
@@ -48,14 +71,23 @@ export function StickyHeader() {
     }
   };
 
+  const isActive = (href: string) => {
+    if (href.startsWith('#')) {
+      return activeSection === href.slice(1);
+    }
+    return false;
+  };
+
   return (
     <header
-      className={`sticky top-0 z-40 w-full bg-white transition-all duration-300 ${
-        isScrolled ? 'border-b border-gray-200' : ''
+      className={`sticky top-0 z-40 w-full transition-all duration-300 ${
+        isScrolled
+          ? 'bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-[0_1px_3px_rgba(0,0,0,0.05)]'
+          : 'bg-white'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-14">
           {/* Logo */}
           <a
             href="#hero"
@@ -63,15 +95,18 @@ export function StickyHeader() {
               e.preventDefault();
               handleNavClick('#hero');
             }}
-            className="flex-shrink-0"
+            className="flex items-center gap-2 flex-shrink-0"
           >
-            <span className="text-2xl font-bold text-tobie-700 tracking-tight">
+            <span className="text-xl font-bold text-tobie-700 tracking-tight">
               Tobie
+            </span>
+            <span className="hidden sm:inline text-xs font-medium text-gray-400 border-l border-gray-200 pl-2">
+              Benefits 2026
             </span>
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav className="hidden lg:flex items-center gap-0.5">
             {navLinks.map((link) => (
               <a
                 key={link.label}
@@ -82,16 +117,26 @@ export function StickyHeader() {
                     handleNavClick(link.href);
                   }
                 }}
-                className="px-3 py-2 text-sm font-medium text-gray-600 hover:text-tobie-500 hover:bg-tobie-50 transition-colors"
+                className={`relative px-3 py-1.5 text-[13px] font-medium transition-colors ${
+                  isActive(link.href)
+                    ? 'text-tobie-700'
+                    : 'text-gray-500 hover:text-gray-900'
+                }`}
               >
                 {link.label}
+                {isActive(link.href) && (
+                  <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-tobie-500" />
+                )}
               </a>
             ))}
+
+            <div className="w-px h-5 bg-gray-200 mx-2" />
+
             <a
               href={ADMIN_DASHBOARD_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-2 inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-white bg-tobie-600 hover:bg-tobie-700 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[13px] font-medium text-gray-500 hover:text-gray-900 transition-colors"
             >
               <Shield className="w-3.5 h-3.5" />
               Admin
@@ -101,14 +146,14 @@ export function StickyHeader() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 text-gray-600 hover:text-tobie-500 hover:bg-tobie-50 transition-colors"
+            className="lg:hidden p-2 text-gray-500 hover:text-gray-900 transition-colors"
             aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? (
-              <X className="h-6 w-6" />
+              <X className="h-5 w-5" />
             ) : (
-              <Menu className="h-6 w-6" />
+              <Menu className="h-5 w-5" />
             )}
           </button>
         </div>
@@ -117,7 +162,7 @@ export function StickyHeader() {
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
         <div className="lg:hidden bg-white border-t border-gray-100 animate-slide-down">
-          <nav className="max-w-7xl mx-auto px-4 py-3 space-y-1">
+          <nav className="max-w-7xl mx-auto px-4 py-2">
             {navLinks.map((link) => (
               <a
                 key={link.label}
@@ -130,20 +175,27 @@ export function StickyHeader() {
                     setIsMobileMenuOpen(false);
                   }
                 }}
-                className="block px-3 py-2.5 text-base font-medium text-gray-700 hover:text-tobie-500 hover:bg-tobie-50 transition-colors"
+                className={`block px-3 py-2.5 text-sm font-medium transition-colors ${
+                  isActive(link.href)
+                    ? 'text-tobie-700 bg-tobie-50'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                }`}
               >
                 {link.label}
               </a>
             ))}
-            <a
-              href={ADMIN_DASHBOARD_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3 py-2.5 text-base font-medium text-white bg-tobie-600 hover:bg-tobie-700 transition-colors mt-2"
-            >
-              <Shield className="w-4 h-4" />
-              Admin Dashboard
-            </a>
+
+            <div className="border-t border-gray-100 mt-1 pt-1">
+              <a
+                href={ADMIN_DASHBOARD_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+              >
+                <Shield className="w-4 h-4" />
+                Admin Dashboard
+              </a>
+            </div>
           </nav>
         </div>
       )}
