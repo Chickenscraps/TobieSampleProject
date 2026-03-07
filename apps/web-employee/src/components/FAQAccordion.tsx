@@ -32,11 +32,14 @@ export function FAQAccordion() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollFadeIn>
           <div className="text-center mb-10">
-            <img
-              src="/images/faq-illustration.png"
-              alt="Illustration of question marks and speech bubbles representing frequently asked questions."
-              className="w-24 h-24 mx-auto mb-4 object-contain"
-            />
+            <div className="w-32 h-32 mx-auto mb-4 bg-tobie-50 flex items-center justify-center p-3">
+              <img
+                src="/images/faq-illustration.png"
+                alt="Illustration of question marks and speech bubbles representing frequently asked questions."
+                className="w-full h-full object-contain"
+                loading="lazy"
+              />
+            </div>
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
               Frequently Asked Questions
             </h2>

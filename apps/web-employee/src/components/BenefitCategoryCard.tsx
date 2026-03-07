@@ -5,35 +5,35 @@ import { getIcon } from '@/lib/icons';
 // Map category IDs to their illustration images
 const categoryImages: Record<string, { src: string; alt: string }> = {
   medical: {
-    src: '/images/medical-ichra.png',
+    src: '/images/medical-ichra.jpg',
     alt: 'Doctor speaking with patient, with insurance symbol overlay.',
   },
   pharmacy: {
-    src: '/images/pharmacy.png',
+    src: '/images/pharmacy.jpg',
     alt: 'Pharmacist handing a prescription medicine bottle to a patient at a counter.',
   },
   dental: {
-    src: '/images/dental.png',
+    src: '/images/dental.jpg',
     alt: 'Dentist examining a patient\'s teeth in a dental clinic.',
   },
   vision: {
-    src: '/images/vision.png',
+    src: '/images/vision.jpg',
     alt: 'Optometrist fitting eyeglasses on a patient during an eye exam.',
   },
   'life-add': {
-    src: '/images/life-disability.png',
+    src: '/images/life-disability.jpg',
     alt: 'Family walking together outdoors, symbolizing life insurance protection.',
   },
   disability: {
-    src: '/images/life-disability.png',
+    src: '/images/life-disability.jpg',
     alt: 'Family walking together outdoors, symbolizing disability insurance protection.',
   },
   retirement: {
-    src: '/images/retirement.png',
+    src: '/images/retirement.jpg',
     alt: 'Couple reviewing financial charts on a tablet, planning for retirement.',
   },
   worklife: {
-    src: '/images/work-life.png',
+    src: '/images/work-life.jpg',
     alt: 'Woman relaxing and reading a book, representing work-life balance.',
   },
 };
@@ -50,11 +50,12 @@ export function BenefitCategoryCard({ category }: BenefitCategoryCardProps) {
     <div className="benefit-card bg-white border border-gray-200 flex flex-col h-full overflow-hidden">
       {/* Illustration */}
       {illustration && (
-        <div className="w-full h-32 bg-brand-surface flex items-center justify-center overflow-hidden">
+        <div className="w-full h-40 bg-brand-surface flex items-center justify-center overflow-hidden">
           <img
             src={illustration.src}
             alt={illustration.alt}
             className="w-full h-full object-cover"
+            loading="lazy"
           />
         </div>
       )}

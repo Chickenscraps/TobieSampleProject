@@ -53,6 +53,7 @@ export function ProviderDirectory() {
               src="/images/icon-find-provider.png"
               alt="Magnifying glass with medical cross, representing provider search."
               className="w-16 h-16 object-contain opacity-60"
+              loading="lazy"
             />
           </div>
         </ScrollFadeIn>
