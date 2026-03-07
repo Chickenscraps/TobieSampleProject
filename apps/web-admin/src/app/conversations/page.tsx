@@ -157,85 +157,94 @@ export default function ConversationsPage() {
           </div>
         ) : (
           <>
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-gray-200 bg-gray-50">
-                  <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">
-                    Status
-                  </th>
-                  <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">
-                    Session
-                  </th>
-                  <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">
-                    Messages
-                  </th>
-                  <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">
-                    Review
-                  </th>
-                  <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">
-                    Date
-                  </th>
-                  <th className="w-10"></th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {filteredSessions.map((session) => (
-                  <tr
-                    key={session.session_id}
-                    className="hover:bg-gray-50 transition-colors cursor-pointer"
-                  >
-                    <td className="py-3 px-4">
-                      <StatusBadge status={session.status} />
-                    </td>
-                    <td className="py-3 px-4">
-                      <Link href={`/conversations/detail?id=${session.session_id}`} className="block">
-                        <p className="text-sm font-medium text-gray-900">
-                          {session.session_id.slice(0, 12)}...
-                        </p>
-                        <p className="text-xs text-gray-500 mt-0.5">
-                          {session.topic_summary || 'No summary'}
-                        </p>
-                      </Link>
-                    </td>
-                    <td className="py-3 px-4">
-                      <span className="text-sm text-gray-600">{session.messageCount || 0}</span>
-                    </td>
-                    <td className="py-3 px-4">
-                      <ReviewBadge status={session.review_status} />
-                    </td>
-                    <td className="py-3 px-4">
-                      <div className="flex items-center gap-1 text-xs text-gray-500">
-                        <Clock className="w-3 h-3" />
-                        {new Date(session.created_at).toLocaleString()}
-                      </div>
-                    </td>
-                    <td className="py-3 px-4">
-                      <Link href={`/conversations/detail?id=${session.session_id}`}>
-                        <ChevronRight className="w-4 h-4 text-gray-400" />
-                      </Link>
-                    </td>
+            {/* Desktop Table */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-gray-200 bg-gray-50">
+                    <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">Status</th>
+                    <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">Session</th>
+                    <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">Messages</th>
+                    <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">Review</th>
+                    <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">Date</th>
+                    <th className="w-10"></th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {filteredSessions.map((session) => (
+                    <tr key={session.session_id} className="hover:bg-gray-50 transition-colors cursor-pointer">
+                      <td className="py-3 px-4"><StatusBadge status={session.status} /></td>
+                      <td className="py-3 px-4">
+                        <Link href={`/conversations/detail?id=${session.session_id}`} className="block">
+                          <p className="text-sm font-medium text-gray-900">{session.session_id.slice(0, 12)}...</p>
+                          <p className="text-xs text-gray-500 mt-0.5">{session.topic_summary || 'No summary'}</p>
+                        </Link>
+                      </td>
+                      <td className="py-3 px-4"><span className="text-sm text-gray-600">{session.messageCount || 0}</span></td>
+                      <td className="py-3 px-4"><ReviewBadge status={session.review_status} /></td>
+                      <td className="py-3 px-4">
+                        <div className="flex items-center gap-1 text-xs text-gray-500">
+                          <Clock className="w-3 h-3" />
+                          {new Date(session.created_at).toLocaleString()}
+                        </div>
+                      </td>
+                      <td className="py-3 px-4">
+                        <Link href={`/conversations/detail?id=${session.session_id}`}>
+                          <ChevronRight className="w-4 h-4 text-gray-400" />
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile Card List */}
+            <div className="md:hidden divide-y divide-gray-100">
+              {filteredSessions.map((session) => (
+                <Link
+                  key={session.session_id}
+                  href={`/conversations/detail?id=${session.session_id}`}
+                  className="block p-4 hover:bg-gray-50 active:bg-gray-100 transition-colors"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <StatusBadge status={session.status} />
+                    <ReviewBadge status={session.review_status} />
+                  </div>
+                  <p className="text-sm font-medium text-gray-900 mb-1">
+                    {session.session_id.slice(0, 16)}...
+                  </p>
+                  <p className="text-xs text-gray-500 mb-2">
+                    {session.topic_summary || 'No summary'}
+                  </p>
+                  <div className="flex items-center justify-between text-xs text-gray-400">
+                    <span>{session.messageCount || 0} messages</span>
+                    <div className="flex items-center gap-1">
+                      <Clock className="w-3 h-3" />
+                      {new Date(session.created_at).toLocaleDateString()}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
 
             {/* Pagination */}
             <div className="p-4 border-t border-gray-200 flex items-center justify-between">
-              <p className="text-sm text-gray-500">
-                Page {page + 1} · Showing {filteredSessions.length} sessions
+              <p className="text-xs sm:text-sm text-gray-500">
+                Page {page + 1} · {filteredSessions.length} sessions
               </p>
               <div className="flex gap-2">
                 <button
                   onClick={() => setPage(Math.max(0, page - 1))}
                   disabled={page === 0}
-                  className="px-3 py-1.5 text-sm border border-gray-200 rounded-lg disabled:opacity-50 hover:bg-gray-50"
+                  className="px-3 py-1.5 text-sm border border-gray-200 disabled:opacity-50 hover:bg-gray-50"
                 >
-                  Previous
+                  Prev
                 </button>
                 <button
                   onClick={() => setPage(page + 1)}
                   disabled={filteredSessions.length < pageSize}
-                  className="px-3 py-1.5 text-sm border border-gray-200 rounded-lg disabled:opacity-50 hover:bg-gray-50"
+                  className="px-3 py-1.5 text-sm border border-gray-200 disabled:opacity-50 hover:bg-gray-50"
                 >
                   Next
                 </button>

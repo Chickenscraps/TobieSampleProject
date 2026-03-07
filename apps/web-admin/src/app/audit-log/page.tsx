@@ -124,80 +124,103 @@ export default function AuditLogPage() {
           </div>
         ) : (
           <>
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-gray-200 bg-gray-50">
-                  <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">
-                    Timestamp
-                  </th>
-                  <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">
-                    Actor
-                  </th>
-                  <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">
-                    Action
-                  </th>
-                  <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">
-                    Target
-                  </th>
-                  <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">
-                    Details
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {events.map((event) => {
-                  const Icon = eventTypeIcons[event.event_type] || Shield;
-                  return (
-                    <tr key={event.id} className="hover:bg-gray-50">
-                      <td className="py-3 px-4 text-sm text-gray-600">
-                        <div className="flex items-center gap-2">
-                          <Clock className="w-3.5 h-3.5 text-gray-400" />
-                          {new Date(event.created_at).toLocaleString()}
-                        </div>
-                      </td>
-                      <td className="py-3 px-4">
-                        <div className="flex items-center gap-2">
-                          <User className="w-3.5 h-3.5 text-gray-400" />
-                          <span className="text-sm text-gray-700">{event.actor_id}</span>
-                        </div>
-                      </td>
-                      <td className="py-3 px-4">
-                        <div className="flex items-center gap-2">
-                          <Icon className="w-4 h-4 text-tobie-500" />
-                          <span className="text-sm font-medium text-gray-900">
-                            {eventTypeLabels[event.event_type] || event.event_type}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="py-3 px-4 text-sm text-gray-600">
-                        {event.target_id ? `${event.target_id.slice(0, 12)}...` : '—'}
-                      </td>
-                      <td className="py-3 px-4 text-xs text-gray-500 font-mono">
-                        {Object.keys(event.details || {}).length > 0
-                          ? JSON.stringify(event.details).slice(0, 60)
-                          : '—'}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+            {/* Desktop Table */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b border-gray-200 bg-gray-50">
+                    <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">Timestamp</th>
+                    <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">Actor</th>
+                    <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">Action</th>
+                    <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">Target</th>
+                    <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">Details</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {events.map((event) => {
+                    const Icon = eventTypeIcons[event.event_type] || Shield;
+                    return (
+                      <tr key={event.id} className="hover:bg-gray-50">
+                        <td className="py-3 px-4 text-sm text-gray-600">
+                          <div className="flex items-center gap-2">
+                            <Clock className="w-3.5 h-3.5 text-gray-400" />
+                            {new Date(event.created_at).toLocaleString()}
+                          </div>
+                        </td>
+                        <td className="py-3 px-4">
+                          <div className="flex items-center gap-2">
+                            <User className="w-3.5 h-3.5 text-gray-400" />
+                            <span className="text-sm text-gray-700">{event.actor_id}</span>
+                          </div>
+                        </td>
+                        <td className="py-3 px-4">
+                          <div className="flex items-center gap-2">
+                            <Icon className="w-4 h-4 text-tobie-500" />
+                            <span className="text-sm font-medium text-gray-900">
+                              {eventTypeLabels[event.event_type] || event.event_type}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="py-3 px-4 text-sm text-gray-600">
+                          {event.target_id ? `${event.target_id.slice(0, 12)}...` : '—'}
+                        </td>
+                        <td className="py-3 px-4 text-xs text-gray-500 font-mono">
+                          {Object.keys(event.details || {}).length > 0
+                            ? JSON.stringify(event.details).slice(0, 60)
+                            : '—'}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile Card List */}
+            <div className="md:hidden divide-y divide-gray-100">
+              {events.map((event) => {
+                const Icon = eventTypeIcons[event.event_type] || Shield;
+                return (
+                  <div key={event.id} className="p-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Icon className="w-4 h-4 text-tobie-500 flex-shrink-0" />
+                      <span className="text-sm font-medium text-gray-900">
+                        {eventTypeLabels[event.event_type] || event.event_type}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
+                      <div className="flex items-center gap-1">
+                        <User className="w-3 h-3" />
+                        {event.actor_id}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-3 h-3" />
+                        {new Date(event.created_at).toLocaleString()}
+                      </div>
+                    </div>
+                    {event.target_id && (
+                      <p className="text-xs text-gray-400">Target: {event.target_id.slice(0, 16)}...</p>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
 
             {/* Pagination */}
             <div className="p-4 border-t border-gray-200 flex items-center justify-between">
-              <p className="text-sm text-gray-500">Page {page + 1}</p>
+              <p className="text-xs sm:text-sm text-gray-500">Page {page + 1}</p>
               <div className="flex gap-2">
                 <button
                   onClick={() => setPage(Math.max(0, page - 1))}
                   disabled={page === 0}
-                  className="px-3 py-1.5 text-sm border border-gray-200 rounded-lg disabled:opacity-50 hover:bg-gray-50"
+                  className="px-3 py-1.5 text-sm border border-gray-200 disabled:opacity-50 hover:bg-gray-50"
                 >
-                  Previous
+                  Prev
                 </button>
                 <button
                   onClick={() => setPage(page + 1)}
                   disabled={events.length < pageSize}
-                  className="px-3 py-1.5 text-sm border border-gray-200 rounded-lg disabled:opacity-50 hover:bg-gray-50"
+                  className="px-3 py-1.5 text-sm border border-gray-200 disabled:opacity-50 hover:bg-gray-50"
                 >
                   Next
                 </button>

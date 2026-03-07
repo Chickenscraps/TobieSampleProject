@@ -176,25 +176,25 @@ function ConversationDetailContent() {
           <ArrowLeft className="w-4 h-4" />
           Back to Conversations
         </Link>
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
               Conversation Detail
             </h1>
-            <p className="text-sm text-gray-500 mt-1">
-              Session: {sessionId.slice(0, 16)}... · {transcripts.length} messages
-              {session && ` · Started ${new Date(session.created_at).toLocaleString()}`}
+            <p className="text-xs sm:text-sm text-gray-500 mt-1">
+              Session: {sessionId.slice(0, 12)}... · {transcripts.length} messages
+              {session && (
+                <span className="hidden sm:inline"> · Started {new Date(session.created_at).toLocaleString()}</span>
+              )}
             </p>
           </div>
-          <div className="flex gap-2">
-            <button
-              onClick={exportConversation}
-              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 hover:bg-gray-50"
-            >
-              <Download className="w-4 h-4" />
-              Export
-            </button>
-          </div>
+          <button
+            onClick={exportConversation}
+            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 hover:bg-gray-50 self-start"
+          >
+            <Download className="w-4 h-4" />
+            Export
+          </button>
         </div>
       </div>
 

@@ -24,8 +24,8 @@ export function ScrollFadeIn({ children, className = '', delay = 0 }: ScrollFade
         }
       },
       {
-        threshold: 0.05,
-        rootMargin: '0px 0px 200px 0px',
+        threshold: 0.01,
+        rootMargin: '0px 0px 80px 0px',
       }
     );
 
@@ -39,8 +39,12 @@ export function ScrollFadeIn({ children, className = '', delay = 0 }: ScrollFade
   return (
     <div
       ref={ref}
-      className={`${className} ${isVisible ? 'animate-fade-in-up' : 'opacity-0'}`}
-      style={{ animationDelay: delay ? `${delay}ms` : undefined }}
+      className={`${className} transition-all duration-700 ease-out ${
+        isVisible
+          ? 'opacity-100 translate-y-0'
+          : 'opacity-30 translate-y-6'
+      }`}
+      style={{ transitionDelay: delay ? `${delay}ms` : undefined }}
     >
       {children}
     </div>
