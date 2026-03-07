@@ -8,13 +8,12 @@ export function SearchCare() {
     <section id="find-care" className="py-16 sm:py-20 bg-white">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollFadeIn>
-          <div className="flex flex-col md:flex-row items-center gap-10 md:gap-14">
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
             {/* Illustration */}
-            <div className="flex-shrink-0 w-full md:w-2/5">
+            <div className="flex-shrink-0 w-full md:w-5/12">
               <SectionIllustration
                 illustration={searchCareIllustration}
                 variant="ctaBlock"
-                imgClassName="w-full max-w-xs mx-auto object-contain"
               />
             </div>
 

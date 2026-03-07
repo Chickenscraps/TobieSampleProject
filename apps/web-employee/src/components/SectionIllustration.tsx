@@ -14,19 +14,19 @@ const variantStyles: Record<
 > = {
   hero: {
     container: 'w-full flex justify-center',
-    img: 'w-full max-h-[340px] object-contain',
+    img: 'w-full object-cover',
   },
   sectionHeader: {
     container: 'flex justify-center mb-6',
-    img: 'w-52 sm:w-64 max-h-48 object-contain',
+    img: 'w-full max-w-md sm:max-w-lg object-contain',
   },
   benefitCard: {
-    container: 'w-full h-44 bg-brand-surface flex items-center justify-center overflow-hidden',
-    img: 'w-full h-full object-contain p-2',
+    container: 'w-full h-52 bg-brand-surface overflow-hidden',
+    img: 'w-full h-full object-cover',
   },
   ctaBlock: {
     container: 'flex justify-center',
-    img: 'w-40 sm:w-52 max-h-44 object-contain',
+    img: 'w-full max-w-sm sm:max-w-md object-contain',
   },
   icon: {
     container: 'flex items-center justify-center',

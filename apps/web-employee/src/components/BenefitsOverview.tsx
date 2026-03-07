@@ -15,8 +15,7 @@ export function BenefitsOverview() {
             <SectionIllustration
               illustration={benefitsOverviewIllustration}
               variant="sectionHeader"
-              className="mb-6"
-              imgClassName="w-72 sm:w-96 max-h-56 object-contain mx-auto"
+              className="mb-8"
             />
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
               Your Benefits at a Glance

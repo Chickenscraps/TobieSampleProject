@@ -28,19 +28,20 @@ export function HeroSection() {
       id="hero"
       className="relative overflow-hidden bg-white"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-16 pb-16 sm:pb-20">
-        {/* Illustration — open-center layout with text overlay */}
-        <div className="relative mb-8">
-          <img
-            src={heroIllustration.src}
-            alt={heroIllustration.alt}
-            width={heroIllustration.width}
-            height={heroIllustration.height}
-            className="w-full max-h-[320px] object-contain"
-            fetchPriority="high"
-            decoding="sync"
-          />
-        </div>
+      {/* Full-width illustration — edge to edge within the content area */}
+      <div className="w-full">
+        <img
+          src={heroIllustration.src}
+          alt={heroIllustration.alt}
+          width={heroIllustration.width}
+          height={heroIllustration.height}
+          className="w-full object-cover"
+          fetchPriority="high"
+          decoding="sync"
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20 -mt-4 sm:-mt-8">
 
         {/* Text content — centred below illustration */}
         <div

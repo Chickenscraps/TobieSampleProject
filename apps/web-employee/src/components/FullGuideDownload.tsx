@@ -12,7 +12,8 @@ export function FullGuideDownload() {
             <SectionIllustration
               illustration={downloadGuideIllustration}
               variant="ctaBlock"
-              className="mb-6"
+              className="mb-8"
+              imgClassName="w-full max-w-xs mx-auto object-contain"
             />
 
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
