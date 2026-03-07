@@ -1,3 +1,5 @@
+import { Shield } from 'lucide-react';
+
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -11,6 +13,15 @@ export function Footer() {
             <p className="text-sm text-brand-muted mt-1">
               &copy; {currentYear} Tobie, Inc. All rights reserved.
             </p>
+            <a
+              href="https://tobie-admin-dashboard.netlify.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 mt-3 text-sm text-brand-muted hover:text-white transition-colors"
+            >
+              <Shield className="w-3.5 h-3.5" />
+              Admin Dashboard
+            </a>
           </div>
 
           {/* Center: Disclaimer */}

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Shield } from 'lucide-react';
 
 const navLinks = [
   { label: 'Home', href: '#hero' },
@@ -12,6 +12,8 @@ const navLinks = [
   { label: 'Medical Resources', href: '/medical-resources' },
   { label: 'Contact Info', href: '#contacts' },
 ];
+
+const ADMIN_DASHBOARD_URL = 'https://tobie-admin-dashboard.netlify.app';
 
 export function StickyHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -85,6 +87,15 @@ export function StickyHeader() {
                 {link.label}
               </a>
             ))}
+            <a
+              href={ADMIN_DASHBOARD_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-2 inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-white bg-tobie-600 hover:bg-tobie-700 transition-colors"
+            >
+              <Shield className="w-3.5 h-3.5" />
+              Admin
+            </a>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -124,6 +135,15 @@ export function StickyHeader() {
                 {link.label}
               </a>
             ))}
+            <a
+              href={ADMIN_DASHBOARD_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-3 py-2.5 text-base font-medium text-white bg-tobie-600 hover:bg-tobie-700 transition-colors mt-2"
+            >
+              <Shield className="w-4 h-4" />
+              Admin Dashboard
+            </a>
           </nav>
         </div>
       )}
