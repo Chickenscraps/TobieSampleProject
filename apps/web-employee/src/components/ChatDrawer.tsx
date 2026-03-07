@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, FormEvent } from 'react';
-import { X, Send, MessageCircle, Bot, User, Sparkles } from 'lucide-react';
+import { X, Send, Bot, User, Sparkles, ArrowRight } from 'lucide-react';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface ChatMessage {
@@ -31,20 +31,20 @@ const MAX_MESSAGE_LENGTH = 500;
 
 // ─── Source Badge Colors ─────────────────────────────────────────────────────
 const SOURCE_COLORS: Record<string, string> = {
-  'Medical': 'bg-blue-100 text-blue-700',
-  'Dental': 'bg-cyan-100 text-cyan-700',
-  'Vision': 'bg-purple-100 text-purple-700',
-  'Pharmacy': 'bg-green-100 text-green-700',
-  'FSA/HSA': 'bg-emerald-100 text-emerald-700',
-  'Life & AD&D': 'bg-rose-100 text-rose-700',
-  'Disability': 'bg-orange-100 text-orange-700',
-  'Retirement': 'bg-indigo-100 text-indigo-700',
-  'Voluntary Benefits': 'bg-amber-100 text-amber-700',
-  'Well-being': 'bg-lime-100 text-lime-700',
-  'Work-Life': 'bg-teal-100 text-teal-700',
-  'Enrollment': 'bg-yellow-100 text-yellow-700',
-  'Eligibility': 'bg-sky-100 text-sky-700',
-  'General': 'bg-gray-100 text-gray-600',
+  'Medical': 'bg-tobie-50 text-tobie-600',
+  'Dental': 'bg-cyan-50 text-cyan-700',
+  'Vision': 'bg-purple-50 text-purple-700',
+  'Pharmacy': 'bg-green-50 text-green-700',
+  'FSA/HSA': 'bg-emerald-50 text-emerald-700',
+  'Life & AD&D': 'bg-rose-50 text-rose-700',
+  'Disability': 'bg-orange-50 text-orange-700',
+  'Retirement': 'bg-indigo-50 text-indigo-700',
+  'Voluntary Benefits': 'bg-amber-50 text-amber-700',
+  'Well-being': 'bg-lime-50 text-lime-700',
+  'Work-Life': 'bg-teal-50 text-teal-700',
+  'Enrollment': 'bg-yellow-50 text-yellow-700',
+  'Eligibility': 'bg-sky-50 text-sky-700',
+  'General': 'bg-gray-50 text-gray-500',
 };
 
 // ─── Markdown-lite Renderer ──────────────────────────────────────────────────
@@ -57,7 +57,7 @@ function renderMarkdown(text: string) {
   const flushList = () => {
     if (listItems.length > 0) {
       elements.push(
-        <ul key={`list-${listKey++}`} className="list-disc list-inside space-y-1 my-1.5">
+        <ul key={`list-${listKey++}`} className="list-disc list-inside space-y-1 my-1.5 text-gray-700">
           {listItems.map((item, i) => (
             <li key={i} className="text-sm leading-relaxed">
               {renderInlineFormatting(item)}
@@ -90,7 +90,7 @@ function renderMarkdown(text: string) {
 
     // Regular text
     elements.push(
-      <p key={`p-${i}`} className="text-sm leading-relaxed">
+      <p key={`p-${i}`} className="text-sm leading-relaxed text-gray-700">
         {renderInlineFormatting(trimmed)}
       </p>
     );
@@ -115,13 +115,13 @@ function renderInlineFormatting(text: string): React.ReactNode[] {
     if (boldMatch && (!phoneMatch || boldMatch.index! <= phoneMatch.index!)) {
       const before = remaining.slice(0, boldMatch.index!);
       if (before) parts.push(<span key={key++}>{before}</span>);
-      parts.push(<strong key={key++} className="font-semibold">{boldMatch[1]}</strong>);
+      parts.push(<strong key={key++} className="font-semibold text-gray-900">{boldMatch[1]}</strong>);
       remaining = remaining.slice(boldMatch.index! + boldMatch[0].length);
     } else if (phoneMatch) {
       const before = remaining.slice(0, phoneMatch.index!);
       if (before) parts.push(<span key={key++}>{before}</span>);
       parts.push(
-        <a key={key++} href={`tel:${phoneMatch[1].replace(/-/g, '')}`} className="font-medium text-tobie-600 underline">
+        <a key={key++} href={`tel:${phoneMatch[1].replace(/-/g, '')}`} className="font-medium text-tobie-500 underline decoration-tobie-300 underline-offset-2 hover:text-tobie-700">
           {phoneMatch[1]}
         </a>
       );
@@ -280,27 +280,29 @@ export function ChatDrawer({ isOpen, onClose, persistent = false }: ChatDrawerPr
       <div
         className={`${
           persistent
-            ? 'h-full w-full bg-white flex flex-col border-l border-gray-200'
-            : `fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white z-50 flex flex-col ${
+            ? 'h-full w-full bg-brand-surface flex flex-col border-l border-gray-200'
+            : `fixed top-0 right-0 h-full w-full sm:w-[400px] bg-brand-surface z-50 flex flex-col ${
                 isOpen ? 'chat-drawer-enter' : 'chat-drawer-exit pointer-events-none'
               }`
         }`}
         role={persistent ? 'complementary' : 'dialog'}
         aria-label="Benefits Assistant Chat"
       >
-        {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 bg-tobie-600 text-white flex-shrink-0">
-          <div className="flex items-center gap-2.5">
-            <MessageCircle className="h-5 w-5" />
+        {/* Header — clean, matches site nav */}
+        <div className="flex items-center justify-between px-5 py-4 bg-white border-b border-gray-200 flex-shrink-0">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 bg-tobie-50 flex items-center justify-center">
+              <img src="/images/chatbot-icon.svg" alt="" className="w-5 h-5" aria-hidden="true" />
+            </div>
             <div>
-              <h2 className="text-base font-semibold leading-tight">Benefits Assistant</h2>
-              <p className="text-[10px] text-tobie-200 leading-tight">Powered by AI</p>
+              <h2 className="text-sm font-bold text-tobie-700 leading-tight">Benefits Assistant</h2>
+              <p className="text-[11px] text-gray-400 leading-tight">Powered by AI</p>
             </div>
           </div>
           {!persistent && (
             <button
               onClick={onClose}
-              className="p-1.5 rounded-md hover:bg-white/20 transition-colors"
+              className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
               aria-label="Close chat"
             >
               <X className="h-5 w-5" />
@@ -308,11 +310,11 @@ export function ChatDrawer({ isOpen, onClose, persistent = false }: ChatDrawerPr
           )}
         </div>
 
-        {/* Disclaimer */}
-        <div className="px-4 py-2 bg-tobie-50 border-b border-tobie-100 flex-shrink-0">
-          <p className="text-[11px] text-tobie-700 leading-relaxed">
+        {/* Disclaimer — subtle, integrated */}
+        <div className="px-5 py-2.5 bg-white border-b border-gray-100 flex-shrink-0">
+          <p className="text-[11px] text-gray-500 leading-relaxed">
             AI answers from the official 2026 benefits guide only. For personalized advice, contact HR at{' '}
-            <a href="tel:8008905420" className="font-semibold underline">
+            <a href="tel:8008905420" className="font-medium text-tobie-500 hover:text-tobie-700 underline decoration-tobie-200 underline-offset-2">
               800-890-5420
             </a>
             .
@@ -320,16 +322,16 @@ export function ChatDrawer({ isOpen, onClose, persistent = false }: ChatDrawerPr
         </div>
 
         {/* Messages Area */}
-        <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
+        <div className="flex-1 overflow-y-auto px-5 py-5 space-y-5">
           {messages.map((msg) => (
             <div
               key={msg.id}
-              className={`flex gap-2 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+              className={`flex gap-2.5 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               {/* Bot avatar */}
               {msg.role === 'assistant' && (
-                <div className="flex-shrink-0 w-7 h-7 bg-tobie-100 flex items-center justify-center mt-0.5">
-                  <Bot className="w-4 h-4 text-tobie-600" />
+                <div className="flex-shrink-0 w-7 h-7 bg-tobie-50 flex items-center justify-center mt-0.5">
+                  <Bot className="w-3.5 h-3.5 text-tobie-500" />
                 </div>
               )}
 
@@ -337,8 +339,8 @@ export function ChatDrawer({ isOpen, onClose, persistent = false }: ChatDrawerPr
                 <div
                   className={`px-3.5 py-2.5 ${
                     msg.role === 'user'
-                      ? 'bg-tobie-500 text-white'
-                      : 'bg-gray-100 text-gray-800'
+                      ? 'bg-tobie-600 text-white'
+                      : 'bg-white text-gray-800 border border-gray-100'
                   }`}
                 >
                   {msg.role === 'assistant' ? (
@@ -351,8 +353,8 @@ export function ChatDrawer({ isOpen, onClose, persistent = false }: ChatDrawerPr
                 </div>
 
                 {/* Metadata row: time + source badges */}
-                <div className="flex items-center gap-1.5 mt-1 flex-wrap">
-                  <span className={`text-[10px] ${msg.role === 'user' ? 'text-gray-400' : 'text-gray-400'}`}>
+                <div className="flex items-center gap-1.5 mt-1.5 flex-wrap">
+                  <span className="text-[10px] text-gray-400">
                     {formatTime(msg.timestamp)}
                   </span>
                   {msg.role === 'assistant' && msg.sourcesUsed && msg.sourcesUsed[0] !== 'General' && (
@@ -374,8 +376,8 @@ export function ChatDrawer({ isOpen, onClose, persistent = false }: ChatDrawerPr
 
               {/* User avatar */}
               {msg.role === 'user' && (
-                <div className="flex-shrink-0 w-7 h-7 bg-tobie-500 flex items-center justify-center mt-0.5">
-                  <User className="w-4 h-4 text-white" />
+                <div className="flex-shrink-0 w-7 h-7 bg-tobie-600 flex items-center justify-center mt-0.5">
+                  <User className="w-3.5 h-3.5 text-white" />
                 </div>
               )}
             </div>
@@ -383,19 +385,20 @@ export function ChatDrawer({ isOpen, onClose, persistent = false }: ChatDrawerPr
 
           {/* Suggested Quick Chips */}
           {showChips && !isLoading && messages.length <= 1 && (
-            <div className="space-y-2 pt-2">
+            <div className="space-y-3 pt-1">
               <div className="flex items-center gap-1.5 text-xs text-gray-400">
                 <Sparkles className="w-3 h-3" />
                 <span>Try asking:</span>
               </div>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-col gap-1.5">
                 {SUGGESTED_CHIPS.map((chip) => (
                   <button
                     key={chip}
                     onClick={() => handleChipClick(chip)}
-                    className="text-xs px-3 py-1.5 border border-gray-200 text-gray-600 hover:bg-tobie-50 hover:border-tobie-300 hover:text-tobie-700 transition-colors"
+                    className="group flex items-center justify-between text-left text-sm px-4 py-2.5 bg-white border border-gray-100 text-gray-600 hover:bg-tobie-50 hover:border-tobie-200 hover:text-tobie-700 transition-all"
                   >
-                    {chip}
+                    <span>{chip}</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-gray-300 group-hover:text-tobie-500 transition-colors" />
                   </button>
                 ))}
               </div>
@@ -404,15 +407,15 @@ export function ChatDrawer({ isOpen, onClose, persistent = false }: ChatDrawerPr
 
           {/* Loading Indicator */}
           {isLoading && (
-            <div className="flex gap-2 justify-start">
-              <div className="flex-shrink-0 w-7 h-7 bg-tobie-100 flex items-center justify-center">
-                <Bot className="w-4 h-4 text-tobie-600" />
+            <div className="flex gap-2.5 justify-start">
+              <div className="flex-shrink-0 w-7 h-7 bg-tobie-50 flex items-center justify-center">
+                <Bot className="w-3.5 h-3.5 text-tobie-500" />
               </div>
-              <div className="bg-gray-100 px-4 py-3">
+              <div className="bg-white border border-gray-100 px-4 py-3">
                 <div className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                  <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                  <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                  <span className="w-1.5 h-1.5 bg-tobie-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                  <span className="w-1.5 h-1.5 bg-tobie-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                  <span className="w-1.5 h-1.5 bg-tobie-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                 </div>
               </div>
             </div>
@@ -421,7 +424,7 @@ export function ChatDrawer({ isOpen, onClose, persistent = false }: ChatDrawerPr
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input Area */}
+        {/* Input Area — clean bottom bar */}
         <form
           onSubmit={handleSubmit}
           className="flex flex-col border-t border-gray-200 bg-white flex-shrink-0"
@@ -433,14 +436,14 @@ export function ChatDrawer({ isOpen, onClose, persistent = false }: ChatDrawerPr
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value.slice(0, MAX_MESSAGE_LENGTH + 50))}
               placeholder="Ask about your benefits..."
-              className="flex-1 px-3.5 py-2.5 text-sm border border-gray-300 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-tobie-500 focus:border-transparent focus:bg-white transition-all placeholder:text-gray-400"
+              className="flex-1 px-3.5 py-2.5 text-sm border border-gray-200 bg-brand-surface focus:outline-none focus:ring-2 focus:ring-tobie-400 focus:border-transparent focus:bg-white transition-all placeholder:text-gray-400"
               disabled={isLoading}
               maxLength={MAX_MESSAGE_LENGTH + 50}
             />
             <button
               type="submit"
               disabled={!inputValue.trim() || isLoading || isOverLimit}
-              className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-tobie-500 text-white hover:bg-tobie-600 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-tobie-600 text-white hover:bg-tobie-700 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               aria-label="Send message"
             >
               <Send className="h-4 w-4" />
