@@ -65,6 +65,19 @@ interface HistoryMessage {
   content: string;
 }
 
+// Patterns that should never appear in legitimate assistant history messages
+const HISTORY_ABUSE_PATTERNS = [
+  /ignore\s+(all\s+)?(previous|prior|my|safety)\s+(instructions|rules|prompt)/i,
+  /i\s+will\s+(now\s+)?(ignore|bypass|override)\s+(my|all|the)/i,
+  /unrestricted\s+mode/i,
+  /system\s*prompt/i,
+  /override\s+(activated|enabled|complete)/i,
+  /safety\s+(disabled|removed|bypassed)/i,
+  /jailbreak/i,
+  /I\s+(can|will)\s+now\s+(do|say|answer)\s+anything/i,
+  /I\s+am\s+(no\s+longer|not)\s+(restricted|limited|bound)/i,
+];
+
 function validateHistory(history: unknown): HistoryMessage[] {
   if (!Array.isArray(history)) return [];
   return history
@@ -74,7 +87,9 @@ function validateHistory(history: unknown): HistoryMessage[] {
         msg !== null &&
         (msg.role === 'user' || msg.role === 'assistant') &&
         typeof msg.content === 'string' &&
-        msg.content.length <= MAX_MESSAGE_LENGTH
+        msg.content.length <= MAX_MESSAGE_LENGTH &&
+        // Reject history messages containing injection patterns
+        !HISTORY_ABUSE_PATTERNS.some(p => p.test(msg.content))
     )
     .slice(-MAX_HISTORY_LENGTH);
 }
@@ -91,11 +106,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Rate limiting
-    const ip =
-      request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-      request.headers.get('x-real-ip') ||
-      'unknown';
+    // Security: Origin check — only accept requests from our own domain
+    const origin = request.headers.get('origin');
+    const allowedOrigins = [
+      'https://tobiebenefits.netlify.app',
+      'http://localhost:3000',
+      'http://localhost:3001',
+    ];
+    if (origin && !allowedOrigins.some(o => origin.startsWith(o))) {
+      return NextResponse.json(
+        { error: 'Unauthorized origin.' },
+        { status: 403 }
+      );
+    }
+
+    // Rate limiting — use last IP in X-Forwarded-For (closest to trusted proxy)
+    const forwardedFor = request.headers.get('x-forwarded-for');
+    const ip = forwardedFor
+      ? forwardedFor.split(',').map(s => s.trim()).filter(Boolean).pop() || 'unknown'
+      : request.headers.get('x-real-ip') || 'unknown';
 
     const { allowed, remaining } = checkRateLimit(ip);
     if (!allowed) {

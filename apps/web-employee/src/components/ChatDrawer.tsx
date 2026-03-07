@@ -154,6 +154,14 @@ export function ChatDrawer({ isOpen, onClose, persistent = false }: ChatDrawerPr
     if (typeof window !== 'undefined' && window.crypto?.randomUUID) {
       return window.crypto.randomUUID();
     }
+    // Cryptographic fallback using getRandomValues
+    if (typeof window !== 'undefined' && window.crypto?.getRandomValues) {
+      const bytes = new Uint8Array(16);
+      window.crypto.getRandomValues(bytes);
+      const hex = Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('');
+      return `${hex.slice(0,8)}-${hex.slice(8,12)}-${hex.slice(12,16)}-${hex.slice(16,20)}-${hex.slice(20,32)}`;
+    }
+    // Last resort (very old browsers)
     return `session-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
   });
 
@@ -456,11 +464,11 @@ export function ChatDrawer({ isOpen, onClose, persistent = false }: ChatDrawerPr
               ref={inputRef}
               type="text"
               value={inputValue}
-              onChange={(e) => setInputValue(e.target.value.slice(0, MAX_MESSAGE_LENGTH + 50))}
+              onChange={(e) => setInputValue(e.target.value.slice(0, MAX_MESSAGE_LENGTH))}
               placeholder="Ask about your benefits..."
               className="flex-1 px-3.5 py-2.5 text-sm border border-gray-200 bg-brand-surface focus:outline-none focus:ring-2 focus:ring-tobie-400 focus:border-transparent focus:bg-white transition-all placeholder:text-gray-400"
               disabled={isLoading}
-              maxLength={MAX_MESSAGE_LENGTH + 50}
+              maxLength={MAX_MESSAGE_LENGTH}
             />
             <button
               type="submit"
