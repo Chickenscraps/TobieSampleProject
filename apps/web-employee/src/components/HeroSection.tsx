@@ -35,7 +35,7 @@ export function HeroSection() {
           alt={heroIllustration.alt}
           width={heroIllustration.width}
           height={heroIllustration.height}
-          className="w-full max-w-5xl mx-auto object-contain"
+          className="w-full max-w-3xl mx-auto object-contain"
           fetchPriority="high"
           decoding="sync"
         />
