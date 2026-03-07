@@ -7,17 +7,12 @@ import {
   ClipboardCheck,
   AlertTriangle,
   Activity,
-  TrendingUp,
   Clock,
+  CalendarDays,
 } from 'lucide-react';
 import Link from 'next/link';
-
-interface Metrics {
-  totalConversations: number;
-  pendingReviews: number;
-  flaggedItems: number;
-  totalMessages: number;
-}
+import { TrendCard } from '@/components/charts/TrendCard';
+import { CHART_COLORS } from '@/components/charts/chart-theme';
 
 interface RecentSession {
   session_id: string;
@@ -25,35 +20,111 @@ interface RecentSession {
   review_status: string;
   created_at: string;
   topic_summary: string | null;
+  visitor_id?: string;
+  device_type?: string;
+  browser?: string;
 }
 
 export default function AdminDashboard() {
-  const [metrics, setMetrics] = useState<Metrics>({
-    totalConversations: 0,
-    pendingReviews: 0,
-    flaggedItems: 0,
-    totalMessages: 0,
-  });
-  const [recentSessions, setRecentSessions] = useState<RecentSession[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Metric values
+  const [totalConversations, setTotalConversations] = useState(0);
+  const [prevConversations, setPrevConversations] = useState(0);
+  const [totalMessages, setTotalMessages] = useState(0);
+  const [prevMessages, setPrevMessages] = useState(0);
+  const [pendingReviews, setPendingReviews] = useState(0);
+  const [prevPendingReviews, setPrevPendingReviews] = useState(0);
+  const [flaggedItems, setFlaggedItems] = useState(0);
+  const [prevFlaggedItems, setPrevFlaggedItems] = useState(0);
+
+  // Sparklines
+  const [convSparkline, setConvSparkline] = useState<{ value: number }[]>([]);
+  const [msgSparkline, setMsgSparkline] = useState<{ value: number }[]>([]);
+  const [reviewSparkline, setReviewSparkline] = useState<{ value: number }[]>([]);
+  const [flagSparkline, setFlagSparkline] = useState<{ value: number }[]>([]);
+
+  // Today's summary
+  const [todayConversations, setTodayConversations] = useState(0);
+  const [todayMessages, setTodayMessages] = useState(0);
+  const [todayVisitors, setTodayVisitors] = useState(0);
+
+  const [recentSessions, setRecentSessions] = useState<RecentSession[]>([]);
 
   useEffect(() => {
     async function loadDashboard() {
       try {
-        const [sessionsRes, transcriptsRes, pendingRes, flaggedRes] = await Promise.all([
-          supabase.from('chat_sessions').select('*', { count: 'exact' }),
-          supabase.from('chat_transcripts').select('*', { count: 'exact' }),
-          supabase.from('chat_sessions').select('*', { count: 'exact' }).eq('review_status', 'pending'),
-          supabase.from('chat_sessions').select('*', { count: 'exact' }).contains('risk_flags', ['flagged']),
+        const now = new Date();
+        const sevenDaysAgo = new Date(now.getTime() - 7 * 86400000).toISOString();
+        const fourteenDaysAgo = new Date(now.getTime() - 14 * 86400000).toISOString();
+        const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString();
+
+        // Current week & previous week data
+        const [sessionsRes, transcriptsRes, prevSessRes, prevTransRes] = await Promise.all([
+          supabase.from('chat_sessions').select('*').gte('created_at', sevenDaysAgo),
+          supabase.from('chat_transcripts').select('*').gte('created_at', sevenDaysAgo),
+          supabase.from('chat_sessions').select('*').gte('created_at', fourteenDaysAgo).lt('created_at', sevenDaysAgo),
+          supabase.from('chat_transcripts').select('*').gte('created_at', fourteenDaysAgo).lt('created_at', sevenDaysAgo),
         ]);
 
-        setMetrics({
-          totalConversations: sessionsRes.count || 0,
-          totalMessages: transcriptsRes.count || 0,
-          pendingReviews: pendingRes.count || 0,
-          flaggedItems: flaggedRes.count || 0,
+        const sessions = sessionsRes.data || [];
+        const transcripts = transcriptsRes.data || [];
+        const prevSessions = prevSessRes.data || [];
+        const prevTranscripts = prevTransRes.data || [];
+
+        // All-time counts
+        const [totalSessRes, totalTransRes, pendingRes, flaggedRes] = await Promise.all([
+          supabase.from('chat_sessions').select('*', { count: 'exact', head: true }),
+          supabase.from('chat_transcripts').select('*', { count: 'exact', head: true }),
+          supabase.from('chat_sessions').select('*', { count: 'exact', head: true }).eq('review_status', 'pending'),
+          supabase.from('chat_sessions').select('*', { count: 'exact', head: true }).eq('status', 'flagged'),
+        ]);
+
+        const prevPending = prevSessions.filter(s => s.review_status === 'pending').length;
+        const prevFlagged = prevSessions.filter(s => s.status === 'flagged').length;
+
+        setTotalConversations(totalSessRes.count || 0);
+        setPrevConversations(prevSessions.length);
+        setTotalMessages(totalTransRes.count || 0);
+        setPrevMessages(prevTranscripts.length);
+        setPendingReviews(pendingRes.count || 0);
+        setPrevPendingReviews(prevPending);
+        setFlaggedItems(flaggedRes.count || 0);
+        setPrevFlaggedItems(prevFlagged);
+
+        // Sparklines (7 days)
+        const convByDay: Record<string, number> = {};
+        const msgByDay: Record<string, number> = {};
+
+        for (let i = 6; i >= 0; i--) {
+          const d = new Date(now.getTime() - i * 86400000).toISOString().slice(0, 10);
+          convByDay[d] = 0;
+          msgByDay[d] = 0;
+        }
+
+        sessions.forEach(s => {
+          const d = s.created_at?.slice(0, 10);
+          if (d && convByDay[d] !== undefined) convByDay[d]++;
+        });
+        transcripts.forEach(t => {
+          const d = t.created_at?.slice(0, 10);
+          if (d && msgByDay[d] !== undefined) msgByDay[d]++;
         });
 
+        const sortedDays = Object.keys(convByDay).sort();
+        setConvSparkline(sortedDays.map(d => ({ value: convByDay[d] })));
+        setMsgSparkline(sortedDays.map(d => ({ value: msgByDay[d] })));
+        setReviewSparkline(sortedDays.map(() => ({ value: pendingRes.count || 0 })));
+        setFlagSparkline(sortedDays.map(() => ({ value: flaggedRes.count || 0 })));
+
+        // Today's summary
+        const todaySessions = sessions.filter(s => s.created_at >= todayStart);
+        const todayTranscripts = transcripts.filter(t => t.created_at >= todayStart);
+        setTodayConversations(todaySessions.length);
+        setTodayMessages(todayTranscripts.length);
+        setTodayVisitors(new Set(todaySessions.map(s => s.visitor_id).filter(Boolean)).size);
+
+        // Recent sessions
         const { data: recent } = await supabase
           .from('chat_sessions')
           .select('*')
@@ -70,44 +141,12 @@ export default function AdminDashboard() {
 
     loadDashboard();
 
-    // Log admin view event
     supabase.from('admin_events').insert({
       actor_id: 'admin',
       event_type: 'view_dashboard',
       details: { page: 'overview' },
     });
   }, []);
-
-  const metricCards = [
-    {
-      label: 'Total Conversations',
-      value: metrics.totalConversations,
-      icon: MessageSquare,
-      color: 'text-blue-600',
-      bg: 'bg-blue-50',
-    },
-    {
-      label: 'Total Messages',
-      value: metrics.totalMessages,
-      icon: Activity,
-      color: 'text-green-600',
-      bg: 'bg-green-50',
-    },
-    {
-      label: 'Pending Reviews',
-      value: metrics.pendingReviews,
-      icon: ClipboardCheck,
-      color: 'text-amber-600',
-      bg: 'bg-amber-50',
-    },
-    {
-      label: 'Flagged Items',
-      value: metrics.flaggedItems,
-      icon: AlertTriangle,
-      color: 'text-red-600',
-      bg: 'bg-red-50',
-    },
-  ];
 
   return (
     <div>
@@ -116,29 +155,66 @@ export default function AdminDashboard() {
         <p className="text-gray-500 mt-1">Monitor chat activity and review conversations.</p>
       </div>
 
-      {/* Metric Cards */}
+      {/* Metric Cards with Sparklines */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        {metricCards.map((card) => (
-          <div
-            key={card.label}
-            className="bg-white border border-gray-200 p-5 card-hover"
-          >
-            <div className="flex items-center justify-between mb-3">
-              <div className={`p-2 rounded-lg ${card.bg}`}>
-                <card.icon className={`w-5 h-5 ${card.color}`} />
-              </div>
-              <TrendingUp className="w-4 h-4 text-gray-300" />
-            </div>
-            <p className="text-2xl font-bold text-gray-900">
-              {loading ? '—' : card.value}
-            </p>
-            <p className="text-sm text-gray-500 mt-1">{card.label}</p>
+        <TrendCard
+          label="Total Conversations"
+          value={totalConversations}
+          previousValue={prevConversations}
+          sparklineData={convSparkline}
+          icon={<MessageSquare className="w-5 h-5" style={{ color: CHART_COLORS.primary }} />}
+          color={CHART_COLORS.primary}
+        />
+        <TrendCard
+          label="Total Messages"
+          value={totalMessages}
+          previousValue={prevMessages}
+          sparklineData={msgSparkline}
+          icon={<Activity className="w-5 h-5" style={{ color: CHART_COLORS.success }} />}
+          color={CHART_COLORS.success}
+        />
+        <TrendCard
+          label="Pending Reviews"
+          value={pendingReviews}
+          previousValue={prevPendingReviews}
+          sparklineData={reviewSparkline}
+          icon={<ClipboardCheck className="w-5 h-5" style={{ color: CHART_COLORS.warning }} />}
+          color={CHART_COLORS.warning}
+        />
+        <TrendCard
+          label="Flagged Items"
+          value={flaggedItems}
+          previousValue={prevFlaggedItems}
+          sparklineData={flagSparkline}
+          icon={<AlertTriangle className="w-5 h-5" style={{ color: CHART_COLORS.danger }} />}
+          color={CHART_COLORS.danger}
+        />
+      </div>
+
+      {/* Today's Activity Summary */}
+      <div className="bg-white border border-gray-200 p-5 mb-8 chart-fade-up">
+        <div className="flex items-center gap-2 mb-4">
+          <CalendarDays className="w-4 h-4 text-tobie-500" />
+          <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wider">Today&apos;s Activity</h2>
+        </div>
+        <div className="grid grid-cols-3 gap-4">
+          <div className="text-center">
+            <p className="text-2xl font-bold text-gray-900">{loading ? '—' : todayConversations}</p>
+            <p className="text-xs text-gray-500 mt-1">Conversations</p>
           </div>
-        ))}
+          <div className="text-center border-l border-r border-gray-100">
+            <p className="text-2xl font-bold text-gray-900">{loading ? '—' : todayMessages}</p>
+            <p className="text-xs text-gray-500 mt-1">Messages</p>
+          </div>
+          <div className="text-center">
+            <p className="text-2xl font-bold text-gray-900">{loading ? '—' : todayVisitors}</p>
+            <p className="text-xs text-gray-500 mt-1">Unique Visitors</p>
+          </div>
+        </div>
       </div>
 
       {/* Recent Conversations */}
-      <div className="bg-white rounded-xl border border-gray-200">
+      <div className="bg-white border border-gray-200">
         <div className="p-5 border-b border-gray-200 flex items-center justify-between">
           <div>
             <h2 className="text-lg font-semibold text-gray-900">Recent Conversations</h2>
@@ -171,9 +247,21 @@ export default function AdminDashboard() {
                 className="flex items-center gap-4 p-4 hover:bg-gray-50 transition-colors"
               >
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900 truncate">
-                    Session: {session.session_id.slice(0, 8)}...
-                  </p>
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm font-medium text-gray-900 truncate">
+                      Session: {session.session_id.slice(0, 8)}...
+                    </p>
+                    {session.device_type && (
+                      <span className="text-[10px] px-1.5 py-0.5 bg-gray-100 text-gray-500 font-medium">
+                        {session.device_type}
+                      </span>
+                    )}
+                    {session.browser && (
+                      <span className="text-[10px] px-1.5 py-0.5 bg-tobie-50 text-tobie-600 font-medium">
+                        {session.browser}
+                      </span>
+                    )}
+                  </div>
                   <p className="text-xs text-gray-500 mt-0.5">
                     {session.topic_summary || 'No topic summary'}
                   </p>
@@ -202,7 +290,7 @@ function StatusBadge({ status }: { status: string }) {
 
   return (
     <span
-      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${
+      className={`inline-flex items-center px-2.5 py-0.5 text-xs font-medium border ${
         styles[status] || 'bg-gray-50 text-gray-700 border-gray-200'
       }`}
     >

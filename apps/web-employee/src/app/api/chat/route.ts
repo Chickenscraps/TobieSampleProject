@@ -58,11 +58,75 @@ setInterval(() => {
 // ─── Input Validation ────────────────────────────────────────────────────────
 const MAX_MESSAGE_LENGTH = 500;
 const MAX_HISTORY_LENGTH = 20; // max conversation turns to accept
-const MAX_BODY_SIZE = 15_000; // ~15KB max request body
+const MAX_BODY_SIZE = 20_000; // ~20KB max request body (increased for analytics)
 
 interface HistoryMessage {
   role: 'user' | 'assistant';
   content: string;
+}
+
+// ─── Analytics Validation ────────────────────────────────────────────────────
+// Strict whitelist approach: only accept known safe values
+interface ValidatedAnalytics {
+  visitor_id: string;
+  device_type: string;
+  browser: string;
+  os: string;
+  screen_category: string;
+  timezone: string;
+  referrer_domain: string;
+  session_start_page: string;
+  message_index: number;
+}
+
+const VALID_DEVICE_TYPES = ['mobile', 'tablet', 'desktop'];
+const VALID_BROWSERS = ['Chrome', 'Firefox', 'Safari', 'Edge', 'Other'];
+const VALID_OS = ['Windows', 'macOS', 'iOS', 'Android', 'Linux', 'Other'];
+const VALID_SCREEN_CATEGORIES = ['small', 'medium', 'large', 'xlarge'];
+
+function validateAnalytics(raw: unknown): ValidatedAnalytics | null {
+  if (!raw || typeof raw !== 'object') return null;
+
+  const data = raw as Record<string, unknown>;
+
+  // visitor_id: must be a hex string 32-64 chars (SHA-256 hash)
+  const visitor_id = typeof data.visitor_id === 'string' && /^[a-f0-9]{32,64}$/.test(data.visitor_id)
+    ? data.visitor_id : 'anonymous';
+
+  // device_type: whitelist only
+  const device_type = typeof data.device_type === 'string' && VALID_DEVICE_TYPES.includes(data.device_type)
+    ? data.device_type : 'desktop';
+
+  // browser: whitelist only
+  const browser = typeof data.browser === 'string' && VALID_BROWSERS.includes(data.browser)
+    ? data.browser : 'Other';
+
+  // os: whitelist only
+  const os = typeof data.os === 'string' && VALID_OS.includes(data.os)
+    ? data.os : 'Other';
+
+  // screen_category: whitelist only
+  const screen_category = typeof data.screen_category === 'string' && VALID_SCREEN_CATEGORIES.includes(data.screen_category)
+    ? data.screen_category : 'medium';
+
+  // timezone: IANA format, max 50 chars, alphanumeric with / and _
+  const timezone = typeof data.timezone === 'string' && data.timezone.length <= 50 && /^[A-Za-z0-9\/_+-]+$/.test(data.timezone)
+    ? data.timezone : 'Unknown';
+
+  // referrer_domain: hostname only, max 100 chars
+  const referrer_domain = typeof data.referrer_domain === 'string' && data.referrer_domain.length <= 100 && /^[a-z0-9.\-]+$|^(direct|internal)$/.test(data.referrer_domain)
+    ? data.referrer_domain : '';
+
+  // session_start_page: path only, max 200 chars, no query strings
+  const rawPage = typeof data.session_start_page === 'string' ? data.session_start_page.split('?')[0] : '/';
+  const session_start_page = rawPage.length <= 200 && /^\/[a-zA-Z0-9\/_-]*$/.test(rawPage)
+    ? rawPage : '/';
+
+  // message_index: non-negative integer
+  const message_index = typeof data.message_index === 'number' && Number.isInteger(data.message_index) && data.message_index >= 0 && data.message_index < 1000
+    ? data.message_index : 0;
+
+  return { visitor_id, device_type, browser, os, screen_category, timezone, referrer_domain, session_start_page, message_index };
 }
 
 // Patterns that should never appear in legitimate assistant history messages
@@ -162,7 +226,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { message, sessionId, history } = body;
+    const { message, sessionId, history, analytics: rawAnalytics } = body;
 
     if (!message || typeof message !== 'string') {
       return NextResponse.json(
@@ -181,6 +245,9 @@ export async function POST(request: NextRequest) {
     // Security: Validate session ID format
     const validSessionId = validateSessionId(sessionId);
 
+    // Validate analytics metadata (whitelist approach)
+    const validAnalytics = validateAnalytics(rawAnalytics);
+
     // Validate and convert conversation history for Gemini format
     const validHistory = validateHistory(history);
     const geminiHistory = validHistory.map((msg) => ({
@@ -188,8 +255,10 @@ export async function POST(request: NextRequest) {
       parts: [{ text: msg.content }],
     }));
 
-    // Call Gemini API with conversation history
+    // Call Gemini API with conversation history — measure server-side response time
+    const geminiStart = Date.now();
     const { answer, sourcesUsed, flagged } = await askGemini(message, geminiHistory);
+    const serverResponseMs = Date.now() - geminiStart;
 
     // Log to Supabase (non-blocking) — Security: use SHA-256 hashed IP, no user-agent
     const logPromise = supabase.from('chat_transcripts').insert({
@@ -201,16 +270,40 @@ export async function POST(request: NextRequest) {
         timestamp: new Date().toISOString(),
         flagged,
         ip_hash: hashIP(ip),
+        // Analytics enrichment
+        ...(validAnalytics && {
+          visitor_id: validAnalytics.visitor_id,
+          device_type: validAnalytics.device_type,
+          browser: validAnalytics.browser,
+          os: validAnalytics.os,
+          screen_category: validAnalytics.screen_category,
+          timezone: validAnalytics.timezone,
+          referrer_domain: validAnalytics.referrer_domain,
+          message_index: validAnalytics.message_index,
+          response_time_ms: serverResponseMs,
+        }),
       },
     });
 
-    // Also upsert the session record
+    // Also upsert the session record — now with analytics data
+    const sessionUpsertData: Record<string, unknown> = {
+      session_id: validSessionId,
+      status: flagged ? 'flagged' : 'active',
+      updated_at: new Date().toISOString(),
+      topic_summary: sourcesUsed?.join(', ') || null,
+    };
+
+    // Add analytics fields if available
+    if (validAnalytics) {
+      sessionUpsertData.visitor_id = validAnalytics.visitor_id;
+      sessionUpsertData.device_type = validAnalytics.device_type;
+      sessionUpsertData.browser = validAnalytics.browser;
+      sessionUpsertData.os = validAnalytics.os;
+      sessionUpsertData.session_start_page = validAnalytics.session_start_page;
+    }
+
     const sessionPromise = supabase.from('chat_sessions').upsert(
-      {
-        session_id: validSessionId,
-        status: flagged ? 'flagged' : 'active',
-        updated_at: new Date().toISOString(),
-      },
+      sessionUpsertData,
       { onConflict: 'session_id' }
     );
 

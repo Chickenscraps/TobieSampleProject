@@ -10,6 +10,9 @@ import {
   MessageSquare,
   ChevronRight,
   RefreshCw,
+  Activity,
+  CalendarDays,
+  TrendingUp,
 } from 'lucide-react';
 
 interface Session {
@@ -33,6 +36,12 @@ export default function ConversationsPage() {
   const [statusFilter, setStatusFilter] = useState('all');
   const [page, setPage] = useState(0);
   const pageSize = 20;
+
+  // Stats bar
+  const [totalSessions, setTotalSessions] = useState(0);
+  const [todayCount, setTodayCount] = useState(0);
+  const [avgPerDay, setAvgPerDay] = useState(0);
+  const [longestSession, setLongestSession] = useState(0);
 
   useEffect(() => {
     loadSessions();
@@ -67,6 +76,18 @@ export default function ConversationsPage() {
 
       setSessions(sessionsWithCounts);
 
+      // Stats bar calculations
+      const allCounts = sessionsWithCounts.map(s => s.messageCount || 0);
+      setTotalSessions(sessionsWithCounts.length);
+      const todayStart = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).toISOString();
+      setTodayCount(sessionsWithCounts.filter(s => s.created_at >= todayStart).length);
+      if (sessionsWithCounts.length > 0) {
+        const firstDate = new Date(sessionsWithCounts[sessionsWithCounts.length - 1].created_at);
+        const daysSinceFirst = Math.max(1, Math.ceil((Date.now() - firstDate.getTime()) / 86400000));
+        setAvgPerDay(Math.round(sessionsWithCounts.length / daysSinceFirst * 10) / 10);
+      }
+      setLongestSession(allCounts.length > 0 ? Math.max(...allCounts) : 0);
+
       // Log admin event
       supabase.from('admin_events').insert({
         actor_id: 'admin',
@@ -96,6 +117,24 @@ export default function ConversationsPage() {
         <p className="text-gray-500 mt-1">
           Review and manage all chat sessions from the benefits assistant.
         </p>
+      </div>
+
+      {/* Stats Bar */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+        {[
+          { label: 'Total', value: totalSessions, icon: MessageSquare, color: 'text-tobie-600' },
+          { label: 'Today', value: todayCount, icon: CalendarDays, color: 'text-green-600' },
+          { label: 'Avg / Day', value: avgPerDay, icon: TrendingUp, color: 'text-blue-600' },
+          { label: 'Longest Session', value: `${longestSession} msgs`, icon: Activity, color: 'text-amber-600' },
+        ].map((stat) => (
+          <div key={stat.label} className="bg-white border border-gray-200 p-4 flex items-center gap-3">
+            <stat.icon className={`w-5 h-5 ${stat.color} flex-shrink-0`} />
+            <div>
+              <p className="text-lg font-bold text-gray-900">{loading ? '—' : stat.value}</p>
+              <p className="text-xs text-gray-500">{stat.label}</p>
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* Toolbar */}

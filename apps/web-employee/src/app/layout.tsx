@@ -4,6 +4,7 @@ import { StickyHeader } from '@/components/StickyHeader';
 import { EnrollmentBanner } from '@/components/EnrollmentBanner';
 import { Footer } from '@/components/Footer';
 import { ChatAssistantLauncher } from '@/components/ChatAssistantLauncher';
+import { PageAnalyticsTracker } from '@/components/PageAnalyticsTracker';
 
 export const metadata: Metadata = {
   title: '2026 Tobie Benefits Guide',
@@ -31,6 +32,7 @@ export default function RootLayout({
           <Footer />
         </div>
         <ChatAssistantLauncher />
+        <PageAnalyticsTracker />
       </body>
     </html>
   );

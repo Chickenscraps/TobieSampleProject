@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard,
+  BarChart3,
   MessageSquare,
   ClipboardCheck,
   Download,
@@ -18,6 +19,7 @@ import {
 
 const navItems = [
   { label: 'Overview', href: '/', icon: LayoutDashboard },
+  { label: 'Analytics', href: '/analytics', icon: BarChart3 },
   { label: 'Conversations', href: '/conversations', icon: MessageSquare },
   { label: 'Review Queue', href: '/review-queue', icon: ClipboardCheck },
   { label: 'Exports', href: '/exports', icon: Download },

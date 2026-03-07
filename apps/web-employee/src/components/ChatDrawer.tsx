@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useRef, useEffect, FormEvent } from 'react';
+import { useState, useRef, useEffect, useCallback, FormEvent } from 'react';
 import { X, Send, Bot, User, Sparkles, ArrowRight, RotateCcw } from 'lucide-react';
+import { collectAnalyticsMetadata, initAnalytics, type AnalyticsMetadata } from '@/lib/analytics';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface ChatMessage {
@@ -167,6 +168,15 @@ export function ChatDrawer({ isOpen, onClose, persistent = false }: ChatDrawerPr
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const analyticsRef = useRef<AnalyticsMetadata | null>(null);
+  const messageIndexRef = useRef(0);
+
+  // Initialize analytics (generates visitor ID async on first render)
+  useEffect(() => {
+    initAnalytics().then(() => {
+      analyticsRef.current = collectAnalyticsMetadata();
+    });
+  }, []);
 
   // Scroll to bottom on new messages
   useEffect(() => {
@@ -207,6 +217,10 @@ export function ChatDrawer({ isOpen, onClose, persistent = false }: ChatDrawerPr
     setIsLoading(true);
 
     try {
+      // Measure client-side response time
+      const fetchStart = performance.now();
+      const currentMessageIndex = messageIndexRef.current++;
+
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -214,8 +228,14 @@ export function ChatDrawer({ isOpen, onClose, persistent = false }: ChatDrawerPr
           message: text.trim(),
           sessionId,
           history: getConversationHistory(),
+          analytics: {
+            ...analyticsRef.current,
+            message_index: currentMessageIndex,
+          },
         }),
       });
+
+      const responseTimeMs = Math.round(performance.now() - fetchStart);
 
       if (response.status === 429) {
         const data = await response.json();
@@ -320,6 +340,7 @@ export function ChatDrawer({ isOpen, onClose, persistent = false }: ChatDrawerPr
                   }]);
                   setShowChips(true);
                   setInputValue('');
+                  messageIndexRef.current = 0;
                 }}
                 className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
                 aria-label="New conversation"
