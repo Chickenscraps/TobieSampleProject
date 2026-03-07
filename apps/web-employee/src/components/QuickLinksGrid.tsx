@@ -5,6 +5,15 @@ import { quickLinks } from '@/data/quick-links';
 import { getIcon } from '@/lib/icons';
 import { ScrollFadeIn } from './ScrollFadeIn';
 
+// Map quick link labels to their custom icon images
+const quickLinkIcons: Record<string, string> = {
+  'Benefits Guide': '/images/icon-benefits-guide.png',
+  'Enrollment Portal': '/images/icon-enrollment.png',
+  'Medical Resources': '/images/icon-medical-resources.png',
+  'Contact HR': '/images/icon-contact-hr.png',
+  'Find a Provider': '/images/icon-find-provider.png',
+};
+
 export function QuickLinksGrid() {
   return (
     <section id="quick-links" className="py-16 sm:py-20 bg-gray-50">
@@ -23,18 +32,30 @@ export function QuickLinksGrid() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {quickLinks.map((link, index) => {
             const IconComponent = getIcon(link.icon);
+            const customIcon = quickLinkIcons[link.label];
 
             return (
               <ScrollFadeIn key={link.label} delay={index * 100}>
                 <a
                   href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  target={link.url.startsWith('http') ? '_blank' : undefined}
+                  rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
                   className="group block bg-white border border-gray-200 p-6 hover:scale-[1.02] hover:bg-brand-surface transition-all duration-300"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-tobie-50 flex items-center justify-center group-hover:bg-tobie-100 transition-colors">
-                      <IconComponent className="h-6 w-6 text-tobie-600" />
+                    <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center">
+                      {customIcon ? (
+                        <img
+                          src={customIcon}
+                          alt=""
+                          className="w-10 h-10 object-contain"
+                          aria-hidden="true"
+                        />
+                      ) : (
+                        <div className="w-12 h-12 bg-tobie-50 flex items-center justify-center group-hover:bg-tobie-100 transition-colors">
+                          <IconComponent className="h-6 w-6 text-tobie-600" />
+                        </div>
+                      )}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">

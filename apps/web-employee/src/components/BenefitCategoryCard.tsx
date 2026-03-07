@@ -5,28 +5,36 @@ import { getIcon } from '@/lib/icons';
 // Map category IDs to their illustration images
 const categoryImages: Record<string, { src: string; alt: string }> = {
   medical: {
-    src: '/images/medical-ichra.svg',
+    src: '/images/medical-ichra.png',
     alt: 'Doctor speaking with patient, with insurance symbol overlay.',
   },
   pharmacy: {
-    src: '/images/pharmacy.svg',
+    src: '/images/pharmacy.png',
     alt: 'Pharmacist handing a prescription medicine bottle to a patient at a counter.',
   },
   dental: {
-    src: '/images/dental.svg',
+    src: '/images/dental.png',
     alt: 'Dentist examining a patient\'s teeth in a dental clinic.',
   },
   vision: {
-    src: '/images/vision.svg',
+    src: '/images/vision.png',
     alt: 'Optometrist fitting eyeglasses on a patient during an eye exam.',
   },
   'life-add': {
-    src: '/images/life-disability.svg',
-    alt: 'Silhouetted family holding hands under a sunrise, symbolizing life insurance.',
+    src: '/images/life-disability.png',
+    alt: 'Family walking together outdoors, symbolizing life insurance protection.',
   },
   disability: {
-    src: '/images/life-disability.svg',
-    alt: 'Silhouetted family holding hands under a sunrise, symbolizing disability insurance.',
+    src: '/images/life-disability.png',
+    alt: 'Family walking together outdoors, symbolizing disability insurance protection.',
+  },
+  retirement: {
+    src: '/images/retirement.png',
+    alt: 'Couple reviewing financial charts on a tablet, planning for retirement.',
+  },
+  worklife: {
+    src: '/images/work-life.png',
+    alt: 'Woman relaxing and reading a book, representing work-life balance.',
   },
 };
 

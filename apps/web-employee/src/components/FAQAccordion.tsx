@@ -33,9 +33,9 @@ export function FAQAccordion() {
         <ScrollFadeIn>
           <div className="text-center mb-10">
             <img
-              src="/images/faq-illustration.svg"
-              alt="Blue question mark icon representing frequently asked questions."
-              className="w-20 h-20 mx-auto mb-4"
+              src="/images/faq-illustration.png"
+              alt="Illustration of question marks and speech bubbles representing frequently asked questions."
+              className="w-24 h-24 mx-auto mb-4 object-contain"
             />
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
               Frequently Asked Questions
