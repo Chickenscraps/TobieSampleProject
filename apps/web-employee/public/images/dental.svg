@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" fill="#e8f0f8"/>
+  <!-- Tooth shape -->
+  <path d="M200 50 C160 50 140 80 140 110 C140 140 155 150 160 180 C165 210 165 250 180 250 C195 250 195 210 200 190 C205 210 205 250 220 250 C235 250 235 210 240 180 C245 150 260 140 260 110 C260 80 240 50 200 50Z" fill="white" stroke="#316A9E" stroke-width="3"/>
+  <!-- Sparkle on tooth -->
+  <line x1="175" y1="90" x2="175" y2="110" stroke="#FFB31A" stroke-width="2"/>
+  <line x1="165" y1="100" x2="185" y2="100" stroke="#FFB31A" stroke-width="2"/>
+  <!-- Mirror tool -->
+  <line x1="60" y1="280" x2="100" y2="140" stroke="#316A9E" stroke-width="3" opacity="0.5"/>
+  <circle cx="100" cy="130" r="20" stroke="#316A9E" stroke-width="2" fill="#316A9E" opacity="0.1"/>
+  <!-- Dental probe -->
+  <line x1="340" y1="280" x2="310" y2="150" stroke="#316A9E" stroke-width="3" opacity="0.5"/>
+  <circle cx="310" cy="145" r="5" fill="#316A9E" opacity="0.5"/>
+  <!-- Checkmark -->
+  <path d="M270 80 L285 95 L310 65" stroke="#FFB31A" stroke-width="4" fill="none" stroke-linecap="square"/>
+</svg>

@@ -2,15 +2,56 @@ import { ExternalLink, AlertCircle } from 'lucide-react';
 import { BenefitCategory } from '@/types/benefits';
 import { getIcon } from '@/lib/icons';
 
+// Map category IDs to their illustration images
+const categoryImages: Record<string, { src: string; alt: string }> = {
+  medical: {
+    src: '/images/medical-ichra.svg',
+    alt: 'Doctor speaking with patient, with insurance symbol overlay.',
+  },
+  pharmacy: {
+    src: '/images/pharmacy.svg',
+    alt: 'Pharmacist handing a prescription medicine bottle to a patient at a counter.',
+  },
+  dental: {
+    src: '/images/dental.svg',
+    alt: 'Dentist examining a patient\'s teeth in a dental clinic.',
+  },
+  vision: {
+    src: '/images/vision.svg',
+    alt: 'Optometrist fitting eyeglasses on a patient during an eye exam.',
+  },
+  'life-add': {
+    src: '/images/life-disability.svg',
+    alt: 'Silhouetted family holding hands under a sunrise, symbolizing life insurance.',
+  },
+  disability: {
+    src: '/images/life-disability.svg',
+    alt: 'Silhouetted family holding hands under a sunrise, symbolizing disability insurance.',
+  },
+};
+
 interface BenefitCategoryCardProps {
   category: BenefitCategory;
 }
 
 export function BenefitCategoryCard({ category }: BenefitCategoryCardProps) {
   const IconComponent = getIcon(category.icon);
+  const illustration = categoryImages[category.id];
 
   return (
-    <div className="benefit-card bg-white border border-gray-200 p-6 flex flex-col h-full">
+    <div className="benefit-card bg-white border border-gray-200 flex flex-col h-full overflow-hidden">
+      {/* Illustration */}
+      {illustration && (
+        <div className="w-full h-32 bg-brand-surface flex items-center justify-center overflow-hidden">
+          <img
+            src={illustration.src}
+            alt={illustration.alt}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      )}
+
+      <div className="p-6 flex flex-col flex-1">
       {/* Header */}
       <div className="flex items-start gap-3 mb-4">
         <div className="flex-shrink-0 w-11 h-11 bg-tobie-50 flex items-center justify-center">
@@ -84,6 +125,7 @@ export function BenefitCategoryCard({ category }: BenefitCategoryCardProps) {
           ))}
         </div>
       )}
+      </div>
     </div>
   );
 }

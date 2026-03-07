@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" fill="none">
+  <rect width="400" height="300" fill="#e8f0f8"/>
+  <!-- Stethoscope -->
+  <path d="M120 80 C120 80 100 120 100 160 C100 200 130 220 160 220 C190 220 200 200 200 180" stroke="#316A9E" stroke-width="6" fill="none" stroke-linecap="square"/>
+  <circle cx="200" cy="170" r="12" stroke="#316A9E" stroke-width="4" fill="#e8f0f8"/>
+  <circle cx="120" cy="75" r="8" fill="#316A9E"/>
+  <circle cx="140" cy="75" r="8" fill="#255077"/>
+  <!-- Dollar / Insurance card overlay -->
+  <rect x="220" y="100" width="140" height="90" fill="#316A9E" opacity="0.15"/>
+  <rect x="220" y="100" width="140" height="90" stroke="#316A9E" stroke-width="2" fill="none"/>
+  <rect x="230" y="110" width="40" height="25" fill="#FFB31A" opacity="0.5"/>
+  <rect x="230" y="145" width="80" height="6" fill="#316A9E" opacity="0.3"/>
+  <rect x="230" y="158" width="60" height="6" fill="#316A9E" opacity="0.2"/>
+  <rect x="230" y="171" width="100" height="6" fill="#316A9E" opacity="0.15"/>
+  <!-- Medical cross -->
+  <rect x="310" y="220" width="50" height="50" fill="#316A9E" opacity="0.1"/>
+  <rect x="325" y="225" width="20" height="40" fill="#316A9E" opacity="0.4"/>
+  <rect x="315" y="235" width="40" height="20" fill="#316A9E" opacity="0.4"/>
+  <!-- Heart with dollar -->
+  <path d="M80 260 C65 240 40 240 40 260 C40 280 80 300 80 300 C80 300 120 280 120 260 C120 240 95 240 80 260Z" fill="#FFB31A" opacity="0.3"/>
+  <text x="80" y="278" text-anchor="middle" font-family="Inter, sans-serif" font-size="24" font-weight="bold" fill="#18354F" opacity="0.5">$</text>
+</svg>

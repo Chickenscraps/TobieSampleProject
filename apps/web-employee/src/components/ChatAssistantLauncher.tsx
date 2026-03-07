@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { MessageCircle } from 'lucide-react';
 import { ChatDrawer } from './ChatDrawer';
 
 export function ChatAssistantLauncher() {
@@ -18,7 +17,7 @@ export function ChatAssistantLauncher() {
         aria-label="Open Benefits Assistant"
       >
         <div className="w-14 h-14 flex items-center justify-center">
-          <MessageCircle className="h-6 w-6" />
+          <img src="/images/chatbot-icon.svg" alt="Chatbot" className="h-8 w-8" />
         </div>
         <span className="hidden sm:inline-block pr-5 text-sm font-medium whitespace-nowrap">
           Ask About Your Benefits

@@ -46,6 +46,18 @@ export function ProviderDirectory() {
           </div>
         </ScrollFadeIn>
 
+        {/* Directory Banner */}
+        <ScrollFadeIn delay={50}>
+          <div className="max-w-3xl mx-auto mb-8">
+            <img
+              src="/images/provider-directory.svg"
+              alt="Icons of hospitals, clinics, and pharmacies connected on a light world map."
+              className="w-full"
+              style={{ aspectRatio: '3/1' }}
+            />
+          </div>
+        </ScrollFadeIn>
+
         {/* Search Input */}
         <ScrollFadeIn delay={100}>
           <div className="max-w-md mx-auto mb-10">
