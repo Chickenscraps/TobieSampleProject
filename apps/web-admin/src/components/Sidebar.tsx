@@ -9,6 +9,7 @@ import {
   Download,
   Shield,
   Settings,
+  ArrowLeft,
 } from 'lucide-react';
 
 const navItems = [
@@ -52,6 +53,19 @@ export function Sidebar() {
           );
         })}
       </nav>
+
+      {/* Back to Employee Site */}
+      <div className="px-4 pb-2">
+        <a
+          href="https://tobiebenefits.netlify.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-tobie-600 hover:bg-tobie-50 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to Benefits Site
+        </a>
+      </div>
 
       {/* Footer */}
       <div className="p-4 border-t border-gray-200">
