@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, FormEvent } from 'react';
-import { X, Send, Bot, User, Sparkles, ArrowRight } from 'lucide-react';
+import { X, Send, Bot, User, Sparkles, ArrowRight, RotateCcw } from 'lucide-react';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 interface ChatMessage {
@@ -299,15 +299,37 @@ export function ChatDrawer({ isOpen, onClose, persistent = false }: ChatDrawerPr
               <p className="text-[11px] text-gray-400 leading-tight">Powered by AI</p>
             </div>
           </div>
-          {!persistent && (
-            <button
-              onClick={onClose}
-              className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
-              aria-label="Close chat"
-            >
-              <X className="h-5 w-5" />
-            </button>
-          )}
+          <div className="flex items-center gap-1">
+            {messages.length > 1 && (
+              <button
+                onClick={() => {
+                  setMessages([{
+                    id: 'welcome',
+                    role: 'assistant',
+                    content: 'Hello! I can help answer questions about your Tobie benefits. What would you like to know?',
+                    timestamp: new Date(),
+                    sourcesUsed: ['General'],
+                  }]);
+                  setShowChips(true);
+                  setInputValue('');
+                }}
+                className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
+                aria-label="New conversation"
+                title="New conversation"
+              >
+                <RotateCcw className="h-4 w-4" />
+              </button>
+            )}
+            {!persistent && (
+              <button
+                onClick={onClose}
+                className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
+                aria-label="Close chat"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Disclaimer — subtle, integrated */}
@@ -413,9 +435,9 @@ export function ChatDrawer({ isOpen, onClose, persistent = false }: ChatDrawerPr
               </div>
               <div className="bg-white border border-gray-100 px-4 py-3">
                 <div className="flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 bg-tobie-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                  <span className="w-1.5 h-1.5 bg-tobie-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                  <span className="w-1.5 h-1.5 bg-tobie-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                  <span className="w-1.5 h-1.5 bg-tobie-400 rounded-full typing-dot" />
+                  <span className="w-1.5 h-1.5 bg-tobie-400 rounded-full typing-dot" />
+                  <span className="w-1.5 h-1.5 bg-tobie-400 rounded-full typing-dot" />
                 </div>
               </div>
             </div>

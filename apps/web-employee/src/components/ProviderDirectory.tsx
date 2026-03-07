@@ -159,7 +159,7 @@ export function ProviderDirectory() {
                 return (
                   <div
                     key={`${provider.name}-${provider.category}`}
-                    className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 px-5 py-4 hover:bg-brand-surface transition-colors"
+                    className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 px-5 py-4 row-hover"
                   >
                     {/* Icon + Name + Category badge */}
                     <div className="flex items-start gap-3 sm:w-2/5 min-w-0">

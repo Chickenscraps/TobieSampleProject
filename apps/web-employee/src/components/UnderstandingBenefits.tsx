@@ -67,7 +67,7 @@ export function UnderstandingBenefits() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {benefitTerms.map((item, index) => (
             <ScrollFadeIn key={item.term} delay={index * 75}>
-              <div className="bg-white border border-gray-200 p-6 h-full hover:bg-brand-surface transition-all duration-300">
+              <div className="bg-white border border-gray-200 p-6 h-full card-hover">
                 <div className="flex items-center gap-2 mb-3">
                   <div className="w-2 h-2 bg-tobie-500" />
                   <h3 className="text-base font-semibold text-tobie-700">

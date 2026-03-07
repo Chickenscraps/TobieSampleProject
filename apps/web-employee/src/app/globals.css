@@ -41,13 +41,52 @@ html {
   transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
 }
 
-/* Card hover — scale per brand guide (no shadows, no gradients) */
-.benefit-card {
-  @apply transition-transform duration-300 ease-in-out;
+/* Card hover — lift */
+.card-hover {
+  @apply transition-all duration-300 ease-out;
 }
 
-.benefit-card:hover {
-  transform: scale(1.02);
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Subtle row hover highlight */
+.row-hover {
+  @apply transition-colors duration-200;
+}
+
+.row-hover:hover {
+  @apply bg-tobie-50/50;
+}
+
+/* Button press effect */
+.btn-press {
+  @apply transition-all duration-200;
+}
+
+.btn-press:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-press:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Link hover underline animation */
+.link-underline {
+  @apply relative;
+}
+
+.link-underline::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-0 h-[1.5px] bg-tobie-500 transition-all duration-300;
+}
+
+.link-underline:hover::after {
+  @apply w-full;
 }
 
 /* Chat drawer animation */
@@ -81,6 +120,40 @@ html {
   }
 }
 
+/* Mobile nav slide-down */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-down {
+  animation: slideDown 0.2s ease-out;
+}
+
+/* Typing indicator pulse */
+@keyframes typingPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.typing-dot {
+  animation: typingPulse 1.4s ease-in-out infinite;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 6px;
@@ -96,4 +169,9 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #9CA3AF;
+}
+
+/* Focus ring */
+*:focus-visible {
+  @apply outline-2 outline-offset-2 outline-tobie-500;
 }

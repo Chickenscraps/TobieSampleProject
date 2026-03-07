@@ -35,7 +35,7 @@ export function SearchCare() {
                   href="https://www.bcbs.com/find-a-doctor"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-tobie-600 text-white font-semibold hover:bg-tobie-700 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-tobie-600 text-white font-semibold hover:bg-tobie-700 btn-press"
                 >
                   Find a Medical Provider
                   <ExternalLink className="h-4 w-4" />
@@ -44,7 +44,7 @@ export function SearchCare() {
                   href="https://www.deltadental.com/find-a-dentist"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 btn-press"
                 >
                   Find a Dentist
                   <ExternalLink className="h-4 w-4" />

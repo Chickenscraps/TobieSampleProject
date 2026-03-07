@@ -70,7 +70,7 @@ export function HeroSection() {
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
-            <span>Open Enrollment: November 2025</span>
+            <span>Open Enrollment: November 2026</span>
             <span className="text-white/50">|</span>
             <span>Coverage Effective: January 1, 2026</span>
           </div>
@@ -83,13 +83,13 @@ export function HeroSection() {
           >
             <button
               onClick={() => scrollTo('#benefits-overview')}
-              className="w-full sm:w-auto px-8 py-3.5 bg-tobie-600 text-white font-bold hover:bg-tobie-700 transition-all duration-200"
+              className="w-full sm:w-auto px-8 py-3.5 bg-tobie-600 text-white font-bold hover:bg-tobie-700 btn-press"
             >
               Explore Your Benefits
             </button>
             <button
               onClick={() => scrollTo('#quick-links')}
-              className="w-full sm:w-auto px-8 py-3.5 bg-white/10 text-white font-semibold border border-white/30 hover:bg-white/20 backdrop-blur-sm transition-all duration-200"
+              className="w-full sm:w-auto px-8 py-3.5 bg-white/10 text-white font-semibold border border-white/30 hover:bg-white/20 backdrop-blur-sm btn-press"
             >
               Enroll Now
             </button>

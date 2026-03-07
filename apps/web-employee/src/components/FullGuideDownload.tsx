@@ -29,7 +29,7 @@ export function FullGuideDownload() {
               href="/documents/2026-Tobie-Benefits-Guide.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-tobie-600 text-white font-semibold hover:bg-tobie-700 transition-all duration-200"
+              className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-tobie-600 text-white font-semibold hover:bg-tobie-700 btn-press"
             >
               <FileText className="h-5 w-5" />
               Download Benefits Guide (PDF)

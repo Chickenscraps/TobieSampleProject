@@ -40,24 +40,20 @@ export function Footer() {
 
         {/* Bottom row */}
         <div className="mt-8 pt-6 border-t border-white/10">
-          <div className="flex flex-wrap justify-center gap-4 text-xs text-brand-muted">
-            <a href="#" className="hover:text-white transition-colors">
+          <div className="flex flex-wrap justify-center gap-6 text-xs text-brand-muted">
+            <a href="#" className="hover:text-white transition-colors duration-200">
               Privacy Policy
             </a>
-            <span className="text-gray-700">&middot;</span>
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="#" className="hover:text-white transition-colors duration-200">
               Terms of Use
             </a>
-            <span className="text-gray-700">&middot;</span>
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="#" className="hover:text-white transition-colors duration-200">
               Accessibility
             </a>
-            <span className="text-gray-700">&middot;</span>
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="#" className="hover:text-white transition-colors duration-200">
               HIPAA Notice
             </a>
-            <span className="text-gray-700">&middot;</span>
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="#" className="hover:text-white transition-colors duration-200">
               Contact HR
             </a>
           </div>

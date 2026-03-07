@@ -23,7 +23,7 @@ export function AboutSection() {
         {/* HR Contact Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           <ScrollFadeIn delay={100}>
-            <div className="bg-tobie-50 border border-tobie-100 p-6 transition-colors">
+            <div className="bg-tobie-50 border border-tobie-100 p-6 card-hover">
               <div className="flex items-center gap-3 mb-4">
                 <div className="flex-shrink-0 w-10 h-10 bg-tobie-500 flex items-center justify-center">
                   <Phone className="h-5 w-5 text-white" />
@@ -62,7 +62,7 @@ export function AboutSection() {
           </ScrollFadeIn>
 
           <ScrollFadeIn delay={200}>
-            <div className="bg-gray-50 border border-gray-200 p-6 transition-colors">
+            <div className="bg-gray-50 border border-gray-200 p-6 card-hover">
               <div className="flex items-center gap-3 mb-4">
                 <div className="flex-shrink-0 w-10 h-10 bg-gray-700 flex items-center justify-center">
                   <Mail className="h-5 w-5 text-white" />
