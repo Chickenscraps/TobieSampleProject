@@ -79,7 +79,7 @@ export function ChatDrawer({ isOpen, onClose }: ChatDrawerProps) {
       const assistantMessage: ChatMessage = {
         id: `assistant-${Date.now()}`,
         role: 'assistant',
-        content: data.reply || 'I apologize, but I was unable to process that request. Please try again.',
+        content: data.answer || 'I apologize, but I was unable to process that request. Please try again.',
         timestamp: new Date(),
       };
 
