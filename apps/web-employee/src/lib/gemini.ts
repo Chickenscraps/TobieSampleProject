@@ -168,9 +168,12 @@ export async function askGemini(
     },
   ];
 
-  const response = await fetch(`${GEMINI_URL}?key=${GEMINI_API_KEY}`, {
+  const response = await fetch(GEMINI_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'x-goog-api-key': GEMINI_API_KEY || '',
+    },
     body: JSON.stringify({
       contents,
       generationConfig: {
@@ -188,8 +191,10 @@ export async function askGemini(
   });
 
   if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`Gemini API error: ${response.status} - ${error}`);
+    // Security: log status only, never expose full API error body to callers
+    const status = response.status;
+    console.error(`Gemini API request failed with status ${status}`);
+    throw new Error('AI service temporarily unavailable');
   }
 
   const data = await response.json();

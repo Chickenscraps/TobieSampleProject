@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Sidebar } from '@/components/Sidebar';
+import { AuthenticatedLayout } from '@/components/AuthenticatedLayout';
 
 export const metadata: Metadata = {
   title: 'Tobie Benefits Admin Dashboard',
@@ -22,8 +22,7 @@ export default function RootLayout({
       </head>
       <body className="font-sans">
         <div className="min-h-screen">
-          <Sidebar />
-          <main className="lg:ml-64 pt-18 lg:pt-0 p-4 sm:p-6 lg:p-8">{children}</main>
+          <AuthenticatedLayout>{children}</AuthenticatedLayout>
         </div>
       </body>
     </html>

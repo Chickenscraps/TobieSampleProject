@@ -13,6 +13,7 @@ import {
   ArrowLeft,
   Menu,
   X,
+  LogOut,
 } from 'lucide-react';
 
 const navItems = [
@@ -109,14 +110,26 @@ export function Sidebar() {
 
         {/* Footer */}
         <div className="p-4 border-t border-gray-200">
-          <div className="flex items-center gap-3 px-3 py-2">
-            <div className="w-8 h-8 bg-tobie-100 flex items-center justify-center flex-shrink-0">
-              <Settings className="w-4 h-4 text-tobie-600" />
+          <div className="flex items-center justify-between px-3 py-2">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-tobie-100 flex items-center justify-center flex-shrink-0">
+                <Settings className="w-4 h-4 text-tobie-600" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-gray-900">HR Admin</p>
+                <p className="text-xs text-gray-500">admin@tobie.org</p>
+              </div>
             </div>
-            <div>
-              <p className="text-sm font-medium text-gray-900">HR Admin</p>
-              <p className="text-xs text-gray-500">admin@tobie.org</p>
-            </div>
+            <button
+              onClick={() => {
+                sessionStorage.removeItem('tobie_admin_authenticated');
+                window.location.reload();
+              }}
+              className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+              title="Sign out"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
           </div>
         </div>
       </aside>
