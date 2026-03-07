@@ -28,20 +28,20 @@ export function HeroSection() {
       id="hero"
       className="relative overflow-hidden bg-white"
     >
-      {/* Full-width illustration — edge to edge within the content area */}
-      <div className="w-full">
+      {/* Full-width illustration — spans content area, aspect-ratio preserved */}
+      <div className="w-full px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10">
         <img
           src={heroIllustration.src}
           alt={heroIllustration.alt}
           width={heroIllustration.width}
           height={heroIllustration.height}
-          className="w-full object-cover"
+          className="w-full max-w-5xl mx-auto object-contain"
           fetchPriority="high"
           decoding="sync"
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20 -mt-4 sm:-mt-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-20">
 
         {/* Text content — centred below illustration */}
         <div
