@@ -1,13 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
+import { heroIllustration } from '@/lib/image-manifest';
 
 export function HeroSection() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // Trigger fade-in animation after mount
     const timer = setTimeout(() => setIsLoaded(true), 100);
     return () => clearTimeout(timer);
   }, []);
@@ -27,29 +26,34 @@ export function HeroSection() {
   return (
     <section
       id="hero"
-      className="relative overflow-hidden bg-tobie-700 text-white"
+      className="relative overflow-hidden bg-white"
     >
-      <img
-        src="/images/hero-banner.jpg"
-        alt="Diverse office team smiling in a modern workspace, welcoming employees."
-        className="absolute inset-0 w-full h-full object-cover opacity-30"
-        aria-hidden="true"
-        fetchPriority="high"
-      />
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-36">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-16 pb-16 sm:pb-20">
+        {/* Illustration — open-center layout with text overlay */}
+        <div className="relative mb-8">
+          <img
+            src={heroIllustration.src}
+            alt={heroIllustration.alt}
+            width={heroIllustration.width}
+            height={heroIllustration.height}
+            className="w-full max-h-[320px] object-contain"
+            fetchPriority="high"
+            decoding="sync"
+          />
+        </div>
+
+        {/* Text content — centred below illustration */}
         <div
           className={`max-w-3xl mx-auto text-center transition-all duration-700 ease-out ${
             isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          {/* Main heading */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-5 text-gray-900">
             2026 Tobie Benefits Guide
           </h1>
 
-          {/* Subtitle */}
           <p
-            className={`text-lg sm:text-xl text-brand-muted leading-relaxed max-w-2xl mx-auto mb-8 transition-all duration-700 ease-out delay-150 ${
+            className={`text-lg sm:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto mb-6 transition-all duration-700 ease-out delay-150 ${
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
@@ -60,7 +64,7 @@ export function HeroSection() {
 
           {/* Key dates */}
           <div
-            className={`inline-flex items-center gap-2 bg-white/10 px-6 py-3 text-sm font-medium text-brand-muted mb-10 transition-all duration-700 ease-out delay-300 ${
+            className={`inline-flex items-center gap-2 bg-tobie-50 px-6 py-3 text-sm font-medium text-tobie-700 mb-8 transition-all duration-700 ease-out delay-300 ${
               isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
@@ -77,20 +81,19 @@ export function HeroSection() {
           >
             <button
               onClick={() => scrollTo('#benefits-overview')}
-              className="w-full sm:w-auto px-8 py-3.5 bg-accent text-black font-bold hover:bg-accent-dark transition-all duration-200"
+              className="w-full sm:w-auto px-8 py-3.5 bg-tobie-600 text-white font-bold hover:bg-tobie-700 transition-all duration-200"
             >
               Explore Your Benefits
             </button>
             <button
               onClick={() => scrollTo('#quick-links')}
-              className="w-full sm:w-auto px-8 py-3.5 bg-white/10 text-white font-semibold border border-white/25 hover:bg-white/20 transition-all duration-200"
+              className="w-full sm:w-auto px-8 py-3.5 bg-white text-tobie-700 font-semibold border border-tobie-200 hover:bg-tobie-50 transition-all duration-200"
             >
               Enroll Now
             </button>
           </div>
         </div>
       </div>
-
     </section>
   );
 }

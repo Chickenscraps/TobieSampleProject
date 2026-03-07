@@ -1,42 +1,8 @@
 import { ExternalLink, AlertCircle } from 'lucide-react';
 import { BenefitCategory } from '@/types/benefits';
 import { getIcon } from '@/lib/icons';
-
-// Map category IDs to their illustration images
-const categoryImages: Record<string, { src: string; alt: string }> = {
-  medical: {
-    src: '/images/medical-ichra.jpg',
-    alt: 'Doctor speaking with patient, with insurance symbol overlay.',
-  },
-  pharmacy: {
-    src: '/images/pharmacy.jpg',
-    alt: 'Pharmacist handing a prescription medicine bottle to a patient at a counter.',
-  },
-  dental: {
-    src: '/images/dental.jpg',
-    alt: 'Dentist examining a patient\'s teeth in a dental clinic.',
-  },
-  vision: {
-    src: '/images/vision.jpg',
-    alt: 'Optometrist fitting eyeglasses on a patient during an eye exam.',
-  },
-  'life-add': {
-    src: '/images/life-disability.jpg',
-    alt: 'Family walking together outdoors, symbolizing life insurance protection.',
-  },
-  disability: {
-    src: '/images/life-disability.jpg',
-    alt: 'Family walking together outdoors, symbolizing disability insurance protection.',
-  },
-  retirement: {
-    src: '/images/retirement.jpg',
-    alt: 'Couple reviewing financial charts on a tablet, planning for retirement.',
-  },
-  worklife: {
-    src: '/images/work-life.jpg',
-    alt: 'Woman relaxing and reading a book, representing work-life balance.',
-  },
-};
+import { benefitCardImages } from '@/lib/image-manifest';
+import { SectionIllustration } from './SectionIllustration';
 
 interface BenefitCategoryCardProps {
   category: BenefitCategory;
@@ -44,20 +10,16 @@ interface BenefitCategoryCardProps {
 
 export function BenefitCategoryCard({ category }: BenefitCategoryCardProps) {
   const IconComponent = getIcon(category.icon);
-  const illustration = categoryImages[category.id];
+  const illustration = benefitCardImages[category.id];
 
   return (
     <div className="benefit-card bg-white border border-gray-200 flex flex-col h-full overflow-hidden">
       {/* Illustration */}
       {illustration && (
-        <div className="w-full h-40 bg-brand-surface flex items-center justify-center overflow-hidden">
-          <img
-            src={illustration.src}
-            alt={illustration.alt}
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
-        </div>
+        <SectionIllustration
+          illustration={illustration}
+          variant="benefitCard"
+        />
       )}
 
       <div className="p-6 flex flex-col flex-1">

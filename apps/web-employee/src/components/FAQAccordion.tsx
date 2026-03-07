@@ -4,6 +4,8 @@ import { useState, useMemo } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { faqItems } from '@/data/faq-data';
 import { ScrollFadeIn } from './ScrollFadeIn';
+import { SectionIllustration } from './SectionIllustration';
+import { faqIllustration } from '@/lib/image-manifest';
 
 const categories = [
   { key: 'all', label: 'All' },
@@ -32,12 +34,7 @@ export function FAQAccordion() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollFadeIn>
           <div className="text-center mb-10">
-            <img
-              src="/images/faq-illustration.png"
-              alt="Illustration of question marks and speech bubbles representing frequently asked questions."
-              className="w-44 mx-auto mb-4 object-contain"
-              loading="lazy"
-            />
+            <SectionIllustration illustration={faqIllustration} variant="sectionHeader" />
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
               Frequently Asked Questions
             </h2>

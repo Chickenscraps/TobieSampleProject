@@ -3,6 +3,8 @@
 import { benefitCategories } from '@/data/benefits-data';
 import { BenefitCategoryCard } from './BenefitCategoryCard';
 import { ScrollFadeIn } from './ScrollFadeIn';
+import { SectionIllustration } from './SectionIllustration';
+import { benefitsOverviewIllustration } from '@/lib/image-manifest';
 
 export function BenefitsOverview() {
   return (
@@ -10,6 +12,12 @@ export function BenefitsOverview() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollFadeIn>
           <div className="text-center mb-12">
+            <SectionIllustration
+              illustration={benefitsOverviewIllustration}
+              variant="sectionHeader"
+              className="mb-6"
+              imgClassName="w-72 sm:w-96 max-h-56 object-contain mx-auto"
+            />
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
               Your Benefits at a Glance
             </h2>

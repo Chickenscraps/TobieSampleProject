@@ -4,6 +4,8 @@ import { useState, useMemo } from 'react';
 import { Search, Phone, Globe, ExternalLink } from 'lucide-react';
 import { providers } from '@/data/contacts';
 import { ScrollFadeIn } from './ScrollFadeIn';
+import { SectionIllustration } from './SectionIllustration';
+import { providerDirectoryIllustration } from '@/lib/image-manifest';
 
 export function ProviderDirectory() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -36,6 +38,10 @@ export function ProviderDirectory() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollFadeIn>
           <div className="text-center mb-10">
+            <SectionIllustration
+              illustration={providerDirectoryIllustration}
+              variant="sectionHeader"
+            />
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
               Provider &amp; Contact Directory
             </h2>
@@ -43,18 +49,6 @@ export function ProviderDirectory() {
               Find contact information for all benefit carriers and support
               resources.
             </p>
-          </div>
-        </ScrollFadeIn>
-
-        {/* Directory Icon */}
-        <ScrollFadeIn delay={50}>
-          <div className="flex justify-center mb-8">
-            <img
-              src="/images/icon-find-provider.png"
-              alt="Magnifying glass with medical cross, representing provider search."
-              className="w-16 h-16 object-contain opacity-60"
-              loading="lazy"
-            />
           </div>
         </ScrollFadeIn>
 

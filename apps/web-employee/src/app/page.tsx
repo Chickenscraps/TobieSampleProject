@@ -6,6 +6,9 @@ import { UnderstandingBenefits } from '@/components/UnderstandingBenefits';
 import { BenefitsOverview } from '@/components/BenefitsOverview';
 import { FullGuideDownload } from '@/components/FullGuideDownload';
 import { ProviderDirectory } from '@/components/ProviderDirectory';
+import { EnrollmentCTA } from '@/components/EnrollmentCTA';
+import { SupportSection } from '@/components/SupportSection';
+import { SearchCare } from '@/components/SearchCare';
 import { ScrollFadeIn } from '@/components/ScrollFadeIn';
 
 export default function Home() {
@@ -22,7 +25,7 @@ export default function Home() {
       </ScrollFadeIn>
 
       <ScrollFadeIn>
-        <FAQAccordion />
+        <BenefitsOverview />
       </ScrollFadeIn>
 
       <ScrollFadeIn>
@@ -30,11 +33,23 @@ export default function Home() {
       </ScrollFadeIn>
 
       <ScrollFadeIn>
-        <BenefitsOverview />
+        <SearchCare />
+      </ScrollFadeIn>
+
+      <ScrollFadeIn>
+        <EnrollmentCTA />
       </ScrollFadeIn>
 
       <ScrollFadeIn>
         <FullGuideDownload />
+      </ScrollFadeIn>
+
+      <ScrollFadeIn>
+        <FAQAccordion />
+      </ScrollFadeIn>
+
+      <ScrollFadeIn>
+        <SupportSection />
       </ScrollFadeIn>
 
       <ScrollFadeIn>
