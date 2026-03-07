@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useEffect, useState, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { supabase } from '@/lib/supabase';
 import Link from 'next/link';
 import {
@@ -33,9 +33,9 @@ interface SessionData {
   created_at: string;
 }
 
-export default function ConversationDetailPage() {
-  const params = useParams();
-  const sessionId = params.id as string;
+function ConversationDetailContent() {
+  const searchParams = useSearchParams();
+  const sessionId = searchParams.get('id') || '';
   const [transcripts, setTranscripts] = useState<Transcript[]>([]);
   const [session, setSession] = useState<SessionData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -44,6 +44,8 @@ export default function ConversationDetailPage() {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
+    if (!sessionId) return;
+
     async function load() {
       try {
         const [transcriptsRes, sessionRes] = await Promise.all([
@@ -68,6 +70,7 @@ export default function ConversationDetailPage() {
 
         // Log view event
         supabase.from('admin_events').insert({
+          actor_id: 'admin',
           event_type: 'view_transcript',
           target_id: sessionId,
           details: { message_count: transcriptsRes.data?.length || 0 },
@@ -96,6 +99,7 @@ export default function ConversationDetailPage() {
         .eq('session_id', sessionId);
 
       await supabase.from('admin_events').insert({
+        actor_id: 'admin',
         event_type: 'review_conversation',
         target_id: sessionId,
         details: { new_status: reviewStatus, has_notes: !!reviewNotes },
@@ -137,6 +141,7 @@ export default function ConversationDetailPage() {
 
     // Log export
     await supabase.from('admin_events').insert({
+      actor_id: 'admin',
       event_type: 'export',
       target_id: sessionId,
       details: { format: 'json', scope: 'single_session' },
@@ -147,7 +152,13 @@ export default function ConversationDetailPage() {
       format: 'json',
       filter_criteria: { session_id: sessionId },
       record_count: transcripts.length,
+      requested_by: 'admin',
+      status: 'completed',
     });
+  }
+
+  if (!sessionId) {
+    return <div className="p-12 text-center text-gray-400">No session ID provided.</div>;
   }
 
   if (loading) {
@@ -178,7 +189,7 @@ export default function ConversationDetailPage() {
           <div className="flex gap-2">
             <button
               onClick={exportConversation}
-              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50"
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 hover:bg-gray-50"
             >
               <Download className="w-4 h-4" />
               Export
@@ -189,7 +200,7 @@ export default function ConversationDetailPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Transcript Pane */}
-        <div className="lg:col-span-2 bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <div className="lg:col-span-2 bg-white border border-gray-200 overflow-hidden">
           <div className="p-4 border-b border-gray-200">
             <h2 className="font-semibold text-gray-900">Transcript</h2>
           </div>
@@ -201,7 +212,7 @@ export default function ConversationDetailPage() {
                 <div key={t.id} className="space-y-3">
                   {/* User message */}
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 bg-blue-100 flex items-center justify-center flex-shrink-0">
                       <User className="w-4 h-4 text-blue-600" />
                     </div>
                     <div className="flex-1">
@@ -211,7 +222,7 @@ export default function ConversationDetailPage() {
                           {new Date(t.created_at).toLocaleTimeString()}
                         </span>
                       </div>
-                      <div className="bg-blue-50 rounded-lg p-3 text-sm text-gray-800">
+                      <div className="bg-blue-50 p-3 text-sm text-gray-800">
                         {t.user_message}
                       </div>
                     </div>
@@ -219,7 +230,7 @@ export default function ConversationDetailPage() {
 
                   {/* Bot response */}
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <div className="w-8 h-8 bg-gray-100 flex items-center justify-center flex-shrink-0">
                       <Bot className="w-4 h-4 text-gray-600" />
                     </div>
                     <div className="flex-1">
@@ -229,7 +240,7 @@ export default function ConversationDetailPage() {
                           {new Date(t.created_at).toLocaleTimeString()}
                         </span>
                       </div>
-                      <div className="bg-gray-50 rounded-lg p-3 text-sm text-gray-800 whitespace-pre-wrap">
+                      <div className="bg-gray-50 p-3 text-sm text-gray-800 whitespace-pre-wrap">
                         {t.bot_response}
                       </div>
                       {/* Sources */}
@@ -238,7 +249,7 @@ export default function ConversationDetailPage() {
                           {t.sources_used.map((source) => (
                             <span
                               key={source}
-                              className="inline-flex items-center gap-1 px-2 py-0.5 bg-tobie-50 text-tobie-700 rounded text-xs"
+                              className="inline-flex items-center gap-1 px-2 py-0.5 bg-tobie-50 text-tobie-700 text-xs"
                             >
                               <FileText className="w-3 h-3" />
                               {source}
@@ -257,7 +268,7 @@ export default function ConversationDetailPage() {
         {/* Review Pane */}
         <div className="space-y-4">
           {/* Review Status */}
-          <div className="bg-white rounded-xl border border-gray-200 p-4">
+          <div className="bg-white border border-gray-200 p-4">
             <h3 className="font-semibold text-gray-900 mb-4">Review</h3>
             <div className="space-y-3">
               <div>
@@ -265,7 +276,7 @@ export default function ConversationDetailPage() {
                 <select
                   value={reviewStatus}
                   onChange={(e) => setReviewStatus(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tobie-500"
+                  className="w-full px-3 py-2 border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-tobie-500"
                 >
                   <option value="pending">Pending</option>
                   <option value="reviewed">Reviewed</option>
@@ -282,13 +293,13 @@ export default function ConversationDetailPage() {
                   onChange={(e) => setReviewNotes(e.target.value)}
                   rows={4}
                   placeholder="Add review notes..."
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tobie-500 resize-none"
+                  className="w-full px-3 py-2 border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-tobie-500 resize-none"
                 />
               </div>
               <button
                 onClick={saveReview}
                 disabled={saving}
-                className="w-full px-4 py-2 bg-tobie-600 text-white text-sm font-medium rounded-lg hover:bg-tobie-700 disabled:opacity-50 transition-colors"
+                className="w-full px-4 py-2 bg-tobie-600 text-white text-sm font-medium hover:bg-tobie-700 disabled:opacity-50 transition-colors"
               >
                 {saving ? 'Saving...' : 'Save Review'}
               </button>
@@ -296,7 +307,7 @@ export default function ConversationDetailPage() {
           </div>
 
           {/* Session Info */}
-          <div className="bg-white rounded-xl border border-gray-200 p-4">
+          <div className="bg-white border border-gray-200 p-4">
             <h3 className="font-semibold text-gray-900 mb-3">Session Info</h3>
             <dl className="space-y-2 text-sm">
               <div className="flex justify-between">
@@ -320,7 +331,7 @@ export default function ConversationDetailPage() {
                     {session.risk_flags.map((flag) => (
                       <span
                         key={flag}
-                        className="inline-flex items-center gap-1 px-2 py-0.5 bg-red-50 text-red-700 rounded text-xs"
+                        className="inline-flex items-center gap-1 px-2 py-0.5 bg-red-50 text-red-700 text-xs"
                       >
                         <Flag className="w-3 h-3" />
                         {flag}
@@ -334,5 +345,13 @@ export default function ConversationDetailPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ConversationDetailPage() {
+  return (
+    <Suspense fallback={<div className="p-12 text-center text-gray-400">Loading...</div>}>
+      <ConversationDetailContent />
+    </Suspense>
   );
 }

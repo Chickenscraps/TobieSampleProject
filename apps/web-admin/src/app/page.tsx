@@ -72,6 +72,7 @@ export default function AdminDashboard() {
 
     // Log admin view event
     supabase.from('admin_events').insert({
+      actor_id: 'admin',
       event_type: 'view_dashboard',
       details: { page: 'overview' },
     });
@@ -120,7 +121,7 @@ export default function AdminDashboard() {
         {metricCards.map((card) => (
           <div
             key={card.label}
-            className="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow"
+            className="bg-white border border-gray-200 p-5 card-hover"
           >
             <div className="flex items-center justify-between mb-3">
               <div className={`p-2 rounded-lg ${card.bg}`}>
@@ -166,7 +167,7 @@ export default function AdminDashboard() {
             {recentSessions.map((session) => (
               <Link
                 key={session.session_id}
-                href={`/conversations/${session.session_id}`}
+                href={`/conversations/detail?id=${session.session_id}`}
                 className="flex items-center gap-4 p-4 hover:bg-gray-50 transition-colors"
               >
                 <div className="flex-1 min-w-0">

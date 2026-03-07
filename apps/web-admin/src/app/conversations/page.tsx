@@ -69,6 +69,7 @@ export default function ConversationsPage() {
 
       // Log admin event
       supabase.from('admin_events').insert({
+        actor_id: 'admin',
         event_type: 'view_conversations',
         details: { filter: statusFilter, page },
       });
@@ -187,7 +188,7 @@ export default function ConversationsPage() {
                       <StatusBadge status={session.status} />
                     </td>
                     <td className="py-3 px-4">
-                      <Link href={`/conversations/${session.session_id}`} className="block">
+                      <Link href={`/conversations/detail?id=${session.session_id}`} className="block">
                         <p className="text-sm font-medium text-gray-900">
                           {session.session_id.slice(0, 12)}...
                         </p>
@@ -209,7 +210,7 @@ export default function ConversationsPage() {
                       </div>
                     </td>
                     <td className="py-3 px-4">
-                      <Link href={`/conversations/${session.session_id}`}>
+                      <Link href={`/conversations/detail?id=${session.session_id}`}>
                         <ChevronRight className="w-4 h-4 text-gray-400" />
                       </Link>
                     </td>

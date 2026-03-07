@@ -92,9 +92,12 @@ export default function ExportsPage() {
         format,
         filter_criteria: { dateFrom, dateTo, status: statusFilter },
         record_count: exportData.record_count,
+        requested_by: 'admin',
+        status: 'completed',
       });
 
       await supabase.from('admin_events').insert({
+        actor_id: 'admin',
         event_type: 'export',
         details: { format, record_count: exportData.record_count },
       });

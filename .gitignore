@@ -40,3 +40,6 @@ nul
 GitFolderTree.txt
 TobieBenefitsGuide.md
 .claude/
+
+# Local Netlify folder
+.netlify

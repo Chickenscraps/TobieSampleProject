@@ -93,6 +93,7 @@ export default function ReviewQueuePage() {
         .eq('session_id', sessionId);
 
       await supabase.from('admin_events').insert({
+        actor_id: 'admin',
         event_type: 'review_conversation',
         target_id: sessionId,
         details: { verdict, has_notes: !!notes },
