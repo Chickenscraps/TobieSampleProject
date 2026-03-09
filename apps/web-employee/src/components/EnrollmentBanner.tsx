@@ -11,11 +11,11 @@ export function EnrollmentBanner() {
   return (
     <div
       id="enrollment-banner"
-      className="relative w-full bg-tobie-500 dark:bg-tobie-600 text-white py-2.5 px-4 text-center z-50"
+      className="relative w-full bg-tobie-500 text-white py-2.5 px-4 text-center z-50"
     >
       <div className="max-w-7xl mx-auto flex items-center justify-center gap-2">
         <p className="text-sm font-medium tracking-wide">
-          Welcome to Open Enrollment 2026 &mdash;{' '}
+          Welcome to Open Enrollment 2026!{' '}
           <a
             href="#benefits-overview"
             className="underline underline-offset-2 hover:text-tobie-100 transition-colors font-semibold"

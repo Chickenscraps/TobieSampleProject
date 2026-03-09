@@ -151,8 +151,8 @@ export default function AdminDashboard() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Dashboard Overview</h1>
-        <p className="text-gray-500 dark:text-gray-400 mt-1">Monitor chat activity and review conversations.</p>
+        <h1 className="text-2xl font-bold text-gray-900">Dashboard Overview</h1>
+        <p className="text-gray-500 mt-1">Monitor chat activity and review conversations.</p>
       </div>
 
       {/* Metric Cards with Sparklines */}
@@ -192,82 +192,82 @@ export default function AdminDashboard() {
       </div>
 
       {/* Today's Activity Summary */}
-      <div className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 p-5 mb-8 chart-fade-up">
+      <div className="bg-white border border-gray-200 p-5 mb-8 chart-fade-up">
         <div className="flex items-center gap-2 mb-4">
           <CalendarDays className="w-4 h-4 text-tobie-500" />
-          <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">Today&apos;s Activity</h2>
+          <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wider">Today&apos;s Activity</h2>
         </div>
         <div className="grid grid-cols-3 gap-4">
           <div className="text-center">
-            <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{loading ? '—' : todayConversations}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Conversations</p>
+            <p className="text-2xl font-bold text-gray-900">{loading ? '—' : todayConversations}</p>
+            <p className="text-xs text-gray-500 mt-1">Conversations</p>
           </div>
-          <div className="text-center border-l border-r border-gray-100 dark:border-slate-700">
-            <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{loading ? '—' : todayMessages}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Messages</p>
+          <div className="text-center border-l border-r border-gray-100">
+            <p className="text-2xl font-bold text-gray-900">{loading ? '—' : todayMessages}</p>
+            <p className="text-xs text-gray-500 mt-1">Messages</p>
           </div>
           <div className="text-center">
-            <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">{loading ? '—' : todayVisitors}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Unique Visitors</p>
+            <p className="text-2xl font-bold text-gray-900">{loading ? '—' : todayVisitors}</p>
+            <p className="text-xs text-gray-500 mt-1">Unique Visitors</p>
           </div>
         </div>
       </div>
 
       {/* Recent Conversations */}
-      <div className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700">
-        <div className="p-5 border-b border-gray-200 dark:border-slate-700 flex items-center justify-between">
+      <div className="bg-white border border-gray-200">
+        <div className="p-5 border-b border-gray-200 flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">Recent Conversations</h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Latest chat sessions from the benefits assistant</p>
+            <h2 className="text-lg font-semibold text-gray-900">Recent Conversations</h2>
+            <p className="text-sm text-gray-500">Latest chat sessions from the benefits assistant</p>
           </div>
           <Link
             href="/conversations"
-            className="text-sm text-tobie-600 dark:text-tobie-400 hover:text-tobie-700 dark:hover:text-tobie-300 font-medium"
+            className="text-sm text-tobie-600 hover:text-tobie-700 font-medium"
           >
             View All →
           </Link>
         </div>
 
         {loading ? (
-          <div className="p-8 text-center text-gray-400 dark:text-gray-500">Loading...</div>
+          <div className="p-8 text-center text-gray-400">Loading...</div>
         ) : recentSessions.length === 0 ? (
           <div className="p-8 text-center">
-            <MessageSquare className="w-12 h-12 text-gray-200 dark:text-gray-600 mx-auto mb-3" />
-            <p className="text-gray-500 dark:text-gray-400">No conversations yet.</p>
-            <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">
+            <MessageSquare className="w-12 h-12 text-gray-200 mx-auto mb-3" />
+            <p className="text-gray-500">No conversations yet.</p>
+            <p className="text-sm text-gray-400 mt-1">
               Chat transcripts will appear here once employees start using the benefits assistant.
             </p>
           </div>
         ) : (
-          <div className="divide-y divide-gray-100 dark:divide-slate-700">
+          <div className="divide-y divide-gray-100">
             {recentSessions.map((session) => (
               <Link
                 key={session.session_id}
                 href={`/conversations/detail?id=${session.session_id}`}
-                className="flex items-center gap-4 p-4 hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors"
+                className="flex items-center gap-4 p-4 hover:bg-gray-50 transition-colors"
               >
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                    <p className="text-sm font-medium text-gray-900 truncate">
                       Session: {session.session_id.slice(0, 8)}...
                     </p>
                     {session.device_type && (
-                      <span className="text-[10px] px-1.5 py-0.5 bg-gray-100 dark:bg-slate-700 text-gray-500 dark:text-gray-400 font-medium">
+                      <span className="text-[10px] px-1.5 py-0.5 bg-gray-100 text-gray-500 font-medium">
                         {session.device_type}
                       </span>
                     )}
                     {session.browser && (
-                      <span className="text-[10px] px-1.5 py-0.5 bg-tobie-50 dark:bg-tobie-900/30 text-tobie-600 dark:text-tobie-400 font-medium">
+                      <span className="text-[10px] px-1.5 py-0.5 bg-tobie-50 text-tobie-600 font-medium">
                         {session.browser}
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                  <p className="text-xs text-gray-500 mt-0.5">
                     {session.topic_summary || 'No topic summary'}
                   </p>
                 </div>
                 <StatusBadge status={session.review_status} />
-                <div className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500">
+                <div className="flex items-center gap-1 text-xs text-gray-400">
                   <Clock className="w-3 h-3" />
                   {new Date(session.created_at).toLocaleDateString()}
                 </div>
@@ -282,16 +282,16 @@ export default function AdminDashboard() {
 
 function StatusBadge({ status }: { status: string }) {
   const styles: Record<string, string> = {
-    pending: 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-700',
-    reviewed: 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 border-green-200 dark:border-green-700',
-    escalated: 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 border-red-200 dark:border-red-700',
-    resolved: 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-700',
+    pending: 'bg-amber-50 text-amber-700 border-amber-200',
+    reviewed: 'bg-green-50 text-green-700 border-green-200',
+    escalated: 'bg-red-50 text-red-700 border-red-200',
+    resolved: 'bg-blue-50 text-blue-700 border-blue-200',
   };
 
   return (
     <span
       className={`inline-flex items-center px-2.5 py-0.5 text-xs font-medium border ${
-        styles[status] || 'bg-gray-50 dark:bg-slate-700 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-slate-600'
+        styles[status] || 'bg-gray-50 text-gray-700 border-gray-200'
       }`}
     >
       {status}

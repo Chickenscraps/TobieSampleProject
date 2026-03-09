@@ -24,8 +24,8 @@ export function ResponseMetrics({
 }: ResponseMetricsProps) {
   if (loading) {
     return (
-      <div className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 p-6 chart-fade-up">
-        <div className="h-20 flex items-center justify-center text-gray-400 dark:text-gray-500">
+      <div className="bg-white border border-gray-200 p-6 chart-fade-up">
+        <div className="h-20 flex items-center justify-center text-gray-400">
           Loading response metrics...
         </div>
       </div>
@@ -66,11 +66,11 @@ export function ResponseMetrics({
   ];
 
   return (
-    <div className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 p-6 chart-fade-up">
+    <div className="bg-white border border-gray-200 p-6 chart-fade-up">
       <div className="flex items-center justify-between mb-5">
         <div>
-          <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">AI Response Performance</h3>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Gemini API response times across {totalRequests.toLocaleString()} requests</p>
+          <h3 className="text-base font-semibold text-gray-900">AI Response Performance</h3>
+          <p className="text-xs text-gray-500 mt-0.5">Gemini API response times across {totalRequests.toLocaleString()} requests</p>
         </div>
       </div>
 
@@ -82,8 +82,8 @@ export function ResponseMetrics({
                 {m.icon}
               </div>
             </div>
-            <p className="text-lg font-bold text-gray-900 dark:text-gray-100">{m.value}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{m.label}</p>
+            <p className="text-lg font-bold text-gray-900">{m.value}</p>
+            <p className="text-xs text-gray-500 mt-0.5">{m.label}</p>
           </div>
         ))}
       </div>

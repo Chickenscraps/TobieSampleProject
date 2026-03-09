@@ -21,12 +21,12 @@ const variantStyles: Record<
     img: 'w-full max-w-md sm:max-w-lg object-contain',
   },
   benefitCard: {
-    container: 'w-full h-48 flex items-center justify-center bg-brand-surface dark:bg-slate-700/50 overflow-hidden px-4',
-    img: 'max-w-full max-h-full object-contain',
+    container: 'w-full h-52 bg-brand-surface overflow-hidden',
+    img: 'w-full h-full object-cover',
   },
   ctaBlock: {
     container: 'flex justify-center',
-    img: 'w-full max-w-sm sm:max-w-md lg:max-w-lg object-contain',
+    img: 'w-full max-w-sm sm:max-w-md object-contain',
   },
   icon: {
     container: 'flex items-center justify-center',

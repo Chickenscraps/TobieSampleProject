@@ -8,7 +8,7 @@ import { benefitsOverviewIllustration } from '@/lib/image-manifest';
 
 export function BenefitsOverview() {
   return (
-    <section id="benefits-overview" className="py-16 sm:py-20 bg-white dark:bg-slate-800">
+    <section id="benefits-overview" className="py-16 sm:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollFadeIn>
           <div className="text-center mb-12">
@@ -17,10 +17,10 @@ export function BenefitsOverview() {
               variant="sectionHeader"
               className="mb-8"
             />
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-3">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
               Your Benefits at a Glance
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Explore each benefit category to understand your coverage options,
               key details, and how to get started.
             </p>

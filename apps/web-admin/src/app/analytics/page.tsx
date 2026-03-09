@@ -299,20 +299,20 @@ export default function AnalyticsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Analytics</h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">Chat usage, visitor trends, and performance insights.</p>
+          <h1 className="text-2xl font-bold text-gray-900">Analytics</h1>
+          <p className="text-gray-500 mt-1">Chat usage, visitor trends, and performance insights.</p>
         </div>
         <div className="flex items-center gap-2">
           {/* Date Range Selector */}
-          <div className="flex gap-1 bg-gray-100 dark:bg-slate-800 p-1">
+          <div className="flex gap-1 bg-gray-100 p-1">
             {(['7d', '30d', '90d', 'all'] as const).map((range) => (
               <button
                 key={range}
                 onClick={() => setDateRange(range)}
                 className={`px-3 py-1.5 text-xs font-medium transition-colors ${
                   dateRange === range
-                    ? 'bg-white dark:bg-slate-700 text-tobie-700 dark:text-tobie-300 shadow-sm dark:shadow-none'
-                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'
+                    ? 'bg-white text-tobie-700 shadow-sm'
+                    : 'text-gray-500 hover:text-gray-700'
                 }`}
               >
                 {range === 'all' ? 'All Time' : `Last ${range}`}
@@ -321,7 +321,7 @@ export default function AnalyticsPage() {
           </div>
           <button
             onClick={loadAnalytics}
-            className="p-2 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
+            className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
             title="Refresh"
           >
             <RefreshCw className="w-4 h-4" />

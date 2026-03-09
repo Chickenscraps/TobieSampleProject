@@ -158,11 +158,11 @@ function ConversationDetailContent() {
   }
 
   if (!sessionId) {
-    return <div className="p-12 text-center text-gray-400 dark:text-gray-500">No session ID provided.</div>;
+    return <div className="p-12 text-center text-gray-400">No session ID provided.</div>;
   }
 
   if (loading) {
-    return <div className="p-12 text-center text-gray-400 dark:text-gray-500">Loading conversation...</div>;
+    return <div className="p-12 text-center text-gray-400">Loading conversation...</div>;
   }
 
   return (
@@ -171,17 +171,17 @@ function ConversationDetailContent() {
       <div className="mb-6">
         <Link
           href="/conversations"
-          className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 mb-4"
+          className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-700 mb-4"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Conversations
         </Link>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
               Conversation Detail
             </h1>
-            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
+            <p className="text-xs sm:text-sm text-gray-500 mt-1">
               Session: {sessionId.slice(0, 12)}... · {transcripts.length} messages
               {session && (
                 <span className="hidden sm:inline"> · Started {new Date(session.created_at).toLocaleString()}</span>
@@ -190,7 +190,7 @@ function ConversationDetailContent() {
           </div>
           <button
             onClick={exportConversation}
-            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700 self-start"
+            className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-200 hover:bg-gray-50 self-start"
           >
             <Download className="w-4 h-4" />
             Export
@@ -200,29 +200,29 @@ function ConversationDetailContent() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Transcript Pane */}
-        <div className="lg:col-span-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 overflow-hidden">
-          <div className="p-4 border-b border-gray-200 dark:border-slate-700">
-            <h2 className="font-semibold text-gray-900 dark:text-gray-100">Transcript</h2>
+        <div className="lg:col-span-2 bg-white border border-gray-200 overflow-hidden">
+          <div className="p-4 border-b border-gray-200">
+            <h2 className="font-semibold text-gray-900">Transcript</h2>
           </div>
           <div className="p-4 space-y-4 max-h-[600px] overflow-y-auto">
             {transcripts.length === 0 ? (
-              <p className="text-center text-gray-400 dark:text-gray-500 py-8">No messages in this conversation.</p>
+              <p className="text-center text-gray-400 py-8">No messages in this conversation.</p>
             ) : (
               transcripts.map((t) => (
                 <div key={t.id} className="space-y-3">
                   {/* User message */}
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center flex-shrink-0">
-                      <User className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                    <div className="w-8 h-8 bg-blue-100 flex items-center justify-center flex-shrink-0">
+                      <User className="w-4 h-4 text-blue-600" />
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-sm font-medium text-gray-900 dark:text-gray-100">Employee</span>
-                        <span className="text-xs text-gray-400 dark:text-gray-500">
+                        <span className="text-sm font-medium text-gray-900">Employee</span>
+                        <span className="text-xs text-gray-400">
                           {new Date(t.created_at).toLocaleTimeString()}
                         </span>
                       </div>
-                      <div className="bg-blue-50 dark:bg-blue-900/20 p-3 text-sm text-gray-800 dark:text-gray-200">
+                      <div className="bg-blue-50 p-3 text-sm text-gray-800">
                         {t.user_message}
                       </div>
                     </div>
@@ -230,17 +230,17 @@ function ConversationDetailContent() {
 
                   {/* Bot response */}
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-gray-100 dark:bg-slate-700 flex items-center justify-center flex-shrink-0">
-                      <Bot className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                    <div className="w-8 h-8 bg-gray-100 flex items-center justify-center flex-shrink-0">
+                      <Bot className="w-4 h-4 text-gray-600" />
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-sm font-medium text-gray-900 dark:text-gray-100">Benefits Assistant</span>
-                        <span className="text-xs text-gray-400 dark:text-gray-500">
+                        <span className="text-sm font-medium text-gray-900">Benefits Assistant</span>
+                        <span className="text-xs text-gray-400">
                           {new Date(t.created_at).toLocaleTimeString()}
                         </span>
                       </div>
-                      <div className="bg-gray-50 dark:bg-slate-900 p-3 text-sm text-gray-800 dark:text-gray-200 whitespace-pre-wrap">
+                      <div className="bg-gray-50 p-3 text-sm text-gray-800 whitespace-pre-wrap">
                         {t.bot_response}
                       </div>
                       {/* Sources */}
@@ -249,7 +249,7 @@ function ConversationDetailContent() {
                           {t.sources_used.map((source) => (
                             <span
                               key={source}
-                              className="inline-flex items-center gap-1 px-2 py-0.5 bg-tobie-50 dark:bg-tobie-900/30 text-tobie-700 dark:text-tobie-300 text-xs"
+                              className="inline-flex items-center gap-1 px-2 py-0.5 bg-tobie-50 text-tobie-700 text-xs"
                             >
                               <FileText className="w-3 h-3" />
                               {source}
@@ -268,15 +268,15 @@ function ConversationDetailContent() {
         {/* Review Pane */}
         <div className="space-y-4">
           {/* Review Status */}
-          <div className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 p-4">
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-4">Review</h3>
+          <div className="bg-white border border-gray-200 p-4">
+            <h3 className="font-semibold text-gray-900 mb-4">Review</h3>
             <div className="space-y-3">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Status</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
                 <select
                   value={reviewStatus}
                   onChange={(e) => setReviewStatus(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-tobie-500"
+                  className="w-full px-3 py-2 border border-gray-200 bg-white text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-tobie-500"
                 >
                   <option value="pending">Pending</option>
                   <option value="reviewed">Reviewed</option>
@@ -285,7 +285,7 @@ function ConversationDetailContent() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
                   Reviewer Notes
                 </label>
                 <textarea
@@ -293,13 +293,13 @@ function ConversationDetailContent() {
                   onChange={(e) => setReviewNotes(e.target.value)}
                   rows={4}
                   placeholder="Add review notes..."
-                  className="w-full px-3 py-2 border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 text-sm placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-tobie-500 resize-none"
+                  className="w-full px-3 py-2 border border-gray-200 bg-white text-gray-900 text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-tobie-500 resize-none"
                 />
               </div>
               <button
                 onClick={saveReview}
                 disabled={saving}
-                className="w-full px-4 py-2 bg-tobie-600 dark:bg-tobie-500 text-white text-sm font-medium hover:bg-tobie-700 dark:hover:bg-tobie-600 disabled:opacity-50 transition-colors"
+                className="w-full px-4 py-2 bg-tobie-600 text-white text-sm font-medium hover:bg-tobie-700 disabled:opacity-50 transition-colors"
               >
                 {saving ? 'Saving...' : 'Save Review'}
               </button>
@@ -307,31 +307,31 @@ function ConversationDetailContent() {
           </div>
 
           {/* Session Info */}
-          <div className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 p-4">
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-3">Session Info</h3>
+          <div className="bg-white border border-gray-200 p-4">
+            <h3 className="font-semibold text-gray-900 mb-3">Session Info</h3>
             <dl className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <dt className="text-gray-500 dark:text-gray-400">Messages</dt>
-                <dd className="font-medium text-gray-900 dark:text-gray-100">{transcripts.length}</dd>
+                <dt className="text-gray-500">Messages</dt>
+                <dd className="font-medium text-gray-900">{transcripts.length}</dd>
               </div>
               <div className="flex justify-between">
-                <dt className="text-gray-500 dark:text-gray-400">Status</dt>
-                <dd className="font-medium text-gray-900 dark:text-gray-100">{session?.status || 'unknown'}</dd>
+                <dt className="text-gray-500">Status</dt>
+                <dd className="font-medium text-gray-900">{session?.status || 'unknown'}</dd>
               </div>
               <div className="flex justify-between">
-                <dt className="text-gray-500 dark:text-gray-400">Started</dt>
-                <dd className="font-medium text-gray-900 dark:text-gray-100">
+                <dt className="text-gray-500">Started</dt>
+                <dd className="font-medium text-gray-900">
                   {session ? new Date(session.created_at).toLocaleString() : 'N/A'}
                 </dd>
               </div>
               {session?.risk_flags && session.risk_flags.length > 0 && (
                 <div>
-                  <dt className="text-gray-500 dark:text-gray-400 mb-1">Risk Flags</dt>
+                  <dt className="text-gray-500 mb-1">Risk Flags</dt>
                   <dd className="flex flex-wrap gap-1">
                     {session.risk_flags.map((flag) => (
                       <span
                         key={flag}
-                        className="inline-flex items-center gap-1 px-2 py-0.5 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 text-xs"
+                        className="inline-flex items-center gap-1 px-2 py-0.5 bg-red-50 text-red-700 text-xs"
                       >
                         <Flag className="w-3 h-3" />
                         {flag}
@@ -350,7 +350,7 @@ function ConversationDetailContent() {
 
 export default function ConversationDetailPage() {
   return (
-    <Suspense fallback={<div className="p-12 text-center text-gray-400 dark:text-gray-500">Loading...</div>}>
+    <Suspense fallback={<div className="p-12 text-center text-gray-400">Loading...</div>}>
       <ConversationDetailContent />
     </Suspense>
   );

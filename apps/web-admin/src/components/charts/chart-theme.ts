@@ -64,40 +64,11 @@ export const TOOLTIP_STYLE = {
   },
 } as const;
 
-// Shared tooltip styling (dark mode)
-export const DARK_TOOLTIP_STYLE = {
-  contentStyle: {
-    backgroundColor: '#1e293b',   // slate-800
-    border: '1px solid #475569',  // slate-600
-    borderRadius: '0px',
-    boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.3)',
-    padding: '8px 12px',
-    fontSize: '12px',
-  },
-  labelStyle: {
-    fontWeight: 600,
-    color: '#f1f5f9',             // slate-100
-    marginBottom: '4px',
-  },
-  itemStyle: {
-    color: '#94a3b8',             // slate-400
-    fontSize: '12px',
-    padding: '1px 0',
-  },
-} as const;
-
-// Shared axis styling (light mode)
+// Shared axis styling
 export const AXIS_STYLE = {
   tick: { fill: '#64748B', fontSize: 11 },
   axisLine: { stroke: '#E2E8F0' },
   tickLine: { stroke: '#E2E8F0' },
-} as const;
-
-// Shared axis styling (dark mode)
-export const DARK_AXIS_STYLE = {
-  tick: { fill: '#94a3b8', fontSize: 11 },    // slate-400
-  axisLine: { stroke: '#475569' },             // slate-600
-  tickLine: { stroke: '#475569' },             // slate-600
 } as const;
 
 // Format numbers with commas
@@ -115,9 +86,9 @@ export function formatMs(ms: number): string {
 
 // Get trend arrow and color
 export function getTrend(current: number, previous: number): { arrow: string; percent: string; color: string } {
-  if (previous === 0) return { arrow: '→', percent: 'N/A', color: 'text-gray-400 dark:text-gray-500' };
+  if (previous === 0) return { arrow: '→', percent: 'N/A', color: 'text-gray-400' };
   const change = ((current - previous) / previous) * 100;
-  if (change > 0) return { arrow: '↑', percent: `+${change.toFixed(1)}%`, color: 'text-green-600 dark:text-green-400' };
-  if (change < 0) return { arrow: '↓', percent: `${change.toFixed(1)}%`, color: 'text-red-600 dark:text-red-400' };
-  return { arrow: '→', percent: '0%', color: 'text-gray-400 dark:text-gray-500' };
+  if (change > 0) return { arrow: '↑', percent: `+${change.toFixed(1)}%`, color: 'text-green-600' };
+  if (change < 0) return { arrow: '↓', percent: `${change.toFixed(1)}%`, color: 'text-red-600' };
+  return { arrow: '→', percent: '0%', color: 'text-gray-400' };
 }
