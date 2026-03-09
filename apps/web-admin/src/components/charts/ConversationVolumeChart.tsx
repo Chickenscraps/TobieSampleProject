@@ -30,7 +30,7 @@ export function ConversationVolumeChart({ data, loading }: ConversationVolumeCha
 
   if (loading) {
     return (
-      <div className="bg-white shadow-card border border-gray-100 border-t-[3px] border-t-tobie-500 p-6 chart-fade-up">
+      <div className="bg-white dark:bg-gray-800 shadow-card border border-gray-100 dark:border-gray-700 border-t-[3px] border-t-tobie-500 p-6 chart-fade-up">
         <div className="h-[300px] flex items-center justify-center text-gray-400">
           Loading chart data...
         </div>
@@ -39,12 +39,12 @@ export function ConversationVolumeChart({ data, loading }: ConversationVolumeCha
   }
 
   return (
-    <div className="bg-white shadow-card border border-gray-100 border-t-[3px] border-t-tobie-500 p-6 chart-fade-up">
+    <div className="bg-white dark:bg-gray-800 shadow-card border border-gray-100 dark:border-gray-700 border-t-[3px] border-t-tobie-500 p-6 chart-fade-up">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-base font-semibold text-gray-900">Conversation Volume</h3>
-          <p className="text-xs text-gray-500 mt-0.5">Daily activity over time</p>
+          <h3 className="text-base font-semibold text-gray-900 dark:text-white">Conversation Volume</h3>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Daily activity over time</p>
         </div>
         <div className="flex gap-1">
           {(['conversations', 'messages'] as const).map((mode) => (
@@ -53,8 +53,8 @@ export function ConversationVolumeChart({ data, loading }: ConversationVolumeCha
               onClick={() => setViewMode(mode)}
               className={`px-3 py-1.5 text-xs font-medium capitalize transition-colors ${
                 viewMode === mode
-                  ? 'bg-tobie-100 text-tobie-700'
-                  : 'text-gray-500 hover:bg-gray-100'
+                  ? 'bg-tobie-100 dark:bg-tobie-900/30 text-tobie-700 dark:text-tobie-300'
+                  : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'
               }`}
             >
               {mode}

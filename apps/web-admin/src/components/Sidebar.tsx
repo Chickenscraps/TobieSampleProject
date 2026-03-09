@@ -16,6 +16,7 @@ import {
   X,
   LogOut,
 } from 'lucide-react';
+import { ThemeToggle } from './ThemeToggle';
 
 
 const navItems = [
@@ -34,15 +35,15 @@ export function Sidebar() {
   return (
     <>
       {/* Mobile Header Bar */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 h-14 bg-white border-b border-gray-200 flex items-center px-4 z-50">
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-14 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 flex items-center px-4 z-50">
         <button
           onClick={() => setIsOpen(true)}
-          className="p-2 -ml-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+          className="p-2 -ml-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
           aria-label="Open menu"
         >
           <Menu className="w-5 h-5" />
         </button>
-        <h1 className="ml-3 text-lg font-bold text-tobie-700">Tobie Admin</h1>
+        <h1 className="ml-3 text-lg font-bold text-tobie-700 dark:text-white">Tobie Admin</h1>
       </div>
 
       {/* Mobile Overlay */}
@@ -55,20 +56,21 @@ export function Sidebar() {
 
       {/* Sidebar */}
       <aside
-        className={`fixed left-0 top-0 h-screen w-64 bg-white border-r border-gray-200 flex flex-col z-50 transition-transform duration-300 ease-in-out ${
+        className={`fixed left-0 top-0 h-screen w-64 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 flex flex-col z-50 transition-transform duration-300 ease-in-out ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } lg:translate-x-0`}
       >
         {/* Logo */}
-        <div className="p-6 border-b border-gray-200 flex items-center justify-between">
+        <div className="p-6 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-bold text-tobie-700">Tobie Admin</h1>
-            <p className="text-xs text-gray-500 mt-1">Benefits AI Dashboard</p>
+            <h1 className="text-xl font-bold text-tobie-700 dark:text-white">Tobie Admin</h1>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Benefits AI Dashboard</p>
           </div>
           <div className="flex items-center gap-1">
+            <ThemeToggle />
             <button
               onClick={() => setIsOpen(false)}
-              className="lg:hidden p-1 text-gray-400 hover:text-gray-600"
+              className="lg:hidden p-1 text-gray-400 hover:text-gray-600 dark:hover:text-white"
               aria-label="Close menu"
             >
               <X className="w-5 h-5" />
@@ -89,8 +91,8 @@ export function Sidebar() {
                 onClick={() => setIsOpen(false)}
                 className={`flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-all duration-200 ${
                   isActive
-                    ? 'bg-tobie-50 text-tobie-700 border-l-[3px] border-l-tobie-500 shadow-sm pl-[9px]'
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 hover:translate-x-0.5'
+                    ? 'bg-tobie-50 dark:bg-tobie-900/30 text-tobie-700 dark:text-tobie-300 border-l-[3px] border-l-tobie-500 shadow-sm pl-[9px]'
+                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white hover:translate-x-0.5'
                 }`}
               >
                 <item.icon className="w-5 h-5" />
@@ -106,7 +108,7 @@ export function Sidebar() {
             href="https://tobiebenefits.netlify.app"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-tobie-600 hover:bg-tobie-50 transition-colors"
+            className="flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-tobie-600 dark:text-tobie-400 hover:bg-tobie-50 dark:hover:bg-gray-800 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Benefits Site
@@ -114,23 +116,24 @@ export function Sidebar() {
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-gray-200 bg-gray-50">
+        <div className="p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
           <div className="flex items-center justify-between px-3 py-2">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-tobie-100 flex items-center justify-center flex-shrink-0">
-                <Settings className="w-4 h-4 text-tobie-600" />
+              <div className="w-8 h-8 bg-tobie-100 dark:bg-tobie-900/50 flex items-center justify-center flex-shrink-0">
+                <Settings className="w-4 h-4 text-tobie-600 dark:text-tobie-400" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-900">HR Admin</p>
-                <p className="text-xs text-gray-500">admin@tobie.org</p>
+                <p className="text-sm font-medium text-gray-900 dark:text-white">HR Admin</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">admin@tobie.org</p>
               </div>
             </div>
             <button
               onClick={() => {
                 sessionStorage.removeItem('tobie_admin_authenticated');
+                sessionStorage.removeItem('tobie_admin_auth_ts');
                 window.location.reload();
               }}
-              className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+              className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
               title="Sign out"
             >
               <LogOut className="w-4 h-4" />

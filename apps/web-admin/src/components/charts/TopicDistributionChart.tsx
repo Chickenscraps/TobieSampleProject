@@ -18,7 +18,7 @@ export function TopicDistributionChart({ data, loading }: TopicDistributionChart
 
   if (loading) {
     return (
-      <div className="bg-white shadow-card border border-gray-100 border-t-[3px] border-t-tobie-500 p-6 chart-fade-up">
+      <div className="bg-white dark:bg-gray-800 shadow-card border border-gray-100 dark:border-gray-700 border-t-[3px] border-t-tobie-500 p-6 chart-fade-up">
         <div className="h-[300px] flex items-center justify-center text-gray-400">
           Loading topic data...
         </div>
@@ -27,10 +27,10 @@ export function TopicDistributionChart({ data, loading }: TopicDistributionChart
   }
 
   return (
-    <div className="bg-white shadow-card border border-gray-100 border-t-[3px] border-t-tobie-500 p-6 chart-fade-up">
+    <div className="bg-white dark:bg-gray-800 shadow-card border border-gray-100 dark:border-gray-700 border-t-[3px] border-t-tobie-500 p-6 chart-fade-up">
       <div className="mb-4">
-        <h3 className="text-base font-semibold text-gray-900">Topic Distribution</h3>
-        <p className="text-xs text-gray-500 mt-0.5">Most asked about benefit categories</p>
+        <h3 className="text-base font-semibold text-gray-900 dark:text-white">Topic Distribution</h3>
+        <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Most asked about benefit categories</p>
       </div>
 
       <div className="flex items-center gap-6">
@@ -73,11 +73,11 @@ export function TopicDistributionChart({ data, loading }: TopicDistributionChart
                   className="w-2.5 h-2.5 flex-shrink-0"
                   style={{ backgroundColor: PALETTE[i % PALETTE.length] }}
                 />
-                <span className="text-gray-700 truncate">{item.name}</span>
+                <span className="text-gray-700 dark:text-gray-300 truncate">{item.name}</span>
               </div>
               <div className="flex items-center gap-2 flex-shrink-0 ml-2">
-                <span className="text-gray-500 text-xs">{total > 0 ? ((item.value / total) * 100).toFixed(0) : 0}%</span>
-                <span className="font-medium text-gray-900">{item.value}</span>
+                <span className="text-gray-500 dark:text-gray-400 text-xs">{total > 0 ? ((item.value / total) * 100).toFixed(0) : 0}%</span>
+                <span className="font-medium text-gray-900 dark:text-white">{item.value}</span>
               </div>
             </div>
           ))}

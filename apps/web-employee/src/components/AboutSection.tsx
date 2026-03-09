@@ -3,7 +3,7 @@ import { ScrollFadeIn } from './ScrollFadeIn';
 
 export function AboutSection() {
   return (
-    <section id="about" className="py-16 sm:py-20 bg-white">
+    <section id="about" className="py-16 sm:py-20 bg-white dark:bg-gray-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollFadeIn>
           <div className="max-w-3xl mx-auto text-center mb-14">

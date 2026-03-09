@@ -5,7 +5,7 @@ import { searchCareIllustration } from '@/lib/image-manifest';
 
 export function SearchCare() {
   return (
-    <section id="find-care" className="py-16 sm:py-20 bg-white" style={{ background: 'linear-gradient(135deg, rgba(232,240,248,0.3) 0%, transparent 60%)' }}>
+    <section id="find-care" className="py-16 sm:py-20 bg-white dark:bg-gray-900" style={{ background: 'linear-gradient(135deg, rgba(232,240,248,0.3) 0%, transparent 60%)' }}>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollFadeIn>
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
@@ -19,10 +19,10 @@ export function SearchCare() {
 
             {/* Content */}
             <div className="flex-1 text-center md:text-left">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-3">
                 Find Care Near You
               </h2>
-              <p className="text-gray-600 leading-relaxed mb-6">
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
                 Use the BCBS provider search to find in-network doctors,
                 specialists, hospitals, and facilities. Staying in-network means
                 lower out-of-pocket costs and better coverage. You can also
@@ -44,7 +44,7 @@ export function SearchCare() {
                   href="https://www.deltadental.com/find-a-dentist"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 btn-press"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-medium hover:bg-gray-50 dark:hover:bg-gray-800 btn-press"
                 >
                   Find a Dentist
                   <ExternalLink className="h-4 w-4" />
@@ -55,7 +55,7 @@ export function SearchCare() {
                 href="https://www.vsp.com/find-eye-doctors"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 mt-3 text-sm text-tobie-600 font-medium hover:underline justify-center md:justify-start"
+                className="inline-flex items-center gap-1.5 mt-3 text-sm text-tobie-600 dark:text-tobie-400 font-medium hover:underline justify-center md:justify-start"
               >
                 Find a Vision Provider
                 <ExternalLink className="h-3.5 w-3.5" />

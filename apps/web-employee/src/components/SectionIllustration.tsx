@@ -21,7 +21,7 @@ const variantStyles: Record<
     img: 'w-full max-w-md sm:max-w-lg object-contain',
   },
   benefitCard: {
-    container: 'w-full h-52 bg-brand-surface overflow-hidden',
+    container: 'w-full h-52 bg-brand-surface dark:bg-gray-900 overflow-hidden',
     img: 'w-full h-full object-cover',
   },
   ctaBlock: {

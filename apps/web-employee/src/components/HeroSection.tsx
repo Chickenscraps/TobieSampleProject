@@ -89,7 +89,7 @@ export function HeroSection() {
             </button>
             <button
               onClick={() => scrollTo('#quick-links')}
-              className="w-full sm:w-auto px-8 py-3.5 bg-white/10 text-white font-semibold border border-white/30 hover:bg-white/20 backdrop-blur-sm btn-press"
+              className="w-full sm:w-auto px-8 py-3.5 bg-white/10 text-white font-semibold border border-white/30 hover:bg-white/20 dark:bg-white/15 dark:border-white/25 dark:hover:bg-white/25 backdrop-blur-sm btn-press"
             >
               Enroll Now
             </button>

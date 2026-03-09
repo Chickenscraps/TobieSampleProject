@@ -56,15 +56,15 @@ export function FAQAccordion() {
   };
 
   return (
-    <section id="faq" className="py-16 sm:py-20 bg-white">
+    <section id="faq" className="py-16 sm:py-20 bg-white dark:bg-gray-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollFadeIn>
           <div className="text-center mb-10">
             <SectionIllustration illustration={faqIllustration} variant="sectionHeader" />
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">
               Frequently Asked Questions
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Find answers to common benefits questions below.
             </p>
           </div>
@@ -82,7 +82,7 @@ export function FAQAccordion() {
                   placeholder="Search questions..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-11 pr-4 py-2.5 text-sm border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-tobie-500 focus:border-transparent transition-all placeholder:text-gray-400"
+                  className="w-full pl-11 pr-4 py-2.5 text-sm border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-tobie-500 focus:border-transparent transition-all placeholder:text-gray-400 dark:placeholder-gray-500"
                 />
               </div>
             </div>
@@ -98,8 +98,8 @@ export function FAQAccordion() {
                   }}
                   className={`px-4 py-2 text-sm font-medium transition-all ${
                     activeCategory === cat.key
-                      ? 'bg-tobie-600 text-white'
-                      : 'bg-white border border-gray-200 text-gray-600 hover:border-tobie-200 hover:bg-tobie-50'
+                      ? 'bg-tobie-600 dark:bg-tobie-600 text-white dark:text-white'
+                      : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-tobie-200 hover:bg-tobie-50'
                   }`}
                 >
                   {cat.label} ({categoryCounts[cat.key] || 0})
@@ -111,7 +111,7 @@ export function FAQAccordion() {
 
         {/* Two-column accordion grid */}
         {filteredItems.length === 0 ? (
-          <p className="text-center text-gray-500 py-8">
+          <p className="text-center text-gray-500 dark:text-gray-400 py-8">
             No questions found matching your search.
           </p>
         ) : (
@@ -122,14 +122,14 @@ export function FAQAccordion() {
                 return (
                   <div
                     key={item.id}
-                    className={`self-start bg-white shadow-card border border-gray-100 transition-all duration-300 overflow-hidden ${isOpen ? 'border-l-[3px] border-l-tobie-500' : ''}`}
+                    className={`self-start bg-white dark:bg-gray-800 shadow-card border border-gray-100 dark:border-gray-700 transition-all duration-300 overflow-hidden ${isOpen ? 'border-l-[3px] border-l-tobie-500' : ''}`}
                   >
                     <button
                       onClick={() => toggleItem(item.id)}
-                      className="w-full flex items-center justify-between px-5 py-3.5 text-left bg-white hover:bg-gray-50 transition-colors"
+                      className="w-full flex items-center justify-between px-5 py-3.5 text-left bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                       aria-expanded={isOpen}
                     >
-                      <span className="text-sm font-medium text-gray-900 pr-3">
+                      <span className="text-sm font-medium text-gray-900 dark:text-white pr-3">
                         {item.question}
                       </span>
                       <ChevronDown
@@ -146,8 +146,8 @@ export function FAQAccordion() {
                       }}
                     >
                       <div className="px-5 pb-3.5 pt-0">
-                        <div className="border-t border-gray-100 pt-3">
-                          <p className="text-gray-600 leading-relaxed text-xs">
+                        <div className="border-t border-gray-100 dark:border-gray-700 pt-3">
+                          <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-xs">
                             {item.answer}
                           </p>
                         </div>
@@ -159,7 +159,7 @@ export function FAQAccordion() {
             </div>
 
             {/* Result count */}
-            <p className="text-xs text-gray-400 text-center mt-4">
+            <p className="text-xs text-gray-400 dark:text-gray-500 text-center mt-4">
               Showing {filteredItems.length} of {faqItems.length} questions
               {activeCategory !== 'all' ? ` in ${categories.find(c => c.key === activeCategory)?.label}` : ''}
               {searchQuery ? ` matching "${searchQuery}"` : ''}

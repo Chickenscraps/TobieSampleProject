@@ -27,7 +27,7 @@ export function PeakHoursHeatmap({ data, loading }: PeakHoursHeatmapProps) {
 
   if (loading) {
     return (
-      <div className="bg-white shadow-card border border-gray-100 border-t-[3px] border-t-tobie-500 p-6 chart-fade-up">
+      <div className="bg-white dark:bg-gray-800 shadow-card border border-gray-100 dark:border-gray-700 border-t-[3px] border-t-tobie-500 p-6 chart-fade-up">
         <div className="h-[260px] flex items-center justify-center text-gray-400">
           Loading heatmap...
         </div>
@@ -36,10 +36,10 @@ export function PeakHoursHeatmap({ data, loading }: PeakHoursHeatmapProps) {
   }
 
   return (
-    <div className="bg-white shadow-card border border-gray-100 border-t-[3px] border-t-tobie-500 p-6 chart-fade-up">
+    <div className="bg-white dark:bg-gray-800 shadow-card border border-gray-100 dark:border-gray-700 border-t-[3px] border-t-tobie-500 p-6 chart-fade-up">
       <div className="mb-4">
-        <h3 className="text-base font-semibold text-gray-900">Peak Usage Hours</h3>
-        <p className="text-xs text-gray-500 mt-0.5">When employees use the chat assistant</p>
+        <h3 className="text-base font-semibold text-gray-900 dark:text-white">Peak Usage Hours</h3>
+        <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">When employees use the chat assistant</p>
       </div>
 
       <div className="overflow-x-auto">
@@ -60,7 +60,7 @@ export function PeakHoursHeatmap({ data, loading }: PeakHoursHeatmapProps) {
           {/* Grid */}
           {DAYS.map((day, dayIdx) => (
             <div key={day} className="flex items-center mb-[2px]">
-              <div className="w-10 text-[11px] text-gray-500 font-medium">{day}</div>
+              <div className="w-10 text-[11px] text-gray-500 dark:text-gray-400 font-medium">{day}</div>
               <div className="flex-1 flex gap-[2px]">
                 {HOURS.map((hour) => {
                   const value = data.grid[dayIdx]?.[hour] || 0;

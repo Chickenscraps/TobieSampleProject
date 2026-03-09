@@ -215,7 +215,7 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
   // Loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center">
         <div className="w-6 h-6 border-2 border-tobie-400 border-t-transparent animate-spin" />
       </div>
     );
@@ -228,22 +228,22 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
 
   // Login screen
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-tobie-100 mb-4">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-tobie-100 dark:bg-tobie-900/50 mb-4">
             <ShieldCheck className="w-8 h-8 text-tobie-600" />
           </div>
-          <h1 className="text-2xl font-bold text-tobie-700">Tobie Admin</h1>
-          <p className="text-sm text-gray-500 mt-1">Benefits AI Dashboard</p>
+          <h1 className="text-2xl font-bold text-tobie-700 dark:text-white">Tobie Admin</h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Benefits AI Dashboard</p>
         </div>
 
         {/* Login Card */}
-        <div className="bg-white border border-gray-200 shadow-sm p-6 sm:p-8">
+        <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm p-6 sm:p-8">
           <div className="flex items-center gap-2 mb-6">
             <Lock className="w-4 h-4 text-gray-400" />
-            <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wider">
+            <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
               Admin Access
             </h2>
           </div>
@@ -251,7 +251,7 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Password Field */}
             <div>
-              <label htmlFor="admin-password" className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label htmlFor="admin-password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
                 Password
               </label>
               <div className="relative">
@@ -264,7 +264,7 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
                   disabled={isLocked || isSubmitting}
                   autoFocus
                   autoComplete="current-password"
-                  className="w-full px-3 py-2.5 border border-gray-300 text-sm text-gray-900 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-tobie-400 focus:border-tobie-400 disabled:bg-gray-100 disabled:text-gray-500 pr-10"
+                  className="w-full px-3 py-2.5 border border-gray-300 dark:border-gray-600 text-sm text-gray-900 dark:text-white bg-white dark:bg-gray-700 placeholder-gray-400 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-tobie-400 focus:border-tobie-400 disabled:bg-gray-100 dark:disabled:bg-gray-600 disabled:text-gray-500 pr-10"
                 />
                 <button
                   type="button"
@@ -317,13 +317,13 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
           </form>
 
           {/* Session Info */}
-          <p className="mt-4 text-xs text-gray-400 text-center">
+          <p className="mt-4 text-xs text-gray-400 dark:text-gray-500 text-center">
             Sessions expire after 30 minutes of inactivity.
           </p>
         </div>
 
         {/* Footer */}
-        <p className="text-center text-xs text-gray-400 mt-6">
+        <p className="text-center text-xs text-gray-400 dark:text-gray-500 mt-6">
           &copy; 2026 Tobie Benefits &middot; Secure Admin Portal
         </p>
       </div>

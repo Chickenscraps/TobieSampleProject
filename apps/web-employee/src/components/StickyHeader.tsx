@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Menu, X, Shield } from 'lucide-react';
+import { ThemeToggle } from './ThemeToggle';
 
 const navLinks = [
   { label: 'Home', href: '#hero' },
@@ -82,8 +83,8 @@ export function StickyHeader() {
     <header
       className={`sticky top-0 z-40 w-full transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/80 backdrop-blur-md border-b border-gray-200/60 shadow-[0_1px_8px_rgba(0,0,0,0.06)]'
-          : 'bg-white'
+          ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200/60 dark:border-gray-700/60 shadow-[0_1px_8px_rgba(0,0,0,0.06)]'
+          : 'bg-white dark:bg-gray-900'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -97,10 +98,10 @@ export function StickyHeader() {
             }}
             className="flex items-center gap-2 flex-shrink-0"
           >
-            <span className="text-xl font-bold text-tobie-700 tracking-tight">
+            <span className="text-xl font-bold text-tobie-700 dark:text-white tracking-tight">
               Tobie
             </span>
-            <span className="hidden sm:inline text-xs font-medium text-gray-400 border-l border-gray-200 pl-2">
+            <span className="hidden sm:inline text-xs font-medium text-gray-400 dark:text-gray-500 border-l border-gray-200 dark:border-gray-700 pl-2">
               Benefits 2026
             </span>
           </a>
@@ -119,8 +120,8 @@ export function StickyHeader() {
                 }}
                 className={`relative px-3 py-1.5 text-[13px] font-medium transition-all duration-200 ${
                   isActive(link.href)
-                    ? 'text-tobie-700'
-                    : 'text-gray-500 hover:text-tobie-600'
+                    ? 'text-tobie-700 dark:text-tobie-300'
+                    : 'text-gray-500 hover:text-tobie-600 dark:text-gray-400 dark:hover:text-tobie-300'
                 }`}
               >
                 {link.label}
@@ -130,24 +131,26 @@ export function StickyHeader() {
               </a>
             ))}
 
-            <div className="w-px h-5 bg-gray-200 mx-2" />
+            <div className="w-px h-5 bg-gray-200 dark:bg-gray-600 mx-2" />
 
             <a
               href={ADMIN_DASHBOARD_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[13px] font-medium text-gray-500 hover:text-gray-900 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-[13px] font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
             >
               <Shield className="w-3.5 h-3.5" />
               Admin
             </a>
+
+            <ThemeToggle />
           </nav>
 
           {/* Mobile Menu Button */}
           <div className="flex items-center gap-1 lg:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 text-gray-500 hover:text-gray-900 transition-colors"
+              className="p-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isMobileMenuOpen}
             >
@@ -163,7 +166,7 @@ export function StickyHeader() {
 
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 animate-slide-down">
+        <div className="lg:hidden bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 animate-slide-down">
           <nav className="max-w-7xl mx-auto px-4 py-2">
             {navLinks.map((link) => (
               <a
@@ -179,20 +182,20 @@ export function StickyHeader() {
                 }}
                 className={`block px-3 py-2.5 text-sm font-medium transition-colors ${
                   isActive(link.href)
-                    ? 'text-tobie-700 bg-tobie-50'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    ? 'text-tobie-700 bg-tobie-50 dark:text-tobie-300 dark:bg-tobie-900/30'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-800'
                 }`}
               >
                 {link.label}
               </a>
             ))}
 
-            <div className="border-t border-gray-100 mt-1 pt-1">
+            <div className="border-t border-gray-100 dark:border-gray-800 mt-1 pt-1">
               <a
                 href={ADMIN_DASHBOARD_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                className="flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-800 transition-colors"
               >
                 <Shield className="w-4 h-4" />
                 Admin Dashboard

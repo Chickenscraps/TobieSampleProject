@@ -33,19 +33,19 @@ export function BenefitCategoryCard({ category }: BenefitCategoryCardProps) {
   const hasExpandableContent = expandedDetails.length > 0 || category.warnings?.length || category.employerPaid || (category.links && category.links.length > 0);
 
   return (
-    <div className="bg-white shadow-card border border-gray-100 hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-300 border-l-[3px] flex flex-col overflow-hidden" style={{ borderLeftColor: borderColor }}>
+    <div className="bg-white dark:bg-gray-800 shadow-card border border-gray-100 dark:border-gray-700 hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-300 border-l-[3px] flex flex-col overflow-hidden" style={{ borderLeftColor: borderColor }}>
       {/* Compact Header — icon, title, carrier */}
       <div className="px-5 pt-5 pb-0">
         <div className="flex items-start gap-3">
-          <div className="flex-shrink-0 w-10 h-10 bg-tobie-50 flex items-center justify-center">
+          <div className="flex-shrink-0 w-10 h-10 bg-tobie-50 dark:bg-tobie-900/30 flex items-center justify-center">
             <IconComponent className="h-5 w-5 text-tobie-600" />
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="text-base font-semibold text-gray-900 leading-tight">
+            <h3 className="text-base font-semibold text-gray-900 dark:text-white leading-tight">
               {category.title}
             </h3>
             {category.carrier && (
-              <span className="inline-block mt-0.5 text-xs font-medium text-tobie-600">
+              <span className="inline-block mt-0.5 text-xs font-medium text-tobie-600 dark:text-tobie-400">
                 {category.carrier}
               </span>
             )}
@@ -55,7 +55,7 @@ export function BenefitCategoryCard({ category }: BenefitCategoryCardProps) {
 
       {/* Summary — always visible */}
       <div className="px-5 pt-3 pb-2">
-        <p className="text-xs text-gray-600 leading-relaxed">
+        <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
           {category.summary}
         </p>
       </div>
@@ -63,7 +63,7 @@ export function BenefitCategoryCard({ category }: BenefitCategoryCardProps) {
       {/* Preview key details — first 2 always visible */}
       <ul className="px-5 pb-3 space-y-1">
         {previewDetails.map((detail, index) => (
-          <li key={index} className="flex items-start gap-2 text-xs text-gray-700">
+          <li key={index} className="flex items-start gap-2 text-xs text-gray-700 dark:text-gray-300">
             <span className="flex-shrink-0 w-1.5 h-1.5 mt-1.5 bg-tobie-500" />
             <span>{detail}</span>
           </li>
@@ -85,7 +85,7 @@ export function BenefitCategoryCard({ category }: BenefitCategoryCardProps) {
               {expandedDetails.length > 0 && (
                 <ul className="space-y-1 mb-3">
                   {expandedDetails.map((detail, index) => (
-                    <li key={index} className="flex items-start gap-2 text-xs text-gray-700">
+                    <li key={index} className="flex items-start gap-2 text-xs text-gray-700 dark:text-gray-300">
                       <span className="flex-shrink-0 w-1.5 h-1.5 mt-1.5 bg-tobie-500" />
                       <span>{detail}</span>
                     </li>
@@ -109,10 +109,10 @@ export function BenefitCategoryCard({ category }: BenefitCategoryCardProps) {
                   {category.warnings.map((warning, index) => (
                     <div
                       key={index}
-                      className="flex items-start gap-2 p-2.5 bg-amber-50 border border-amber-200"
+                      className="flex items-start gap-2 p-2.5 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700"
                     >
-                      <AlertCircle className="h-3.5 w-3.5 text-amber-600 flex-shrink-0 mt-0.5" />
-                      <p className="text-xs text-amber-800 font-medium">{warning}</p>
+                      <AlertCircle className="h-3.5 w-3.5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+                      <p className="text-xs text-amber-800 dark:text-amber-300 font-medium">{warning}</p>
                     </div>
                   ))}
                 </div>
@@ -120,8 +120,8 @@ export function BenefitCategoryCard({ category }: BenefitCategoryCardProps) {
 
               {/* Employer-paid badge */}
               {category.employerPaid && (
-                <div className="mb-3 px-2.5 py-2 bg-accent-50 border border-accent-200">
-                  <p className="text-xs text-accent-700 font-medium">
+                <div className="mb-3 px-2.5 py-2 bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-700">
+                  <p className="text-xs text-accent-700 dark:text-accent-300 font-medium">
                     Employer-Paid: {category.employerPaid}
                   </p>
                 </div>
@@ -129,14 +129,14 @@ export function BenefitCategoryCard({ category }: BenefitCategoryCardProps) {
 
               {/* CTA Links */}
               {category.links && category.links.length > 0 && (
-                <div className="flex flex-wrap gap-3 pt-2 border-t border-gray-100">
+                <div className="flex flex-wrap gap-3 pt-2 border-t border-gray-100 dark:border-gray-700">
                   {category.links.map((link) => (
                     <a
                       key={link.label}
                       href={link.url}
                       target={link.url.startsWith('http') ? '_blank' : undefined}
                       rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-                      className="inline-flex items-center gap-1.5 text-xs font-medium text-tobie-600 hover:text-tobie-700 transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-medium text-tobie-600 dark:text-tobie-400 hover:text-tobie-700 dark:hover:text-tobie-300 transition-colors"
                     >
                       {link.label}
                       <ExternalLink className="h-3 w-3" />
@@ -150,7 +150,7 @@ export function BenefitCategoryCard({ category }: BenefitCategoryCardProps) {
           {/* Expand/Collapse button */}
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="w-full flex items-center justify-center gap-1.5 px-5 py-2.5 text-xs font-medium text-tobie-600 hover:text-tobie-700 hover:bg-tobie-50 border-t border-gray-100 transition-colors mt-auto"
+            className="w-full flex items-center justify-center gap-1.5 px-5 py-2.5 text-xs font-medium text-tobie-600 dark:text-tobie-400 hover:text-tobie-700 dark:hover:text-tobie-300 hover:bg-tobie-50 dark:hover:bg-tobie-900/30 border-t border-gray-100 dark:border-gray-700 transition-colors mt-auto"
           >
             {isExpanded ? 'Show Less' : 'Learn More'}
             <ChevronDown

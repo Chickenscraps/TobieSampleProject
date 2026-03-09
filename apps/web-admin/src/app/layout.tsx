@@ -13,14 +13,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('tobie-admin-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()`,
+          }}
+        />
       </head>
-      <body className="font-sans bg-gray-50 text-brand-dark">
+      <body className="font-sans bg-gray-50 dark:bg-gray-950 text-brand-dark dark:text-gray-100 transition-colors">
         <div className="min-h-screen">
           <AuthenticatedLayout>{children}</AuthenticatedLayout>
         </div>

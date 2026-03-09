@@ -151,8 +151,8 @@ export default function AdminDashboard() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Dashboard Overview</h1>
-        <p className="text-gray-500 mt-1">Monitor chat activity and review conversations.</p>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Dashboard Overview</h1>
+        <p className="text-gray-500 dark:text-gray-400 mt-1">Monitor chat activity and review conversations.</p>
       </div>
 
       {/* Metric Cards with Sparklines */}
@@ -192,67 +192,67 @@ export default function AdminDashboard() {
       </div>
 
       {/* Today's Activity Summary */}
-      <div className="bg-white shadow-card border border-gray-100 border-l-[3px] p-5 mb-8 chart-fade-up" style={{ borderLeftColor: '#FFB31A' }}>
+      <div className="bg-white dark:bg-gray-800 shadow-card border border-gray-100 dark:border-gray-700 border-l-[3px] p-5 mb-8 chart-fade-up" style={{ borderLeftColor: '#FFB31A' }}>
         <div className="flex items-center gap-2 mb-4">
           <CalendarDays className="w-4 h-4 text-tobie-500" />
-          <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wider">Today&apos;s Activity</h2>
+          <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">Today&apos;s Activity</h2>
         </div>
         <div className="grid grid-cols-3 gap-4">
           <div className="text-center">
-            <p className="text-2xl font-bold text-gray-900">{loading ? '—' : todayConversations}</p>
-            <p className="text-xs text-gray-500 mt-1">Conversations</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-white">{loading ? '—' : todayConversations}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Conversations</p>
           </div>
-          <div className="text-center border-l border-r border-gray-100">
-            <p className="text-2xl font-bold text-gray-900">{loading ? '—' : todayMessages}</p>
-            <p className="text-xs text-gray-500 mt-1">Messages</p>
+          <div className="text-center border-l border-r border-gray-100 dark:border-gray-700">
+            <p className="text-2xl font-bold text-gray-900 dark:text-white">{loading ? '—' : todayMessages}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Messages</p>
           </div>
           <div className="text-center">
-            <p className="text-2xl font-bold text-gray-900">{loading ? '—' : todayVisitors}</p>
-            <p className="text-xs text-gray-500 mt-1">Unique Visitors</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-white">{loading ? '—' : todayVisitors}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Unique Visitors</p>
           </div>
         </div>
       </div>
 
       {/* Recent Conversations */}
-      <div className="bg-white border border-gray-200 shadow-card">
-        <div className="p-5 border-b border-gray-200 flex items-center justify-between">
+      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-card">
+        <div className="p-5 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-semibold text-gray-900">Recent Conversations</h2>
-            <p className="text-sm text-gray-500">Latest chat sessions from the benefits assistant</p>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Recent Conversations</h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Latest chat sessions from the benefits assistant</p>
           </div>
           <Link
             href="/conversations"
-            className="text-sm text-tobie-600 hover:text-tobie-700 font-medium"
+            className="text-sm text-tobie-600 hover:text-tobie-700 dark:text-tobie-400 dark:hover:text-tobie-300 font-medium"
           >
             View All →
           </Link>
         </div>
 
         {loading ? (
-          <div className="p-8 text-center text-gray-400">Loading...</div>
+          <div className="p-8 text-center text-gray-400 dark:text-gray-500">Loading...</div>
         ) : recentSessions.length === 0 ? (
           <div className="p-8 text-center">
             <MessageSquare className="w-12 h-12 text-gray-200 mx-auto mb-3" />
-            <p className="text-gray-500">No conversations yet.</p>
-            <p className="text-sm text-gray-400 mt-1">
+            <p className="text-gray-500 dark:text-gray-400">No conversations yet.</p>
+            <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">
               Chat transcripts will appear here once employees start using the benefits assistant.
             </p>
           </div>
         ) : (
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-gray-100 dark:divide-gray-700">
             {recentSessions.map((session) => (
               <Link
                 key={session.session_id}
                 href={`/conversations/detail?id=${session.session_id}`}
-                className="flex items-center gap-4 p-4 hover:bg-gray-50 hover:border-l-[3px] hover:border-l-tobie-400 transition-colors"
+                className="flex items-center gap-4 p-4 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-l-[3px] hover:border-l-tobie-400 transition-colors"
               >
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
-                    <p className="text-sm font-medium text-gray-900 truncate">
+                    <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
                       Session: {session.session_id.slice(0, 8)}...
                     </p>
                     {session.device_type && (
-                      <span className="text-[10px] px-1.5 py-0.5 bg-gray-100 text-gray-500 font-medium">
+                      <span className="text-[10px] px-1.5 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 font-medium">
                         {session.device_type}
                       </span>
                     )}
@@ -262,12 +262,12 @@ export default function AdminDashboard() {
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-gray-500 mt-0.5">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                     {session.topic_summary || 'No topic summary'}
                   </p>
                 </div>
                 <StatusBadge status={session.review_status} />
-                <div className="flex items-center gap-1 text-xs text-gray-400">
+                <div className="flex items-center gap-1 text-xs text-gray-400 dark:text-gray-500">
                   <Clock className="w-3 h-3" />
                   {new Date(session.created_at).toLocaleDateString()}
                 </div>
@@ -282,16 +282,16 @@ export default function AdminDashboard() {
 
 function StatusBadge({ status }: { status: string }) {
   const styles: Record<string, string> = {
-    pending: 'bg-amber-50 text-amber-700 border-amber-200',
-    reviewed: 'bg-green-50 text-green-700 border-green-200',
-    escalated: 'bg-red-50 text-red-700 border-red-200',
-    resolved: 'bg-blue-50 text-blue-700 border-blue-200',
+    pending: 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-900/30 dark:text-amber-400 dark:border-amber-700',
+    reviewed: 'bg-green-50 text-green-700 border-green-200 dark:bg-green-900/30 dark:text-green-400 dark:border-green-700',
+    escalated: 'bg-red-50 text-red-700 border-red-200 dark:bg-red-900/30 dark:text-red-400 dark:border-red-700',
+    resolved: 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-700',
   };
 
   return (
     <span
       className={`inline-flex items-center px-2.5 py-0.5 text-xs font-medium border ${
-        styles[status] || 'bg-gray-50 text-gray-700 border-gray-200'
+        styles[status] || 'bg-gray-50 text-gray-700 border-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600'
       }`}
     >
       {status}

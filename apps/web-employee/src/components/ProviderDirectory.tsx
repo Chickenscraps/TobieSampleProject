@@ -77,7 +77,7 @@ export function ProviderDirectory() {
     CATEGORY_META[category] || { label: category, icon: Heart, color: 'bg-gray-50 text-gray-600 border-gray-200' };
 
   return (
-    <section id="contacts" className="py-16 sm:py-20 bg-white">
+    <section id="contacts" className="py-16 sm:py-20 bg-white dark:bg-gray-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollFadeIn>
           <div className="text-center mb-10">
@@ -85,10 +85,10 @@ export function ProviderDirectory() {
               illustration={providerDirectoryIllustration}
               variant="sectionHeader"
             />
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">
               Provider &amp; Contact Directory
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Find contact information for all benefit carriers and support resources.
             </p>
           </div>
@@ -106,7 +106,7 @@ export function ProviderDirectory() {
                   placeholder="Search providers..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-11 pr-4 py-2.5 text-sm border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-tobie-500 focus:border-transparent transition-all placeholder:text-gray-400"
+                  className="w-full pl-11 pr-4 py-2.5 text-sm border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-tobie-500 focus:border-transparent transition-all placeholder:text-gray-400 dark:placeholder-gray-500"
                 />
               </div>
             </div>
@@ -117,8 +117,8 @@ export function ProviderDirectory() {
                 onClick={() => setActiveCategory(null)}
                 className={`px-4 py-2 text-sm font-medium transition-all ${
                   activeCategory === null
-                    ? 'bg-tobie-600 text-white'
-                    : 'bg-white border border-gray-200 text-gray-600 hover:border-tobie-200 hover:bg-tobie-50'
+                    ? 'bg-tobie-600 dark:bg-tobie-600 text-white dark:text-white'
+                    : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-tobie-200 hover:bg-tobie-50'
                 }`}
               >
                 All ({providers.length})
@@ -133,8 +133,8 @@ export function ProviderDirectory() {
                     onClick={() => setActiveCategory(isActive ? null : cat)}
                     className={`px-4 py-2 text-sm font-medium transition-all ${
                       isActive
-                        ? 'bg-tobie-600 text-white'
-                        : 'bg-white border border-gray-200 text-gray-600 hover:border-tobie-200 hover:bg-tobie-50'
+                        ? 'bg-tobie-600 dark:bg-tobie-600 text-white dark:text-white'
+                        : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-tobie-200 hover:bg-tobie-50'
                     }`}
                   >
                     {meta.label} ({count})
@@ -147,12 +147,12 @@ export function ProviderDirectory() {
 
         {/* Provider rows — compact table-like layout */}
         {filteredProviders.length === 0 ? (
-          <p className="text-center text-gray-500 py-8">
+          <p className="text-center text-gray-500 dark:text-gray-400 py-8">
             No providers found matching your search.
           </p>
         ) : (
           <ScrollFadeIn delay={200}>
-            <div className="shadow-card border border-gray-100 divide-y divide-gray-100 bg-white">
+            <div className="shadow-card border border-gray-100 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-700 bg-white dark:bg-gray-800">
               {filteredProviders.map((provider) => {
                 const meta = getCategoryMeta(provider.category);
                 const Icon = meta.icon;
@@ -168,13 +168,13 @@ export function ProviderDirectory() {
                       </div>
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <h4 className="text-sm font-semibold text-gray-900 truncate">{provider.name}</h4>
+                          <h4 className="text-sm font-semibold text-gray-900 dark:text-white truncate">{provider.name}</h4>
                           <span className={`hidden sm:inline-flex text-[10px] font-medium px-2 py-0.5 ${meta.color}`}>
                             {meta.label}
                           </span>
                         </div>
                         {provider.description && (
-                          <p className="text-xs text-gray-500 leading-relaxed mt-0.5 line-clamp-2">
+                          <p className="text-xs text-gray-500 dark:text-gray-300 leading-relaxed mt-0.5 line-clamp-2">
                             {provider.description}
                           </p>
                         )}
@@ -186,7 +186,7 @@ export function ProviderDirectory() {
                       {provider.phone && (
                         <a
                           href={`tel:${provider.phone.replace(/[^0-9]/g, '')}`}
-                          className="inline-flex items-center gap-1.5 text-sm text-tobie-600 font-medium hover:text-tobie-800 transition-colors"
+                          className="inline-flex items-center gap-1.5 text-sm text-tobie-600 dark:text-tobie-300 font-medium hover:text-tobie-800 dark:hover:text-tobie-200 transition-colors"
                         >
                           <Phone className="h-3.5 w-3.5" />
                           <span>{provider.phone}</span>
@@ -197,7 +197,7 @@ export function ProviderDirectory() {
                           href={provider.website}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 text-sm text-tobie-600 font-medium hover:text-tobie-800 transition-colors"
+                          className="inline-flex items-center gap-1.5 text-sm text-tobie-600 dark:text-tobie-300 font-medium hover:text-tobie-800 dark:hover:text-tobie-200 transition-colors"
                         >
                           <Globe className="h-3.5 w-3.5" />
                           <span className="hidden sm:inline">Website</span>
@@ -211,7 +211,7 @@ export function ProviderDirectory() {
             </div>
 
             {/* Result count */}
-            <p className="text-xs text-gray-400 text-center mt-4">
+            <p className="text-xs text-gray-400 dark:text-gray-500 text-center mt-4">
               Showing {filteredProviders.length} of {providers.length} providers
               {activeCategory ? ` in ${getCategoryMeta(activeCategory).label}` : ''}
               {searchQuery ? ` matching "${searchQuery}"` : ''}

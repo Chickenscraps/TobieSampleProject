@@ -5,10 +5,10 @@ import { downloadGuideIllustration } from '@/lib/image-manifest';
 
 export function FullGuideDownload() {
   return (
-    <section id="guide-download" className="py-16 sm:py-20 bg-gray-50">
+    <section id="guide-download" className="py-16 sm:py-20 bg-gray-50 dark:bg-gray-950">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <ScrollFadeIn>
-          <div className="bg-gradient-to-b from-white to-tobie-50/50 border border-tobie-100 shadow-card border-t-[3px] border-t-accent p-8 sm:p-12">
+          <div className="bg-gradient-to-b from-white to-tobie-50/50 dark:from-gray-800 dark:to-gray-800 border border-tobie-100 dark:border-gray-700 shadow-card border-t-[3px] border-t-accent p-8 sm:p-12">
             <SectionIllustration
               illustration={downloadGuideIllustration}
               variant="ctaBlock"
@@ -16,10 +16,10 @@ export function FullGuideDownload() {
               imgClassName="w-full max-w-xs mx-auto object-contain"
             />
 
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-3">
               Full Benefits Guide
             </h2>
-            <p className="text-gray-600 leading-relaxed mb-8 max-w-lg mx-auto">
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-8 max-w-lg mx-auto">
               Download the complete 2026 Tobie Benefits Guide for detailed plan
               information, rate tables, provider networks, and enrollment
               instructions. Keep it handy as a reference throughout the year.
@@ -35,7 +35,7 @@ export function FullGuideDownload() {
               Download Benefits Guide (PDF)
             </a>
 
-            <p className="mt-4 text-xs text-gray-400">
+            <p className="mt-4 text-xs text-gray-400 dark:text-gray-500">
               PDF format &middot; Updated for the 2026 plan year
             </p>
           </div>

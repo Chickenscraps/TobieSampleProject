@@ -9,7 +9,7 @@ export function ChatAssistantLauncher() {
   return (
     <>
       {/* Desktop: Always-open persistent panel */}
-      <div className="hidden lg:block fixed top-0 right-0 h-screen w-[400px] z-40">
+      <div className="hidden lg:block fixed top-0 right-0 h-screen w-[400px] z-40 dark:bg-gray-950">
         <ChatDrawer isOpen={true} onClose={() => {}} persistent />
       </div>
 

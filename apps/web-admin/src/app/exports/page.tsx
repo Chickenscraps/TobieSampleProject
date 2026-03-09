@@ -122,8 +122,8 @@ export default function ExportsPage() {
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Exports</h1>
-          <p className="text-sm text-gray-500 mt-1">Export chat transcripts for review and compliance.</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Exports</h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Export chat transcripts for review and compliance.</p>
         </div>
         <button
           onClick={() => setShowForm(!showForm)}
@@ -136,33 +136,33 @@ export default function ExportsPage() {
 
       {/* Export Form */}
       {showForm && (
-        <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Create New Export</h2>
+        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 mb-6">
+          <h2 className="font-semibold text-gray-900 dark:text-white mb-4">Create New Export</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">From Date</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">From Date</label>
               <input
                 type="date"
                 value={dateFrom}
                 onChange={(e) => setDateFrom(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 bg-white text-gray-900 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tobie-500"
+                className="w-full px-3 py-2 border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tobie-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">To Date</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">To Date</label>
               <input
                 type="date"
                 value={dateTo}
                 onChange={(e) => setDateTo(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 bg-white text-gray-900 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tobie-500"
+                className="w-full px-3 py-2 border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tobie-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Format</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Format</label>
               <select
                 value={format}
                 onChange={(e) => setFormat(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-200 bg-white text-gray-900 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tobie-500"
+                className="w-full px-3 py-2 border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-tobie-500"
               >
                 <option value="json">JSON</option>
                 <option value="csv">CSV</option>
@@ -179,7 +179,7 @@ export default function ExportsPage() {
             </button>
             <button
               onClick={() => setShowForm(false)}
-              className="px-4 py-2 text-gray-600 text-sm border border-gray-200 rounded-lg hover:bg-gray-50"
+              className="px-4 py-2 text-gray-600 dark:text-gray-300 text-sm border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
             >
               Cancel
             </button>
@@ -188,16 +188,16 @@ export default function ExportsPage() {
       )}
 
       {/* Export History */}
-      <div className="bg-white rounded-xl shadow-card border border-gray-100 overflow-hidden">
-        <div className="p-4 border-b border-gray-200">
-          <h2 className="font-semibold text-gray-900">Export History</h2>
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-card border border-gray-100 dark:border-gray-700 overflow-hidden">
+        <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+          <h2 className="font-semibold text-gray-900 dark:text-white">Export History</h2>
         </div>
         {loading ? (
-          <div className="p-8 text-center text-gray-400">Loading...</div>
+          <div className="p-8 text-center text-gray-400 dark:text-gray-500">Loading...</div>
         ) : exports.length === 0 ? (
           <div className="p-8 text-center">
             <Download className="w-12 h-12 text-gray-200 mx-auto mb-3" />
-            <p className="text-gray-500">No exports yet.</p>
+            <p className="text-gray-500 dark:text-gray-400">No exports yet.</p>
           </div>
         ) : (
           <>
@@ -205,26 +205,26 @@ export default function ExportsPage() {
             <div className="hidden md:block overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-gray-200 bg-gray-50">
-                    <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">Date</th>
-                    <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">Scope</th>
-                    <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">Format</th>
-                    <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">Records</th>
-                    <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">Requested By</th>
+                  <tr className="border-b border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700">
+                    <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 dark:text-gray-300 uppercase">Date</th>
+                    <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 dark:text-gray-300 uppercase">Scope</th>
+                    <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 dark:text-gray-300 uppercase">Format</th>
+                    <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 dark:text-gray-300 uppercase">Records</th>
+                    <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 dark:text-gray-300 uppercase">Requested By</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
                   {exports.map((exp) => (
-                    <tr key={exp.id} className="hover:bg-gray-50">
-                      <td className="py-3 px-4 text-sm text-gray-600">
+                    <tr key={exp.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                      <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">
                         <div className="flex items-center gap-2">
                           <Clock className="w-4 h-4 text-gray-400 flex-shrink-0" />
                           {new Date(exp.created_at).toLocaleString()}
                         </div>
                       </td>
-                      <td className="py-3 px-4 text-sm text-gray-600 capitalize">{exp.scope.replace('_', ' ')}</td>
+                      <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400 capitalize">{exp.scope.replace('_', ' ')}</td>
                       <td className="py-3 px-4">
-                        <span className="inline-flex items-center gap-1 text-xs font-medium text-gray-700">
+                        <span className="inline-flex items-center gap-1 text-xs font-medium text-gray-700 dark:text-gray-300">
                           {exp.format === 'json' ? (
                             <><FileJson className="w-3 h-3 text-blue-500" /> JSON</>
                           ) : (
@@ -232,8 +232,8 @@ export default function ExportsPage() {
                           )}
                         </span>
                       </td>
-                      <td className="py-3 px-4 text-sm text-gray-600">{exp.record_count}</td>
-                      <td className="py-3 px-4 text-sm text-gray-600">{exp.requested_by}</td>
+                      <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">{exp.record_count}</td>
+                      <td className="py-3 px-4 text-sm text-gray-600 dark:text-gray-400">{exp.requested_by}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -241,21 +241,21 @@ export default function ExportsPage() {
             </div>
 
             {/* Mobile Card List */}
-            <div className="md:hidden divide-y divide-gray-100">
+            <div className="md:hidden divide-y divide-gray-100 dark:divide-gray-700">
               {exports.map((exp) => (
                 <div key={exp.id} className="p-4">
                   <div className="flex items-center justify-between mb-2">
-                    <span className="inline-flex items-center gap-1 text-xs font-medium text-gray-700">
+                    <span className="inline-flex items-center gap-1 text-xs font-medium text-gray-700 dark:text-gray-300">
                       {exp.format === 'json' ? (
                         <><FileJson className="w-3 h-3 text-blue-500" /> JSON</>
                       ) : (
                         <><FileSpreadsheet className="w-3 h-3 text-green-500" /> CSV</>
                       )}
                     </span>
-                    <span className="text-xs text-gray-500 capitalize">{exp.scope.replace('_', ' ')}</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400 capitalize">{exp.scope.replace('_', ' ')}</span>
                   </div>
-                  <p className="text-sm text-gray-700 mb-1">{exp.record_count} records</p>
-                  <div className="flex items-center justify-between text-xs text-gray-400">
+                  <p className="text-sm text-gray-700 dark:text-gray-300 mb-1">{exp.record_count} records</p>
+                  <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500">
                     <span>by {exp.requested_by}</span>
                     <div className="flex items-center gap-1">
                       <Clock className="w-3 h-3" />

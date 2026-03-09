@@ -17,14 +17,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
           rel="stylesheet"
         />
+        {/* Prevent FOUC: apply dark class before paint */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('tobie-theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})()`,
+          }}
+        />
       </head>
-      <body className="font-sans bg-white text-brand-dark">
+      <body className="font-sans bg-white dark:bg-gray-950 text-brand-dark dark:text-gray-100 transition-colors">
         <div className="lg:mr-[400px]">
           <EnrollmentBanner />
           <StickyHeader />

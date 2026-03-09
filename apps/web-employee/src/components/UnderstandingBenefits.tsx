@@ -50,14 +50,14 @@ const benefitTerms: BenefitTerm[] = [
 
 export function UnderstandingBenefits() {
   return (
-    <section id="understanding-benefits" className="py-16 sm:py-20 bg-gray-50">
+    <section id="understanding-benefits" className="py-16 sm:py-20 bg-gray-50 dark:bg-gray-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollFadeIn>
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">
               Understanding Your Benefits
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Key terms explained in plain language to help you make informed
               benefit decisions.
             </p>
@@ -70,13 +70,13 @@ export function UnderstandingBenefits() {
             const topBorderColor = topBorderColors[index % topBorderColors.length];
             return (
             <ScrollFadeIn key={item.term} delay={index * 75}>
-              <div className={`bg-white shadow-card border border-gray-100 hover:shadow-card-hover transition-all duration-300 border-t-[3px] ${topBorderColor} p-6 h-full card-hover`}>
+              <div className={`bg-white dark:bg-gray-800 shadow-card border border-gray-100 dark:border-gray-700 hover:shadow-card-hover transition-all duration-300 border-t-[3px] ${topBorderColor} p-6 h-full card-hover`}>
                 <div className="mb-3">
-                  <h3 className="text-base font-semibold text-tobie-700">
+                  <h3 className="text-base font-semibold text-tobie-700 dark:text-white">
                     {item.term}
                   </h3>
                 </div>
-                <p className="text-sm text-gray-600 leading-relaxed">
+                <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                   {item.definition}
                 </p>
               </div>

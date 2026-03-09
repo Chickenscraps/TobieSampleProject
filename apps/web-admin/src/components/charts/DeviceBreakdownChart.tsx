@@ -33,7 +33,7 @@ function BreakdownSection({
     <div>
       <div className="flex items-center gap-2 mb-3">
         {icon}
-        <h4 className="text-sm font-semibold text-gray-700">{title}</h4>
+        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300">{title}</h4>
       </div>
       <div className="h-[120px]">
         <ResponsiveContainer width="100%" height="100%">
@@ -69,7 +69,7 @@ function BreakdownSection({
 export function DeviceBreakdownChart({ devices, browsers, os, loading }: DeviceBreakdownChartProps) {
   if (loading) {
     return (
-      <div className="bg-white shadow-card border border-gray-100 border-t-[3px] border-t-accent p-6 chart-fade-up">
+      <div className="bg-white dark:bg-gray-800 shadow-card border border-gray-100 dark:border-gray-700 border-t-[3px] border-t-accent p-6 chart-fade-up">
         <div className="h-[460px] flex items-center justify-center text-gray-400">
           Loading device data...
         </div>
@@ -78,10 +78,10 @@ export function DeviceBreakdownChart({ devices, browsers, os, loading }: DeviceB
   }
 
   return (
-    <div className="bg-white shadow-card border border-gray-100 border-t-[3px] border-t-accent p-6 chart-fade-up">
+    <div className="bg-white dark:bg-gray-800 shadow-card border border-gray-100 dark:border-gray-700 border-t-[3px] border-t-accent p-6 chart-fade-up">
       <div className="mb-5">
-        <h3 className="text-base font-semibold text-gray-900">Device & Browser Breakdown</h3>
-        <p className="text-xs text-gray-500 mt-0.5">How employees access the benefits assistant</p>
+        <h3 className="text-base font-semibold text-gray-900 dark:text-white">Device & Browser Breakdown</h3>
+        <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">How employees access the benefits assistant</p>
       </div>
 
       <div className="space-y-6">
