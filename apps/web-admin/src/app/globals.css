@@ -4,12 +4,25 @@
 
 @layer base {
   body {
-    @apply bg-gray-50 text-brand-dark antialiased;
+    @apply bg-gray-50 dark:bg-slate-900 text-brand-dark dark:text-gray-100 antialiased;
   }
 
   * {
     border-radius: 0 !important;
   }
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
 }
 
 @layer components {

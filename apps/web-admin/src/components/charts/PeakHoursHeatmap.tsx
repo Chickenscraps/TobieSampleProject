@@ -27,8 +27,8 @@ export function PeakHoursHeatmap({ data, loading }: PeakHoursHeatmapProps) {
 
   if (loading) {
     return (
-      <div className="bg-white border border-gray-200 p-6 chart-fade-up">
-        <div className="h-[260px] flex items-center justify-center text-gray-400">
+      <div className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 p-6 chart-fade-up">
+        <div className="h-[260px] flex items-center justify-center text-gray-400 dark:text-gray-500">
           Loading heatmap...
         </div>
       </div>
@@ -36,10 +36,10 @@ export function PeakHoursHeatmap({ data, loading }: PeakHoursHeatmapProps) {
   }
 
   return (
-    <div className="bg-white border border-gray-200 p-6 chart-fade-up">
+    <div className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 p-6 chart-fade-up">
       <div className="mb-4">
-        <h3 className="text-base font-semibold text-gray-900">Peak Usage Hours</h3>
-        <p className="text-xs text-gray-500 mt-0.5">When employees use the chat assistant</p>
+        <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">Peak Usage Hours</h3>
+        <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">When employees use the chat assistant</p>
       </div>
 
       <div className="overflow-x-auto">
@@ -49,7 +49,7 @@ export function PeakHoursHeatmap({ data, loading }: PeakHoursHeatmapProps) {
             {HOURS.filter((_, i) => i % 3 === 0).map((h) => (
               <div
                 key={h}
-                className="text-[10px] text-gray-400"
+                className="text-[10px] text-gray-400 dark:text-gray-500"
                 style={{ width: `${(3 / 24) * 100}%` }}
               >
                 {h === 0 ? '12a' : h < 12 ? `${h}a` : h === 12 ? '12p' : `${h - 12}p`}
@@ -60,14 +60,14 @@ export function PeakHoursHeatmap({ data, loading }: PeakHoursHeatmapProps) {
           {/* Grid */}
           {DAYS.map((day, dayIdx) => (
             <div key={day} className="flex items-center mb-[2px]">
-              <div className="w-10 text-[11px] text-gray-500 font-medium">{day}</div>
+              <div className="w-10 text-[11px] text-gray-500 dark:text-gray-400 font-medium">{day}</div>
               <div className="flex-1 flex gap-[2px]">
                 {HOURS.map((hour) => {
                   const value = data.grid[dayIdx]?.[hour] || 0;
                   return (
                     <div
                       key={hour}
-                      className="flex-1 h-7 transition-all duration-200 hover:ring-2 hover:ring-tobie-400 hover:ring-offset-1 cursor-default"
+                      className="flex-1 h-7 transition-all duration-200 hover:ring-2 hover:ring-tobie-400 hover:ring-offset-1 dark:hover:ring-offset-slate-800 cursor-default"
                       style={{ backgroundColor: getColorForValue(value, maxValue) }}
                       title={`${day} ${hour}:00 — ${value} session${value !== 1 ? 's' : ''}`}
                     />
@@ -79,7 +79,7 @@ export function PeakHoursHeatmap({ data, loading }: PeakHoursHeatmapProps) {
 
           {/* Legend */}
           <div className="flex items-center justify-end gap-1 mt-3">
-            <span className="text-[10px] text-gray-400 mr-1">Less</span>
+            <span className="text-[10px] text-gray-400 dark:text-gray-500 mr-1">Less</span>
             {HEATMAP_SCALE.map((color, i) => (
               <div
                 key={i}
@@ -87,7 +87,7 @@ export function PeakHoursHeatmap({ data, loading }: PeakHoursHeatmapProps) {
                 style={{ backgroundColor: color }}
               />
             ))}
-            <span className="text-[10px] text-gray-400 ml-1">More</span>
+            <span className="text-[10px] text-gray-400 dark:text-gray-500 ml-1">More</span>
           </div>
         </div>
       </div>

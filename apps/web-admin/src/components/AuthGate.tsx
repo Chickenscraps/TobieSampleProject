@@ -146,7 +146,7 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
   // Loading state
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="w-6 h-6 border-2 border-tobie-400 border-t-transparent animate-spin" />
       </div>
     );
@@ -159,22 +159,22 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
 
   // Login screen
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-tobie-100 mb-4">
-            <ShieldCheck className="w-8 h-8 text-tobie-600" />
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-tobie-100 dark:bg-tobie-800/30 mb-4">
+            <ShieldCheck className="w-8 h-8 text-tobie-600 dark:text-tobie-400" />
           </div>
-          <h1 className="text-2xl font-bold text-tobie-700">Tobie Admin</h1>
-          <p className="text-sm text-gray-500 mt-1">Benefits AI Dashboard</p>
+          <h1 className="text-2xl font-bold text-tobie-700 dark:text-tobie-300">Tobie Admin</h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Benefits AI Dashboard</p>
         </div>
 
         {/* Login Card */}
-        <div className="bg-white border border-gray-200 shadow-sm p-6 sm:p-8">
+        <div className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 shadow-sm dark:shadow-none p-6 sm:p-8">
           <div className="flex items-center gap-2 mb-6">
-            <Lock className="w-4 h-4 text-gray-400" />
-            <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wider">
+            <Lock className="w-4 h-4 text-gray-400 dark:text-gray-500" />
+            <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
               Admin Access
             </h2>
           </div>
@@ -182,7 +182,7 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Password Field */}
             <div>
-              <label htmlFor="admin-password" className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label htmlFor="admin-password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
                 Password
               </label>
               <div className="relative">
@@ -194,12 +194,12 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
                   placeholder="Enter admin password"
                   disabled={isLocked || isSubmitting}
                   autoFocus
-                  className="w-full px-3 py-2.5 border border-gray-300 text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-tobie-400 focus:border-tobie-400 disabled:bg-gray-100 disabled:text-gray-500 pr-10"
+                  className="w-full px-3 py-2.5 border border-gray-300 dark:border-slate-600 text-sm text-gray-900 dark:text-gray-100 bg-white dark:bg-slate-700 placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-tobie-400 focus:border-tobie-400 disabled:bg-gray-100 dark:disabled:bg-slate-600 disabled:text-gray-500 dark:disabled:text-gray-400 pr-10"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-400 hover:text-gray-600"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
                   tabIndex={-1}
                 >
                   {showPassword ? (
@@ -213,7 +213,7 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
 
             {/* Error Message */}
             {error && (
-              <div className="flex items-start gap-2 p-3 bg-red-50 border border-red-200 text-red-700 text-sm">
+              <div className="flex items-start gap-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-300 text-sm">
                 <AlertCircle className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 <span>{error}</span>
               </div>
@@ -221,7 +221,7 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
 
             {/* Lockout Timer */}
             {isLocked && (
-              <div className="flex items-center gap-2 p-3 bg-amber-50 border border-amber-200 text-amber-700 text-sm">
+              <div className="flex items-center gap-2 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700 text-amber-700 dark:text-amber-300 text-sm">
                 <Lock className="w-4 h-4 flex-shrink-0" />
                 <span>
                   Locked out. Try again in {Math.floor(lockoutRemaining / 60)}:{String(lockoutRemaining % 60).padStart(2, '0')}
@@ -233,7 +233,7 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
             <button
               type="submit"
               disabled={isLocked || isSubmitting || !password.trim()}
-              className="w-full py-2.5 px-4 bg-tobie-600 text-white text-sm font-semibold hover:bg-tobie-700 focus:outline-none focus:ring-2 focus:ring-tobie-400 focus:ring-offset-2 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+              className="w-full py-2.5 px-4 bg-tobie-600 dark:bg-tobie-500 text-white text-sm font-semibold hover:bg-tobie-700 dark:hover:bg-tobie-600 focus:outline-none focus:ring-2 focus:ring-tobie-400 focus:ring-offset-2 dark:focus:ring-offset-slate-800 disabled:bg-gray-300 dark:disabled:bg-slate-600 disabled:cursor-not-allowed transition-colors"
             >
               {isSubmitting ? (
                 <span className="flex items-center justify-center gap-2">
@@ -247,13 +247,13 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
           </form>
 
           {/* Help Text */}
-          <p className="mt-4 text-xs text-gray-400 text-center">
+          <p className="mt-4 text-xs text-gray-400 dark:text-gray-500 text-center">
             Contact your IT administrator if you need access.
           </p>
         </div>
 
         {/* Footer */}
-        <p className="text-center text-xs text-gray-400 mt-6">
+        <p className="text-center text-xs text-gray-400 dark:text-gray-500 mt-6">
           &copy; 2026 Tobie Benefits &middot; Secure Admin Portal
         </p>
       </div>

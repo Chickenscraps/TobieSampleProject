@@ -16,7 +16,7 @@ export function ChatAssistantLauncher() {
       {/* Mobile: Floating Launch Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`lg:hidden fixed bottom-6 right-6 z-40 flex items-center gap-2.5 bg-tobie-600 text-white hover:bg-tobie-700 shadow-lg shadow-tobie-600/25 transition-all duration-300 group ${
+        className={`lg:hidden fixed bottom-6 right-6 z-40 flex items-center gap-2.5 bg-tobie-600 dark:bg-tobie-500 text-white hover:bg-tobie-700 dark:hover:bg-tobie-600 shadow-lg shadow-tobie-600/25 dark:shadow-none transition-all duration-300 group ${
           isOpen ? 'scale-0 opacity-0' : 'scale-100 opacity-100'
         }`}
         aria-label="Open Benefits Assistant"

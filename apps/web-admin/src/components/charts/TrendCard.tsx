@@ -28,7 +28,7 @@ export function TrendCard({
   const displayValue = formatValue ? formatValue(value) : formatNumber(value);
 
   return (
-    <div className="bg-white border border-gray-200 p-5 relative overflow-hidden chart-fade-up">
+    <div className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 p-5 relative overflow-hidden chart-fade-up">
       {/* Sparkline background */}
       <div className="absolute bottom-0 left-0 right-0 h-16 opacity-20">
         <ResponsiveContainer width="100%" height="100%">
@@ -62,10 +62,10 @@ export function TrendCard({
             {trend.arrow} {trend.percent}
           </span>
         </div>
-        <p className="text-2xl font-bold text-gray-900">
+        <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
           {displayValue}{suffix}
         </p>
-        <p className="text-sm text-gray-500 mt-1">{label}</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{label}</p>
       </div>
     </div>
   );

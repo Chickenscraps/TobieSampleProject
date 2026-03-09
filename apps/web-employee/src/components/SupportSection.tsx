@@ -5,7 +5,7 @@ import { supportIllustration } from '@/lib/image-manifest';
 
 export function SupportSection() {
   return (
-    <section id="support" className="py-16 sm:py-20 bg-gray-50">
+    <section id="support" className="py-16 sm:py-20 bg-gray-50 dark:bg-slate-900">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollFadeIn>
           <div className="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12">
@@ -19,10 +19,10 @@ export function SupportSection() {
 
             {/* Content */}
             <div className="flex-1 text-center md:text-left">
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3">
                 Need Help? We&rsquo;re Here for You
               </h2>
-              <p className="text-gray-600 leading-relaxed mb-6">
+              <p className="text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
                 Whether you have questions about your coverage, need help
                 navigating enrollment, or want to understand a claim, our
                 support team is ready to assist. You can also use the AI
@@ -31,16 +31,16 @@ export function SupportSection() {
 
               <div className="space-y-3 mb-6">
                 <div className="flex items-center gap-3 justify-center md:justify-start">
-                  <div className="w-9 h-9 bg-tobie-50 flex items-center justify-center flex-shrink-0">
-                    <Phone className="h-4 w-4 text-tobie-600" />
+                  <div className="w-9 h-9 bg-tobie-50 dark:bg-tobie-900/30 flex items-center justify-center flex-shrink-0">
+                    <Phone className="h-4 w-4 text-tobie-600 dark:text-tobie-400" />
                   </div>
                   <div className="text-left">
-                    <p className="text-sm font-medium text-gray-900">
+                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
                       HR Solutions Center
                     </p>
                     <a
                       href="tel:8008905420"
-                      className="text-sm text-tobie-600 hover:underline"
+                      className="text-sm text-tobie-600 dark:text-tobie-400 hover:underline"
                     >
                       800-890-5420
                     </a>
@@ -48,18 +48,18 @@ export function SupportSection() {
                 </div>
 
                 <div className="flex items-center gap-3 justify-center md:justify-start">
-                  <div className="w-9 h-9 bg-tobie-50 flex items-center justify-center flex-shrink-0">
-                    <ExternalLink className="h-4 w-4 text-tobie-600" />
+                  <div className="w-9 h-9 bg-tobie-50 dark:bg-tobie-900/30 flex items-center justify-center flex-shrink-0">
+                    <ExternalLink className="h-4 w-4 text-tobie-600 dark:text-tobie-400" />
                   </div>
                   <div className="text-left">
-                    <p className="text-sm font-medium text-gray-900">
+                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
                       ServiceNow Portal
                     </p>
                     <a
                       href="https://servicenow.example.com"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-tobie-600 hover:underline"
+                      className="text-sm text-tobie-600 dark:text-tobie-400 hover:underline"
                     >
                       Submit a support ticket
                     </a>
@@ -67,14 +67,14 @@ export function SupportSection() {
                 </div>
 
                 <div className="flex items-center gap-3 justify-center md:justify-start">
-                  <div className="w-9 h-9 bg-tobie-50 flex items-center justify-center flex-shrink-0">
-                    <MessageCircle className="h-4 w-4 text-tobie-600" />
+                  <div className="w-9 h-9 bg-tobie-50 dark:bg-tobie-900/30 flex items-center justify-center flex-shrink-0">
+                    <MessageCircle className="h-4 w-4 text-tobie-600 dark:text-tobie-400" />
                   </div>
                   <div className="text-left">
-                    <p className="text-sm font-medium text-gray-900">
+                    <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
                       AI Benefits Assistant
                     </p>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
                       Available 24/7 in the chat panel
                     </p>
                   </div>

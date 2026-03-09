@@ -33,7 +33,7 @@ function BreakdownSection({
     <div>
       <div className="flex items-center gap-2 mb-3">
         {icon}
-        <h4 className="text-sm font-semibold text-gray-700">{title}</h4>
+        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300">{title}</h4>
       </div>
       <div className="h-[120px]">
         <ResponsiveContainer width="100%" height="100%">
@@ -69,8 +69,8 @@ function BreakdownSection({
 export function DeviceBreakdownChart({ devices, browsers, os, loading }: DeviceBreakdownChartProps) {
   if (loading) {
     return (
-      <div className="bg-white border border-gray-200 p-6 chart-fade-up">
-        <div className="h-[460px] flex items-center justify-center text-gray-400">
+      <div className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 p-6 chart-fade-up">
+        <div className="h-[460px] flex items-center justify-center text-gray-400 dark:text-gray-500">
           Loading device data...
         </div>
       </div>
@@ -78,28 +78,28 @@ export function DeviceBreakdownChart({ devices, browsers, os, loading }: DeviceB
   }
 
   return (
-    <div className="bg-white border border-gray-200 p-6 chart-fade-up">
+    <div className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 p-6 chart-fade-up">
       <div className="mb-5">
-        <h3 className="text-base font-semibold text-gray-900">Device & Browser Breakdown</h3>
-        <p className="text-xs text-gray-500 mt-0.5">How employees access the benefits assistant</p>
+        <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">Device & Browser Breakdown</h3>
+        <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">How employees access the benefits assistant</p>
       </div>
 
       <div className="space-y-6">
         <BreakdownSection
           title="Device Type"
-          icon={<Monitor className="w-4 h-4 text-gray-400" />}
+          icon={<Monitor className="w-4 h-4 text-gray-400 dark:text-gray-500" />}
           data={devices}
           palette={[PALETTE[0], PALETTE[1], PALETTE[2]]}
         />
         <BreakdownSection
           title="Browser"
-          icon={<Globe className="w-4 h-4 text-gray-400" />}
+          icon={<Globe className="w-4 h-4 text-gray-400 dark:text-gray-500" />}
           data={browsers}
           palette={[PALETTE[0], PALETTE[3], PALETTE[4], PALETTE[5], PALETTE[6]]}
         />
         <BreakdownSection
           title="Operating System"
-          icon={<Smartphone className="w-4 h-4 text-gray-400" />}
+          icon={<Smartphone className="w-4 h-4 text-gray-400 dark:text-gray-500" />}
           data={os}
           palette={[PALETTE[0], PALETTE[1], PALETTE[2], PALETTE[3], PALETTE[4], PALETTE[5]]}
         />

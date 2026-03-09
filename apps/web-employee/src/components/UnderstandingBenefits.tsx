@@ -50,14 +50,14 @@ const benefitTerms: BenefitTerm[] = [
 
 export function UnderstandingBenefits() {
   return (
-    <section id="understanding-benefits" className="py-16 sm:py-20 bg-gray-50">
+    <section id="understanding-benefits" className="py-16 sm:py-20 bg-gray-50 dark:bg-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollFadeIn>
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-3">
               Understanding Your Benefits
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               Key terms explained in plain language to help you make informed
               benefit decisions.
             </p>
@@ -67,14 +67,14 @@ export function UnderstandingBenefits() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {benefitTerms.map((item, index) => (
             <ScrollFadeIn key={item.term} delay={index * 75}>
-              <div className="bg-white border border-gray-200 p-6 h-full card-hover">
+              <div className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 p-6 h-full card-hover">
                 <div className="flex items-center gap-2 mb-3">
                   <div className="w-2 h-2 bg-tobie-500" />
-                  <h3 className="text-base font-semibold text-tobie-700">
+                  <h3 className="text-base font-semibold text-tobie-700 dark:text-tobie-300">
                     {item.term}
                   </h3>
                 </div>
-                <p className="text-sm text-gray-600 leading-relaxed">
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                   {item.definition}
                 </p>
               </div>
