@@ -14,10 +14,11 @@
 
 @layer components {
   .card-hover {
-    @apply transition-transform duration-200;
+    @apply shadow-card transition-all duration-300 ease-out;
   }
   .card-hover:hover {
-    transform: scale(1.02);
+    @apply shadow-card-hover;
+    transform: translateY(-3px);
   }
 }
 

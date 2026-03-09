@@ -5,7 +5,7 @@ import { supportIllustration } from '@/lib/image-manifest';
 
 export function SupportSection() {
   return (
-    <section id="support" className="py-16 sm:py-20 bg-gray-50">
+    <section id="support" className="py-16 sm:py-20 bg-gray-50 border-t-4 border-accent/30">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollFadeIn>
           <div className="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12">
@@ -30,53 +30,59 @@ export function SupportSection() {
               </p>
 
               <div className="space-y-3 mb-6">
-                <div className="flex items-center gap-3 justify-center md:justify-start">
-                  <div className="w-9 h-9 bg-tobie-50 flex items-center justify-center flex-shrink-0">
-                    <Phone className="h-4 w-4 text-tobie-600" />
-                  </div>
-                  <div className="text-left">
-                    <p className="text-sm font-medium text-gray-900">
-                      HR Solutions Center
-                    </p>
-                    <a
-                      href="tel:8008905420"
-                      className="text-sm text-tobie-600 hover:underline"
-                    >
-                      800-890-5420
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3 justify-center md:justify-start">
-                  <div className="w-9 h-9 bg-tobie-50 flex items-center justify-center flex-shrink-0">
-                    <ExternalLink className="h-4 w-4 text-tobie-600" />
-                  </div>
-                  <div className="text-left">
-                    <p className="text-sm font-medium text-gray-900">
-                      ServiceNow Portal
-                    </p>
-                    <a
-                      href="https://servicenow.example.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-tobie-600 hover:underline"
-                    >
-                      Submit a support ticket
-                    </a>
+                <div className="bg-white p-4 shadow-card hover:shadow-card-hover transition-all duration-300">
+                  <div className="flex items-center gap-3 justify-center md:justify-start">
+                    <div className="w-9 h-9 bg-tobie-50 flex items-center justify-center flex-shrink-0">
+                      <Phone className="h-4 w-4 text-tobie-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-sm font-medium text-gray-900">
+                        HR Solutions Center
+                      </p>
+                      <a
+                        href="tel:8008905420"
+                        className="text-sm text-tobie-600 hover:underline"
+                      >
+                        800-890-5420
+                      </a>
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 justify-center md:justify-start">
-                  <div className="w-9 h-9 bg-tobie-50 flex items-center justify-center flex-shrink-0">
-                    <MessageCircle className="h-4 w-4 text-tobie-600" />
+                <div className="bg-white p-4 shadow-card hover:shadow-card-hover transition-all duration-300">
+                  <div className="flex items-center gap-3 justify-center md:justify-start">
+                    <div className="w-9 h-9 bg-tobie-50 flex items-center justify-center flex-shrink-0">
+                      <ExternalLink className="h-4 w-4 text-tobie-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-sm font-medium text-gray-900">
+                        ServiceNow Portal
+                      </p>
+                      <a
+                        href="https://servicenow.example.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-tobie-600 hover:underline"
+                      >
+                        Submit a support ticket
+                      </a>
+                    </div>
                   </div>
-                  <div className="text-left">
-                    <p className="text-sm font-medium text-gray-900">
-                      AI Benefits Assistant
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      Available 24/7 in the chat panel
-                    </p>
+                </div>
+
+                <div className="bg-white p-4 shadow-card hover:shadow-card-hover transition-all duration-300">
+                  <div className="flex items-center gap-3 justify-center md:justify-start">
+                    <div className="w-9 h-9 bg-tobie-50 flex items-center justify-center flex-shrink-0">
+                      <MessageCircle className="h-4 w-4 text-tobie-600" />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-sm font-medium text-gray-900">
+                        AI Benefits Assistant
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        Available 24/7 in the chat panel
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

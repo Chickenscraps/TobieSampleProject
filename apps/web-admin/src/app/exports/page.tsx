@@ -181,7 +181,7 @@ export default function ExportsPage() {
       )}
 
       {/* Export History */}
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div className="bg-white rounded-xl shadow-card border border-gray-100 overflow-hidden">
         <div className="p-4 border-b border-gray-200">
           <h2 className="font-semibold text-gray-900">Export History</h2>
         </div>

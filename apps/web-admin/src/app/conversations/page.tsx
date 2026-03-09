@@ -127,7 +127,7 @@ export default function ConversationsPage() {
           { label: 'Avg / Day', value: avgPerDay, icon: TrendingUp, color: 'text-blue-600' },
           { label: 'Longest Session', value: `${longestSession} msgs`, icon: Activity, color: 'text-amber-600' },
         ].map((stat) => (
-          <div key={stat.label} className="bg-white border border-gray-200 p-4 flex items-center gap-3">
+          <div key={stat.label} className="bg-white shadow-card border border-gray-100 p-4 flex items-center gap-3">
             <stat.icon className={`w-5 h-5 ${stat.color} flex-shrink-0`} />
             <div>
               <p className="text-lg font-bold text-gray-900">{loading ? '—' : stat.value}</p>
@@ -200,7 +200,7 @@ export default function ConversationsPage() {
             <div className="hidden md:block overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-gray-200 bg-gray-50">
+                  <tr className="border-b-2 border-gray-200 bg-gray-50/80">
                     <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">Status</th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">Session</th>
                     <th className="text-left py-3 px-4 text-xs font-semibold text-gray-500 uppercase">Messages</th>
@@ -211,7 +211,7 @@ export default function ConversationsPage() {
                 </thead>
                 <tbody className="divide-y divide-gray-100">
                   {filteredSessions.map((session) => (
-                    <tr key={session.session_id} className="hover:bg-gray-50 transition-colors cursor-pointer">
+                    <tr key={session.session_id} className="hover:bg-gray-50 hover:border-l-[3px] hover:border-l-tobie-400 transition-colors cursor-pointer">
                       <td className="py-3 px-4"><StatusBadge status={session.status} /></td>
                       <td className="py-3 px-4">
                         <Link href={`/conversations/detail?id=${session.session_id}`} className="block">

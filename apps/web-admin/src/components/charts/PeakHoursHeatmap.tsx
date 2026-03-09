@@ -27,7 +27,7 @@ export function PeakHoursHeatmap({ data, loading }: PeakHoursHeatmapProps) {
 
   if (loading) {
     return (
-      <div className="bg-white border border-gray-200 p-6 chart-fade-up">
+      <div className="bg-white shadow-card border border-gray-100 border-t-[3px] border-t-tobie-500 p-6 chart-fade-up">
         <div className="h-[260px] flex items-center justify-center text-gray-400">
           Loading heatmap...
         </div>
@@ -36,7 +36,7 @@ export function PeakHoursHeatmap({ data, loading }: PeakHoursHeatmapProps) {
   }
 
   return (
-    <div className="bg-white border border-gray-200 p-6 chart-fade-up">
+    <div className="bg-white shadow-card border border-gray-100 border-t-[3px] border-t-tobie-500 p-6 chart-fade-up">
       <div className="mb-4">
         <h3 className="text-base font-semibold text-gray-900">Peak Usage Hours</h3>
         <p className="text-xs text-gray-500 mt-0.5">When employees use the chat assistant</p>

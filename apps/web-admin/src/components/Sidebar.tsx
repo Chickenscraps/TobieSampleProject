@@ -87,10 +87,10 @@ export function Sidebar() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className={`flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-colors ${
+                className={`flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-all duration-200 ${
                   isActive
-                    ? 'bg-tobie-50 text-tobie-700'
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                    ? 'bg-tobie-50 text-tobie-700 border-l-[3px] border-l-tobie-500 shadow-sm pl-[9px]'
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 hover:translate-x-0.5'
                 }`}
               >
                 <item.icon className="w-5 h-5" />
@@ -114,7 +114,7 @@ export function Sidebar() {
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-gray-200">
+        <div className="p-4 border-t border-gray-200 bg-gray-50">
           <div className="flex items-center justify-between px-3 py-2">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-tobie-100 flex items-center justify-center flex-shrink-0">

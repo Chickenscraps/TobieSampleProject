@@ -24,7 +24,7 @@ export function ResponseMetrics({
 }: ResponseMetricsProps) {
   if (loading) {
     return (
-      <div className="bg-white border border-gray-200 p-6 chart-fade-up">
+      <div className="bg-white shadow-card border border-gray-100 border-t-[3px] border-t-tobie-500 p-6 chart-fade-up">
         <div className="h-20 flex items-center justify-center text-gray-400">
           Loading response metrics...
         </div>
@@ -66,7 +66,7 @@ export function ResponseMetrics({
   ];
 
   return (
-    <div className="bg-white border border-gray-200 p-6 chart-fade-up">
+    <div className="bg-white shadow-card border border-gray-100 border-t-[3px] border-t-tobie-500 p-6 chart-fade-up">
       <div className="flex items-center justify-between mb-5">
         <div>
           <h3 className="text-base font-semibold text-gray-900">AI Response Performance</h3>

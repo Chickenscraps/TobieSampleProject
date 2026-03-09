@@ -4,7 +4,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-tobie-700 text-white">
+    <footer className="bg-gradient-to-b from-tobie-700 to-tobie-800 text-white border-t-2 border-accent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
           {/* Left: Logo + Year */}
@@ -17,7 +17,7 @@ export function Footer() {
               href="https://tobie-admin-dashboard.netlify.app"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 mt-3 text-sm text-brand-muted hover:text-white transition-colors"
+              className="inline-flex items-center gap-1.5 mt-3 text-sm text-brand-muted hover:text-accent transition-colors"
             >
               <Shield className="w-3.5 h-3.5" />
               Admin Dashboard
@@ -41,19 +41,19 @@ export function Footer() {
         {/* Bottom row */}
         <div className="mt-8 pt-6 border-t border-white/10">
           <div className="flex flex-wrap justify-center gap-6 text-xs text-brand-muted">
-            <a href="#" className="hover:text-white transition-colors duration-200">
+            <a href="#" className="hover:text-accent transition-colors duration-200">
               Privacy Policy
             </a>
-            <a href="#" className="hover:text-white transition-colors duration-200">
+            <a href="#" className="hover:text-accent transition-colors duration-200">
               Terms of Use
             </a>
-            <a href="#" className="hover:text-white transition-colors duration-200">
+            <a href="#" className="hover:text-accent transition-colors duration-200">
               Accessibility
             </a>
-            <a href="#" className="hover:text-white transition-colors duration-200">
+            <a href="#" className="hover:text-accent transition-colors duration-200">
               HIPAA Notice
             </a>
-            <a href="#" className="hover:text-white transition-colors duration-200">
+            <a href="#" className="hover:text-accent transition-colors duration-200">
               Contact HR
             </a>
           </div>

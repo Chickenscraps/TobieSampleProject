@@ -123,7 +123,7 @@ export default function ReviewQueuePage() {
       </div>
 
       {/* Progress */}
-      <div className="bg-white rounded-xl border border-gray-200 p-4 mb-6">
+      <div className="bg-white rounded-xl border border-gray-200 shadow-card p-4 mb-6">
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm font-medium text-gray-700">
             {completed} of {totalInQueue} reviewed
@@ -155,7 +155,7 @@ export default function ReviewQueuePage() {
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Conversation */}
-          <div className="lg:col-span-2 bg-white rounded-xl border border-gray-200">
+          <div className="lg:col-span-2 bg-white rounded-xl border border-gray-200 shadow-card">
             <div className="p-4 border-b border-gray-200 flex items-center justify-between">
               <div>
                 <h2 className="font-semibold text-gray-900">
@@ -203,7 +203,7 @@ export default function ReviewQueuePage() {
           </div>
 
           {/* Verdict Panel */}
-          <div className="bg-white rounded-xl border border-gray-200 p-4 h-fit">
+          <div className="bg-white rounded-xl border border-gray-200 shadow-card p-4 h-fit">
             <h3 className="font-semibold text-gray-900 mb-4">Verdict</h3>
             <div className="space-y-3">
               <div>

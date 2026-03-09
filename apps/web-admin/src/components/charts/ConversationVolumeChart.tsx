@@ -30,7 +30,7 @@ export function ConversationVolumeChart({ data, loading }: ConversationVolumeCha
 
   if (loading) {
     return (
-      <div className="bg-white border border-gray-200 p-6 chart-fade-up">
+      <div className="bg-white shadow-card border border-gray-100 border-t-[3px] border-t-tobie-500 p-6 chart-fade-up">
         <div className="h-[300px] flex items-center justify-center text-gray-400">
           Loading chart data...
         </div>
@@ -39,7 +39,7 @@ export function ConversationVolumeChart({ data, loading }: ConversationVolumeCha
   }
 
   return (
-    <div className="bg-white border border-gray-200 p-6 chart-fade-up">
+    <div className="bg-white shadow-card border border-gray-100 border-t-[3px] border-t-tobie-500 p-6 chart-fade-up">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>

@@ -192,7 +192,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Today's Activity Summary */}
-      <div className="bg-white border border-gray-200 p-5 mb-8 chart-fade-up">
+      <div className="bg-white shadow-card border border-gray-100 border-l-[3px] p-5 mb-8 chart-fade-up" style={{ borderLeftColor: '#FFB31A' }}>
         <div className="flex items-center gap-2 mb-4">
           <CalendarDays className="w-4 h-4 text-tobie-500" />
           <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wider">Today&apos;s Activity</h2>
@@ -214,7 +214,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Recent Conversations */}
-      <div className="bg-white border border-gray-200">
+      <div className="bg-white border border-gray-200 shadow-card">
         <div className="p-5 border-b border-gray-200 flex items-center justify-between">
           <div>
             <h2 className="text-lg font-semibold text-gray-900">Recent Conversations</h2>
@@ -244,7 +244,7 @@ export default function AdminDashboard() {
               <Link
                 key={session.session_id}
                 href={`/conversations/detail?id=${session.session_id}`}
-                className="flex items-center gap-4 p-4 hover:bg-gray-50 transition-colors"
+                className="flex items-center gap-4 p-4 hover:bg-gray-50 hover:border-l-[3px] hover:border-l-tobie-400 transition-colors"
               >
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">

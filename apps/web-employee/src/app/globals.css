@@ -41,23 +41,41 @@ html {
   transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
 }
 
-/* Card hover — lift */
+/* Card hover — lift with shadow */
 .card-hover {
-  @apply transition-all duration-300 ease-out;
+  @apply shadow-card transition-all duration-300 ease-out;
 }
 
 .card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  @apply shadow-card-hover;
+  transform: translateY(-3px);
 }
 
 /* Subtle row hover highlight */
 .row-hover {
-  @apply transition-colors duration-200;
+  @apply transition-all duration-200;
+  border-left: 3px solid transparent;
 }
 
 .row-hover:hover {
   @apply bg-tobie-50/50;
+  border-left-color: #316A9E;
+}
+
+/* Accent CTA button */
+.btn-accent {
+  @apply bg-accent text-tobie-700 font-bold transition-all duration-200;
+}
+
+.btn-accent:hover {
+  @apply bg-accent-dark;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 179, 26, 0.3);
+}
+
+.btn-accent:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 /* Button press effect */

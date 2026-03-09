@@ -18,7 +18,7 @@ export function TopicDistributionChart({ data, loading }: TopicDistributionChart
 
   if (loading) {
     return (
-      <div className="bg-white border border-gray-200 p-6 chart-fade-up">
+      <div className="bg-white shadow-card border border-gray-100 border-t-[3px] border-t-tobie-500 p-6 chart-fade-up">
         <div className="h-[300px] flex items-center justify-center text-gray-400">
           Loading topic data...
         </div>
@@ -27,7 +27,7 @@ export function TopicDistributionChart({ data, loading }: TopicDistributionChart
   }
 
   return (
-    <div className="bg-white border border-gray-200 p-6 chart-fade-up">
+    <div className="bg-white shadow-card border border-gray-100 border-t-[3px] border-t-tobie-500 p-6 chart-fade-up">
       <div className="mb-4">
         <h3 className="text-base font-semibold text-gray-900">Topic Distribution</h3>
         <p className="text-xs text-gray-500 mt-0.5">Most asked about benefit categories</p>

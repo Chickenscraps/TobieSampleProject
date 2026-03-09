@@ -99,7 +99,7 @@ export function FAQAccordion() {
                   className={`px-4 py-2 text-sm font-medium transition-all ${
                     activeCategory === cat.key
                       ? 'bg-tobie-600 text-white'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      : 'bg-white border border-gray-200 text-gray-600 hover:border-tobie-200 hover:bg-tobie-50'
                   }`}
                 >
                   {cat.label} ({categoryCounts[cat.key] || 0})
@@ -122,7 +122,7 @@ export function FAQAccordion() {
                 return (
                   <div
                     key={item.id}
-                    className="self-start border border-gray-200 overflow-hidden transition-colors"
+                    className={`self-start bg-white shadow-card border border-gray-100 transition-all duration-300 overflow-hidden ${isOpen ? 'border-l-[3px] border-l-tobie-500' : ''}`}
                   >
                     <button
                       onClick={() => toggleItem(item.id)}

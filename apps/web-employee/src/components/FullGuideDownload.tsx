@@ -8,7 +8,7 @@ export function FullGuideDownload() {
     <section id="guide-download" className="py-16 sm:py-20 bg-gray-50">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <ScrollFadeIn>
-          <div className="bg-white border border-gray-200 p-8 sm:p-12">
+          <div className="bg-gradient-to-b from-white to-tobie-50/50 border border-tobie-100 shadow-card border-t-[3px] border-t-accent p-8 sm:p-12">
             <SectionIllustration
               illustration={downloadGuideIllustration}
               variant="ctaBlock"
@@ -29,7 +29,7 @@ export function FullGuideDownload() {
               href="/documents/2026-Tobie-Benefits-Guide.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 px-8 py-3.5 bg-tobie-600 text-white font-semibold hover:bg-tobie-700 btn-press"
+              className="btn-accent inline-flex items-center gap-2.5 px-8 py-3.5 font-semibold btn-press"
             >
               <FileText className="h-5 w-5" />
               Download Benefits Guide (PDF)

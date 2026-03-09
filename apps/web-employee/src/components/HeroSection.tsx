@@ -40,8 +40,8 @@ export function HeroSection() {
         aria-hidden="true"
       />
 
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-gray-900/60" />
+      {/* Branded gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-tobie-700/80 via-tobie-600/65 to-tobie-500/50" />
 
       {/* Text content — centred on top of background */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 w-full">
@@ -83,7 +83,7 @@ export function HeroSection() {
           >
             <button
               onClick={() => scrollTo('#benefits-overview')}
-              className="w-full sm:w-auto px-8 py-3.5 bg-tobie-600 text-white font-bold hover:bg-tobie-700 btn-press"
+              className="w-full sm:w-auto px-8 py-3.5 btn-accent"
             >
               Explore Your Benefits
             </button>

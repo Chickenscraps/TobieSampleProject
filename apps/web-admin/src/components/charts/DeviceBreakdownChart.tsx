@@ -69,7 +69,7 @@ function BreakdownSection({
 export function DeviceBreakdownChart({ devices, browsers, os, loading }: DeviceBreakdownChartProps) {
   if (loading) {
     return (
-      <div className="bg-white border border-gray-200 p-6 chart-fade-up">
+      <div className="bg-white shadow-card border border-gray-100 border-t-[3px] border-t-accent p-6 chart-fade-up">
         <div className="h-[460px] flex items-center justify-center text-gray-400">
           Loading device data...
         </div>
@@ -78,7 +78,7 @@ export function DeviceBreakdownChart({ devices, browsers, os, loading }: DeviceB
   }
 
   return (
-    <div className="bg-white border border-gray-200 p-6 chart-fade-up">
+    <div className="bg-white shadow-card border border-gray-100 border-t-[3px] border-t-accent p-6 chart-fade-up">
       <div className="mb-5">
         <h3 className="text-base font-semibold text-gray-900">Device & Browser Breakdown</h3>
         <p className="text-xs text-gray-500 mt-0.5">How employees access the benefits assistant</p>

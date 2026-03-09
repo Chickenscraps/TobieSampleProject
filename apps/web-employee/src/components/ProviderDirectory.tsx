@@ -118,7 +118,7 @@ export function ProviderDirectory() {
                 className={`px-4 py-2 text-sm font-medium transition-all ${
                   activeCategory === null
                     ? 'bg-tobie-600 text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    : 'bg-white border border-gray-200 text-gray-600 hover:border-tobie-200 hover:bg-tobie-50'
                 }`}
               >
                 All ({providers.length})
@@ -134,7 +134,7 @@ export function ProviderDirectory() {
                     className={`px-4 py-2 text-sm font-medium transition-all ${
                       isActive
                         ? 'bg-tobie-600 text-white'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        : 'bg-white border border-gray-200 text-gray-600 hover:border-tobie-200 hover:bg-tobie-50'
                     }`}
                   >
                     {meta.label} ({count})
@@ -152,7 +152,7 @@ export function ProviderDirectory() {
           </p>
         ) : (
           <ScrollFadeIn delay={200}>
-            <div className="border border-gray-200 divide-y divide-gray-100 bg-white">
+            <div className="shadow-card border border-gray-100 divide-y divide-gray-100 bg-white">
               {filteredProviders.map((provider) => {
                 const meta = getCategoryMeta(provider.category);
                 const Icon = meta.icon;

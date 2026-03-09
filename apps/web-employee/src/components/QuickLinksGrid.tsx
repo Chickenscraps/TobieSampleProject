@@ -32,7 +32,7 @@ export function QuickLinksGrid() {
                   href={link.url}
                   target={link.url.startsWith('http') ? '_blank' : undefined}
                   rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className="group block bg-white border border-gray-200 p-6 hover:scale-[1.02] hover:bg-brand-surface transition-all duration-300"
+                  className="group block bg-white shadow-card border border-gray-100 p-6 hover:-translate-y-1 hover:shadow-card-hover hover:border-l-[3px] hover:border-l-tobie-500 hover:bg-brand-surface transition-all duration-300"
                 >
                   <div className="flex items-start gap-4">
                     <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center">

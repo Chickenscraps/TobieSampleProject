@@ -5,7 +5,7 @@ import { searchCareIllustration } from '@/lib/image-manifest';
 
 export function SearchCare() {
   return (
-    <section id="find-care" className="py-16 sm:py-20 bg-white">
+    <section id="find-care" className="py-16 sm:py-20 bg-white" style={{ background: 'linear-gradient(135deg, rgba(232,240,248,0.3) 0%, transparent 60%)' }}>
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollFadeIn>
           <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">

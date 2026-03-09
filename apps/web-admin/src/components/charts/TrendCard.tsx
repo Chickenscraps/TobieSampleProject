@@ -28,9 +28,9 @@ export function TrendCard({
   const displayValue = formatValue ? formatValue(value) : formatNumber(value);
 
   return (
-    <div className="bg-white border border-gray-200 p-5 relative overflow-hidden chart-fade-up">
+    <div className="bg-white shadow-card border border-gray-100 hover:shadow-card-hover transition-all duration-300 border-l-[3px] p-5 relative overflow-hidden chart-fade-up" style={{ borderLeftColor: color }}>
       {/* Sparkline background */}
-      <div className="absolute bottom-0 left-0 right-0 h-16 opacity-20">
+      <div className="absolute bottom-0 left-0 right-0 h-20 opacity-30">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={sparklineData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
             <defs>

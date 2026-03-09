@@ -65,11 +65,13 @@ export function UnderstandingBenefits() {
         </ScrollFadeIn>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-          {benefitTerms.map((item, index) => (
+          {benefitTerms.map((item, index) => {
+            const topBorderColors = ['border-t-tobie-500', 'border-t-[#FFB31A]', 'border-t-tobie-400', 'border-t-tobie-300'];
+            const topBorderColor = topBorderColors[index % topBorderColors.length];
+            return (
             <ScrollFadeIn key={item.term} delay={index * 75}>
-              <div className="bg-white border border-gray-200 p-6 h-full card-hover">
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="w-2 h-2 bg-tobie-500" />
+              <div className={`bg-white shadow-card border border-gray-100 hover:shadow-card-hover transition-all duration-300 border-t-[3px] ${topBorderColor} p-6 h-full card-hover`}>
+                <div className="mb-3">
                   <h3 className="text-base font-semibold text-tobie-700">
                     {item.term}
                   </h3>
@@ -79,7 +81,8 @@ export function UnderstandingBenefits() {
                 </p>
               </div>
             </ScrollFadeIn>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

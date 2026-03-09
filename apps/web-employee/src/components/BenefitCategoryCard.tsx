@@ -11,10 +11,21 @@ interface BenefitCategoryCardProps {
   category: BenefitCategory;
 }
 
+const CATEGORY_COLORS: Record<string, string> = {
+  medical: '#2563EB',
+  'fsa-hsa': '#059669',
+  'life-add': '#7C3AED',
+  disability: '#D97706',
+  voluntary: '#E11D48',
+  retirement: '#4F46E5',
+  worklife: '#0D9488',
+};
+
 export function BenefitCategoryCard({ category }: BenefitCategoryCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const IconComponent = getIcon(category.icon);
   const illustration = benefitCardImages[category.id];
+  const borderColor = CATEGORY_COLORS[category.id] || '#1E6BB0';
 
   // Show first 2 key details in collapsed view, rest in expanded
   const previewDetails = category.keyDetails.slice(0, 2);
@@ -22,7 +33,7 @@ export function BenefitCategoryCard({ category }: BenefitCategoryCardProps) {
   const hasExpandableContent = expandedDetails.length > 0 || category.warnings?.length || category.employerPaid || (category.links && category.links.length > 0);
 
   return (
-    <div className="bg-white border border-gray-200 flex flex-col overflow-hidden">
+    <div className="bg-white shadow-card border border-gray-100 hover:shadow-card-hover hover:-translate-y-0.5 transition-all duration-300 border-l-[3px] flex flex-col overflow-hidden" style={{ borderLeftColor: borderColor }}>
       {/* Compact Header — icon, title, carrier */}
       <div className="px-5 pt-5 pb-0">
         <div className="flex items-start gap-3">

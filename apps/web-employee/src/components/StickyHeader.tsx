@@ -82,7 +82,7 @@ export function StickyHeader() {
     <header
       className={`sticky top-0 z-40 w-full transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-[0_1px_3px_rgba(0,0,0,0.05)]'
+          ? 'bg-white/80 backdrop-blur-md border-b border-gray-200/60 shadow-[0_1px_8px_rgba(0,0,0,0.06)]'
           : 'bg-white'
       }`}
     >
@@ -117,10 +117,10 @@ export function StickyHeader() {
                     handleNavClick(link.href);
                   }
                 }}
-                className={`relative px-3 py-1.5 text-[13px] font-medium transition-colors ${
+                className={`relative px-3 py-1.5 text-[13px] font-medium transition-all duration-200 ${
                   isActive(link.href)
                     ? 'text-tobie-700'
-                    : 'text-gray-500 hover:text-gray-900'
+                    : 'text-gray-500 hover:text-tobie-600'
                 }`}
               >
                 {link.label}
