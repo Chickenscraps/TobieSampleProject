@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
+import dynamic from 'next/dynamic';
 import { Sun, Moon, Monitor } from 'lucide-react';
 
 type Theme = 'light' | 'dark' | 'system';
@@ -16,8 +17,7 @@ function getStoredTheme(): Theme {
 
 function getResolvedTheme(theme: Theme): 'light' | 'dark' {
   if (theme === 'system') {
-    return typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark' : 'light';
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
   return theme;
 }
@@ -30,27 +30,26 @@ function applyTheme(theme: Theme) {
   } catch {}
 }
 
-export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>('system');
-  const [mounted, setMounted] = useState(false);
+/**
+ * Client-only theme toggle with label. Uses next/dynamic with ssr:false
+ * so it never server-renders (avoiding hydration mismatches
+ * from localStorage / matchMedia).
+ */
+function ThemeToggleClient() {
+  const [theme, setTheme] = useState<Theme>(getStoredTheme);
 
   useEffect(() => {
-    setTheme(getStoredTheme());
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
     applyTheme(theme);
+  }, [theme]);
 
-    // Listen for OS theme changes when in system mode
+  useEffect(() => {
     const mq = window.matchMedia('(prefers-color-scheme: dark)');
     const handler = () => {
       if (getStoredTheme() === 'system') applyTheme('system');
     };
     mq.addEventListener('change', handler);
     return () => mq.removeEventListener('change', handler);
-  }, [theme, mounted]);
+  }, []);
 
   const cycleTheme = useCallback(() => {
     setTheme(prev => {
@@ -59,10 +58,6 @@ export function ThemeToggle() {
       return 'light';
     });
   }, []);
-
-  if (!mounted) {
-    return <div className="w-9 h-9" />; // Placeholder to prevent layout shift
-  }
 
   const resolved = getResolvedTheme(theme);
   const Icon = theme === 'system' ? Monitor : resolved === 'dark' ? Moon : Sun;
@@ -75,8 +70,13 @@ export function ThemeToggle() {
       title={`Theme: ${label} (click to cycle)`}
       aria-label={`Current theme: ${label}. Click to change.`}
     >
-      <Icon className="w-3.5 h-3.5" />
+      <Icon className="w-4 h-4" />
       <span className="hidden sm:inline">{label}</span>
     </button>
   );
 }
+
+export const ThemeToggle = dynamic(() => Promise.resolve(ThemeToggleClient), {
+  ssr: false,
+  loading: () => <div className="w-9 h-9" aria-hidden />,
+});
