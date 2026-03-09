@@ -7,10 +7,10 @@ export function AboutSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ScrollFadeIn>
           <div className="max-w-3xl mx-auto text-center mb-14">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Your Benefits, Your Way
             </h2>
-            <p className="text-lg text-gray-600 leading-relaxed">
+            <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
               At Tobie, we invest in a comprehensive benefits package because we
               know that when you and your family feel secure and supported, you
               can bring your best self to work every day. This guide is your
@@ -23,16 +23,16 @@ export function AboutSection() {
         {/* HR Contact Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           <ScrollFadeIn delay={100}>
-            <div className="bg-tobie-50 border border-tobie-100 p-6 card-hover">
+            <div className="bg-tobie-50 dark:bg-gray-800 border border-tobie-100 dark:border-gray-700 p-6 card-hover">
               <div className="flex items-center gap-3 mb-4">
                 <div className="flex-shrink-0 w-10 h-10 bg-tobie-500 flex items-center justify-center">
                   <Phone className="h-5 w-5 text-white" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                   Benefits Support
                 </h3>
               </div>
-              <p className="text-gray-600 text-sm mb-4">
+              <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
                 General benefits questions, enrollment assistance, life event
                 changes, and plan information.
               </p>
@@ -62,16 +62,16 @@ export function AboutSection() {
           </ScrollFadeIn>
 
           <ScrollFadeIn delay={200}>
-            <div className="bg-gray-50 border border-gray-200 p-6 card-hover">
+            <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 card-hover">
               <div className="flex items-center gap-3 mb-4">
                 <div className="flex-shrink-0 w-10 h-10 bg-gray-700 flex items-center justify-center">
                   <Mail className="h-5 w-5 text-white" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                   IT Service Desk
                 </h3>
               </div>
-              <p className="text-gray-600 text-sm mb-4">
+              <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
                 Technical support for the Infor enrollment portal, password
                 resets, and benefits system access issues.
               </p>
