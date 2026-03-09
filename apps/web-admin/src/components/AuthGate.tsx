@@ -10,6 +10,8 @@ import { Lock, Eye, EyeOff, ShieldCheck, AlertCircle } from 'lucide-react';
 const ADMIN_PASSWORD_HASH = '6a91e63aae7e6c3d6a3dd815c8d8d58210404468289ad8895703b10f6e4d52b3';
 
 const AUTH_SESSION_KEY = 'tobie_admin_authenticated';
+const AUTH_TIMESTAMP_KEY = 'tobie_admin_auth_ts';
+const SESSION_TTL_MS = 30 * 60 * 1000; // 30-minute session timeout
 const MAX_ATTEMPTS = 5;
 const LOCKOUT_DURATION = 300_000; // 5 minutes
 const LOCKOUT_KEY = 'tobie_admin_lockout';
@@ -22,6 +24,46 @@ async function hashPassword(password: string): Promise<string> {
   const hashBuffer = await crypto.subtle.digest('SHA-256', data);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
   return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+// ─── Timing-safe comparison to prevent timing attacks ─────────────────────────
+function timingSafeEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  let result = 0;
+  for (let i = 0; i < a.length; i++) {
+    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return result === 0;
+}
+
+// ─── Session Validation with TTL ─────────────────────────────────────────────
+function isSessionValid(): boolean {
+  try {
+    const authed = sessionStorage.getItem(AUTH_SESSION_KEY);
+    const ts = parseInt(sessionStorage.getItem(AUTH_TIMESTAMP_KEY) || '0', 10);
+    if (authed !== 'true' || !ts) return false;
+    // Check session hasn't expired
+    return Date.now() - ts < SESSION_TTL_MS;
+  } catch {
+    return false;
+  }
+}
+
+function refreshSession(): void {
+  try {
+    sessionStorage.setItem(AUTH_TIMESTAMP_KEY, String(Date.now()));
+  } catch {
+    // sessionStorage not available
+  }
+}
+
+function clearSession(): void {
+  try {
+    sessionStorage.removeItem(AUTH_SESSION_KEY);
+    sessionStorage.removeItem(AUTH_TIMESTAMP_KEY);
+  } catch {
+    // sessionStorage not available
+  }
 }
 
 // ─── Lockout Management ───────────────────────────────────────────────────────
@@ -79,16 +121,38 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
   const [isLocked, setIsLocked] = useState(false);
   const [lockoutRemaining, setLockoutRemaining] = useState(0);
 
-  // Check existing session on mount
+  // Check existing session on mount (with TTL validation)
   useEffect(() => {
-    try {
-      const authed = sessionStorage.getItem(AUTH_SESSION_KEY) === 'true';
-      setIsAuthenticated(authed);
-    } catch {
-      // sessionStorage not available
-    }
+    const valid = isSessionValid();
+    setIsAuthenticated(valid);
+    if (valid) refreshSession(); // extend on activity
+    if (!valid) clearSession(); // clean up expired sessions
     setIsLoading(false);
   }, []);
+
+  // Session expiry check — auto-logout when TTL expires
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    const interval = setInterval(() => {
+      if (!isSessionValid()) {
+        setIsAuthenticated(false);
+        clearSession();
+      }
+    }, 60_000); // check every minute
+    return () => clearInterval(interval);
+  }, [isAuthenticated]);
+
+  // Refresh session on user activity (extends the 30-min window)
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    const handleActivity = () => refreshSession();
+    window.addEventListener('click', handleActivity);
+    window.addEventListener('keydown', handleActivity);
+    return () => {
+      window.removeEventListener('click', handleActivity);
+      window.removeEventListener('keydown', handleActivity);
+    };
+  }, [isAuthenticated]);
 
   // Lockout timer
   useEffect(() => {
@@ -117,11 +181,16 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
     setIsSubmitting(true);
     setError('');
 
+    // Security: add artificial delay to slow brute-force attempts
+    await new Promise(r => setTimeout(r, 300 + Math.random() * 200));
+
     try {
       const hash = await hashPassword(password);
 
-      if (hash === ADMIN_PASSWORD_HASH) {
+      // Use timing-safe comparison to prevent timing attacks
+      if (timingSafeEqual(hash, ADMIN_PASSWORD_HASH)) {
         sessionStorage.setItem(AUTH_SESSION_KEY, 'true');
+        sessionStorage.setItem(AUTH_TIMESTAMP_KEY, String(Date.now()));
         resetAttempts();
         setIsAuthenticated(true);
       } else {
@@ -194,6 +263,7 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
                   placeholder="Enter admin password"
                   disabled={isLocked || isSubmitting}
                   autoFocus
+                  autoComplete="current-password"
                   className="w-full px-3 py-2.5 border border-gray-300 text-sm text-gray-900 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-tobie-400 focus:border-tobie-400 disabled:bg-gray-100 disabled:text-gray-500 pr-10"
                 />
                 <button
@@ -246,9 +316,9 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
             </button>
           </form>
 
-          {/* Help Text */}
+          {/* Session Info */}
           <p className="mt-4 text-xs text-gray-400 text-center">
-            Contact your IT administrator if you need access.
+            Sessions expire after 30 minutes of inactivity.
           </p>
         </div>
 

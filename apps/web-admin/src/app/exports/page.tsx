@@ -67,9 +67,16 @@ export default function ExportsPage() {
       let filename: string;
 
       if (format === 'csv') {
+        // Security: sanitize cell values to prevent CSV formula injection
+        const sanitizeCell = (val: string) => {
+          const escaped = val.replace(/"/g, '""');
+          // Prefix cells starting with =, +, -, @ with a tab to prevent formula execution
+          if (/^[=+\-@]/.test(escaped)) return `\t${escaped}`;
+          return escaped;
+        };
         const headers = 'session_id,user_message,bot_response,sources_used,timestamp\n';
         const rows = exportData.transcripts
-          .map((t) => `"${t.session_id}","${t.user_message.replace(/"/g, '""')}","${t.bot_response.replace(/"/g, '""')}","${(t.sources_used || []).join('; ')}","${t.timestamp}"`)
+          .map((t) => `"${sanitizeCell(t.session_id)}","${sanitizeCell(t.user_message)}","${sanitizeCell(t.bot_response)}","${sanitizeCell((t.sources_used || []).join('; '))}","${t.timestamp}"`)
           .join('\n');
         blob = new Blob([headers + rows], { type: 'text/csv' });
         filename = `tobie-export-${new Date().toISOString().slice(0, 10)}.csv`;

@@ -1,16 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { askGemini } from '@/lib/gemini';
 import { createClient } from '@supabase/supabase-js';
-import { createHash } from 'crypto';
+import { createHash, createHmac } from 'crypto';
 
+// Use service role key server-side for elevated access; fall back to anon key
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
-// ─── Security: SHA-256 IP Hashing ───────────────────────────────────────────
+// ─── Security: HMAC-SHA256 IP Hashing ───────────────────────────────────────
+const IP_HASH_SECRET = process.env.IP_HASH_SALT || 'kX9$mP2vQ7wL4nB8jR6tY3hF5dA0sE1c';
 function hashIP(ip: string): string {
-  return createHash('sha256').update(ip + (process.env.IP_HASH_SALT || 'tobie-benefits-2026')).digest('hex').slice(0, 16);
+  return createHmac('sha256', IP_HASH_SECRET).update(ip).digest('hex').slice(0, 16);
 }
 
 // ─── Security: Session ID Validation ────────────────────────────────────────
@@ -177,7 +179,7 @@ export async function POST(request: NextRequest) {
       'http://localhost:3000',
       'http://localhost:3001',
     ];
-    if (origin && !allowedOrigins.some(o => origin.startsWith(o))) {
+    if (origin && !allowedOrigins.includes(origin)) {
       return NextResponse.json(
         { error: 'Unauthorized origin.' },
         { status: 403 }
@@ -307,9 +309,9 @@ export async function POST(request: NextRequest) {
       { onConflict: 'session_id' }
     );
 
-    // Fire and forget the logging
+    // Fire and forget the logging — only log sanitized error messages
     Promise.all([logPromise, sessionPromise]).catch((err) => {
-      console.error('Failed to log chat transcript:', err);
+      console.error('Failed to log chat transcript:', err instanceof Error ? err.message : 'Unknown error');
     });
 
     return NextResponse.json(
